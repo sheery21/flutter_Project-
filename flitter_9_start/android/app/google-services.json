@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "831520691676",
+    "project_id": "foodgo-73c22",
+    "storage_bucket": "foodgo-73c22.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831520691676:android:b6a7495ef4ef7e0b966b19",
+        "android_client_info": {
+          "package_name": "com.example.flitter_9_start"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0emcwkTwjzd0lDDeKI842YE7MQC6-TzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
