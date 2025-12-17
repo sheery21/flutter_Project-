@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="891fe843-70b6-4f50-b6b5-b156ac6d7452" name="Changes" comment="" />
+    <list default="true" id="891fe843-70b6-4f50-b6b5-b156ac6d7452" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/flutter_16_start/lib/db_provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter_16_start/lib/local/add_note_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_13_start/lib/dice.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_13_start/lib/dice.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_16_start/lib/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_16_start/lib/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_16_start/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_16_start/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_16_start/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_16_start/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_16_start/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_16_start/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +20,9 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/flitter_9_start" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -32,9 +43,10 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/FluttterProject",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>

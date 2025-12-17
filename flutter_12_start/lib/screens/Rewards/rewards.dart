@@ -13,10 +13,7 @@ class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rewards'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Rewards'), centerTitle: true),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -76,9 +73,9 @@ class _RewardsState extends State<Rewards> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                )
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                         UiHelper.CustomImage(
@@ -100,19 +97,22 @@ class _RewardsState extends State<Rewards> {
                       _All_Rewards(
                         context,
                         imaeg: UiHelper.CustomImage(
-                            imagePath: "rewards_icon_1.png"),
+                          imagePath: "rewards_icon_1.png",
+                        ),
                         Title: 'All',
                       ),
                       _All_Rewards(
                         context,
                         imaeg: UiHelper.CustomImage(
-                            imagePath: "rewards_icon_2.png"),
+                          imagePath: "rewards_icon_2.png",
+                        ),
                         Title: 'Fries',
                       ),
                       _All_Rewards(
                         context,
                         imaeg: UiHelper.CustomImage(
-                            imagePath: "rewards_icon_3.png"),
+                          imagePath: "rewards_icon_3.png",
+                        ),
                         Title: 'Burger',
                       ),
                     ],
@@ -169,7 +169,8 @@ class _RewardsState extends State<Rewards> {
                                         fontSize: 13,
                                         color: Color(0xFF6B7280),
                                       ),
-                                    ),Text(
+                                    ),
+                                    Text(
                                       "veggies",
                                       style: TextStyle(
                                         fontSize: 13,
@@ -239,14 +240,19 @@ class _RewardsState extends State<Rewards> {
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       gradient: const LinearGradient(
-                                        colors: [Color(0xFF366190), Color(0xFF2D7ED7)],
+                                        colors: [
+                                          Color(0xFF366190),
+                                          Color(0xFF2D7ED7),
+                                        ],
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Container(
                                       alignment: Alignment.center,
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
+                                        horizontal: 20,
+                                        vertical: 10,
+                                      ),
                                       child: const Text(
                                         "Redeem",
                                         style: TextStyle(
@@ -317,7 +323,8 @@ class _RewardsState extends State<Rewards> {
                                         fontSize: 13,
                                         color: Color(0xFF6B7280),
                                       ),
-                                    ),Text(
+                                    ),
+                                    Text(
                                       "veggies",
                                       style: TextStyle(
                                         fontSize: 13,
@@ -387,14 +394,19 @@ class _RewardsState extends State<Rewards> {
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       gradient: const LinearGradient(
-                                        colors: [Color(0xFF366190), Color(0xFF2D7ED7)],
+                                        colors: [
+                                          Color(0xFF366190),
+                                          Color(0xFF2D7ED7),
+                                        ],
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Container(
                                       alignment: Alignment.center,
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
+                                        horizontal: 20,
+                                        vertical: 10,
+                                      ),
                                       child: const Text(
                                         "Redeem",
                                         style: TextStyle(
@@ -426,25 +438,39 @@ class _RewardsState extends State<Rewards> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        Text('Earn More Coin', style: TextStyle(fontSize: 20,color: Color(0xFFFFFFFF), fontWeight: FontWeight.w900),),
-                        SizedBox(height: 3,),
-                        Text('Complete orders to get rewards', style: UiHelper.witeTextFeildStyle(),),
-                          ElevatedButton(onPressed: (){}, child: Text('Learn More'), style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )
-                          ))
-                      ],),
-                      Icon(Icons.star, color: Color(0xFFFFC107), size: 45,)
-                    ],),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Earn More Coin',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              'Complete orders to get rewards',
+                              style: UiHelper.witeTextFeildStyle(),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: Text('Learn More'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(Icons.star, color: Color(0xFFFFC107), size: 45),
+                      ],
+                    ),
                   ),
-                )
-
-
+                ),
               ],
             ),
           ),
@@ -456,10 +482,10 @@ class _RewardsState extends State<Rewards> {
 
 // Reward Card Widget
 Widget _All_Rewards(
-    BuildContext context, {
-      Widget? imaeg,
-      required String Title,
-    }) {
+  BuildContext context, {
+  Widget? imaeg,
+  required String Title,
+}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -491,14 +517,11 @@ Widget _All_Rewards(
               ),
               child: Center(child: imaeg),
             ),
-            const SizedBox(width: 15,),
+            const SizedBox(width: 15),
             Text(
               Title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-              ),
-            )
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+            ),
           ],
         ),
       ),

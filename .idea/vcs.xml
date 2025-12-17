@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Dart_Programming" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Dart_Programming/section1_and_section2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flitter_9_start" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter_11_start" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter_12_start/assets" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter_13_start" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter_16_start" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter_8_start" vcs="Git" />
+  </component>
+</project>

@@ -29,14 +29,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: // This trailing comma makes auto-formatting nicer for build methods.
+      body:Container(),
     );
   }
 }

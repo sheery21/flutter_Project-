@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "338668991304",
+    "project_id": "toodoos-ff88c",
+    "storage_bucket": "toodoos-ff88c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338668991304:android:7492d9eb641a85d314397d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_20_start"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjfskD_tTaYCcrNWzWkTsYgdhQ1bbRw0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

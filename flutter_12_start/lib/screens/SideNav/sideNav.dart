@@ -114,17 +114,27 @@ class _SidenavState extends State<Sidenav> {
                         icon: Icons.payment,
                         title: "Payment Info",
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Paymentinfo(),));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Paymentinfo(),
+                            ),
+                          );
                         },
                       ),
                       _divider(),
 
                       _buildMenuItem(
                         context,
-                        iconWidget: UiHelper.CustomImage(imagePath: 'Coin_icon.png'),
+                        iconWidget: UiHelper.CustomImage(
+                          imagePath: 'Coin_icon.png',
+                        ),
                         title: "Rewards",
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  Rewards()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Rewards()),
+                          );
                         },
                       ),
                       _divider(),
@@ -162,8 +172,13 @@ class _SidenavState extends State<Sidenav> {
 
                       const SizedBox(height: 20),
                       GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         },
                         child: Container(
                           width: double.infinity,
@@ -208,12 +223,12 @@ class _SidenavState extends State<Sidenav> {
   Widget _divider() => const Divider(color: Color(0xFFE0F1FF));
 
   Widget _buildMenuItem(
-      BuildContext context, {
-        IconData? icon,
-        Widget? iconWidget,
-        required String title,
-        VoidCallback? onTap,
-      }) {
+    BuildContext context, {
+    IconData? icon,
+    Widget? iconWidget,
+    required String title,
+    VoidCallback? onTap,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -236,8 +251,11 @@ class _SidenavState extends State<Sidenav> {
                 ),
               ],
             ),
-            const Icon(Icons.arrow_forward_ios,
-                size: 18, color: Color(0xFF9CA3AF)),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
+              color: Color(0xFF9CA3AF),
+            ),
           ],
         ),
       ),
