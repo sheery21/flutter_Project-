@@ -4,13 +4,13 @@ class Textstylefield {
   // Welcome Back Text Style
   static TextStyle Custom_WelcomeBack_TextStyleField() {
     return const TextStyle(
-      fontFamily: "Hurricane",
+      fontFamily: "ABeeZee",
       color: Color(0xFF000000),
-      fontSize: 65,
-      fontWeight: FontWeight.w900,
-      shadows: [
-        Shadow(color: Color(0xFF7D7763), offset: Offset(2, 2), blurRadius: 4),
-      ],
+      fontSize: 45,
+      fontWeight: FontWeight.w600,
+      // shadows: [
+      //   Shadow(color: Color(0xFF7D7763), offset: Offset(2, 2), blurRadius: 4),
+      // ],
     );
   }
 

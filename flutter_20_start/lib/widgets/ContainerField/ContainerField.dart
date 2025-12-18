@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Containerfield {
   static Widget customContainerfield({
     required String text,
-    required IconData icon,
+    Widget? iconWidget,
   }) {
     return Container(
       height: 50,
@@ -15,12 +16,17 @@ class Containerfield {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon),
+          if (iconWidget != null) iconWidget,
           const SizedBox(width: 10),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          Container(
+            width: 160,
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            
           ),
         ],
       ),

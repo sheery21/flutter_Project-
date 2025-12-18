@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/features/auth/screens/login_screens.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
@@ -14,6 +16,23 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
+        Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              LoginScreens(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            // Fade effect
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: Duration(milliseconds: 800), // speed control
+        ),
+      );
+    });
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -23,26 +42,11 @@ class _SplashscreenState extends State<Splashscreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset("assets/images/Subtract.png"),
+            SizedBox(height: 15),
             Text(
-              "TalkDM",
+              "Chatbox",
               style: Textstylefield.Custom_WelcomeBack_TextStyleField(),
-            ),
-            SizedBox(height: 30),
-            Image.asset("assets/images/Group1.png"),
-            SizedBox(height: 80),
-            Text(
-              "Let’s talk with new friends",
-              style: Textstylefield.Custom_WelcomeBack_2_TextStyleField(),
-            ),
-            SizedBox(height: 20),
-            Butttonfield.CustomStartButtonField(
-              text: "Get Start",
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreens()),
-                );
-              },
             ),
           ],
         ),
