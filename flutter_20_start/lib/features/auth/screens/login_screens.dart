@@ -3,6 +3,7 @@ import 'package:flutter_20_start/services/auth_service.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/ContainerField/ContainerField.dart';
+import 'package:flutter_20_start/widgets/DividerField/dividerField.dart';
 import 'package:flutter_20_start/widgets/InputField/inputField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,115 +18,140 @@ class LoginScreens extends StatefulWidget {
 class _LoginScreensState extends State<LoginScreens> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  String emailtext = "Email";
+  String emailtext = "Yoru email";
   String passText = "Password";
   bool tohide = false;
   bool hidePassword = true;
+  bool isFormFilled = false;
+  String? emailError;
+  String? passError;
   @override
   Widget build(BuildContext context) {
+    void checkForm() {
+      setState(() {
+        if (emailController.text.isEmpty ||
+            !emailController.text.contains("@")) {
+          emailError = "Enter a valid email";
+        } else {
+          emailError = null;
+        }
+
+        if (passController.text.isEmpty || passController.text.length < 6) {
+          passError = "Password must be at least 6 characters";
+        } else {
+          passError = null;
+        }
+
+        isFormFilled = emailError == null && passError == null;
+      });
+    }
+
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(color: Colorsfield.customColorField()),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Login Now",
-              style: Textstylefield.Custom_LogInSignUp_TextStyleField(),
-            ),
-            SizedBox(height: 130),
-            InputFieldHelper.CustomTextField(
-              controller: emailController,
-              text: emailtext,
-              tohide: tohide,
-            ),
-            SizedBox(height: 20),
-            InputFieldHelper.CustomPassTextField(
-              controller: passController,
-              text: passText,
-              tohide: hidePassword,
-              onTap: () {
-                hidePassword = !hidePassword;
-                setState(() {});
-              },
-            ),
-            SizedBox(height: 50),
-            Text(
-              "Or Login with",
-              style: Textstylefield.Custom_Or_LogIn_Text_TextStyleField(),
-            ),
-            SizedBox(height: 20),
-            Containerfield.customContainerfield(
-              text: "Login with Facebook",
-              iconWidget: Image.asset("assets/images/facebook_icon.png"),
-            ),
-            SizedBox(height: 20),
-            Containerfield.customContainerfield(
-              text: "Login with Google",
-              iconWidget: Image.asset("assets/images/google.png"),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account?",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    fontFamily: "poppins",
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(color: Colorsfield.customColorField()),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Log in to Chatbox",
+                style: Textstylefield.Custom_an_H3_TextStyleField(),
+              ),
+              SizedBox(height: 30),
+              Column(
+                children: [
+                  Text(
+                    "Welcome back! Sign in using your social",
+                    style: Textstylefield.Custom_an_P3_TextStyleField(),
                   ),
-                ),
-                SizedBox(width: 5),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/signup');
-                  },
-                  child: Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blue,
-                      fontFamily: "poppins",
-                    ),
+                  Text(
+                    "account or email to continue us",
+                    style: Textstylefield.Custom_an_P3_TextStyleField(),
                   ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Containerfield.customCircularImagesField(
+                    imagePath: "assets/images/facebook_icon.png",
+                  ),
+                  SizedBox(width: 20),
+                  Containerfield.customCircularImagesField(
+                    imagePath: "assets/images/google.png",
+                  ),
+                  SizedBox(width: 20),
+                  Containerfield.customCircularImagesField(
+                    imagePath: "assets/images/apple_icon.png",
+                  ),
+                ],
+              ),
+              SizedBox(height: 40),
+              Container(
+                width: 300,
+                child: DividerField.orDivider(
+                  text: "OR",
+                  color: Color(0xFF797C7B),
                 ),
-              ],
-            ),
-            SizedBox(height: 40),
-            Butttonfield.Custom_LogInSignUp_ButtonField(
-              text: "Login",
-              onPressed: () async {
-                if (emailController.text.isEmpty ||
-                    passController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Please fill in all fields")),
-                  );
-                  return;
-                }
-                try {
-                  final auth = AuthService();
-                  await auth.login(
-                    emailController.text.trim(),
-                    passController.text.trim(),
-                  );
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text('Login Successful')));
-                  Navigator.pushReplacementNamed(context, "/bottomNav");
-                } catch (e) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(e.toString())));
-                }
-              },
-            ),
-          ],
+              ),
+              SizedBox(height: 20),
+              InputFieldHelper.CustomTextField(
+                controller: emailController,
+                text: emailtext,
+                tohide: tohide,
+                errorText: emailError,
+                onChanged: (_) => checkForm(),
+              ),
+              SizedBox(height: 20),
+              InputFieldHelper.CustomPassTextField(
+                controller: passController,
+                text: passText,
+                tohide: hidePassword,
+                onChanged: (_) => checkForm(),
+                onTap: () {
+                  setState(() {
+                    hidePassword = !hidePassword;
+                  });
+                },
+              ),
+
+              SizedBox(height: 180),
+              Butttonfield.Custom_LogInSignUp_ButtonField(
+                text: "Login",
+                isEnabled: isFormFilled,
+                onPressed: () async {
+                  print("hello");
+                  if (!isFormFilled) return;
+                  try {
+                    final auth = AuthService();
+                    await auth.login(
+                      emailController.text.trim(),
+                      passController.text.trim(),
+                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("Login Successful")));
+                    Navigator.pushReplacementNamed(context, "/bottomNav");
+                  } catch (e) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(e.toString())));
+                  }
+                },
+              ),
+
+              SizedBox(height: 20),
+              Butttonfield.Custom_Forgot_TextButtonField(
+                text: "Forgot password?",
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

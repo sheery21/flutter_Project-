@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/features/auth/screens/login_screens.dart';
+import 'package:flutter_20_start/features/auth/screens/signup_screens.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
@@ -21,7 +22,7 @@ class _SplashscreenState extends State<Splashscreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              LoginScreens(),
+              SignupScreens(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(

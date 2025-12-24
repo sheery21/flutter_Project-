@@ -32,4 +32,30 @@ class Containerfield {
       ),
     );
   }
+static Widget customCircularImagesField({
+  required String imagePath,
+}) {
+  return Container(
+    height: 50, // FIXED container
+    width: 50,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+      border: Border.all(
+        color: Colors.black,
+        width: 2,
+      ),
+    ),
+    child: Center(
+      child: Image.asset(
+        imagePath,
+        width: 23,   // 👈 image chhoti
+        height: 23,
+        fit: BoxFit.contain,
+      ),
+    ),
+  );
+}
+
+
 }
