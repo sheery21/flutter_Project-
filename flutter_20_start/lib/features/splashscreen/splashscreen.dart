@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/features/auth/screens/login_screens.dart';
 import 'package:flutter_20_start/features/auth/screens/signup_screens.dart';
+import 'package:flutter_20_start/features/bottomNavbar/bottomNavbar_screen.dart';
+import 'package:flutter_20_start/onboarding/Onboarding_page.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
@@ -17,25 +19,22 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
-        Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              SignupScreens(),
+              BottomnavbarScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return FadeTransition(opacity: animation, child: child);
           },
           transitionDuration: Duration(milliseconds: 800), // speed control
         ),
       );
     });
     return Scaffold(
-      body: Container(
+      body:  Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(color: Colorsfield.customColorField()),

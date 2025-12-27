@@ -136,7 +136,7 @@ class _LoginScreensState extends State<LoginScreens> {
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text("Login Successful")));
-                    Navigator.pushReplacementNamed(context, "/bottomNav");
+                    Navigator.pushReplacementNamed(context, "/home");
                   } catch (e) {
                     ScaffoldMessenger.of(
                       context,

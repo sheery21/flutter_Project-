@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
 import 'package:flutter_20_start/services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/InputField/inputField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreens extends StatefulWidget {
   const SignupScreens({super.key});
@@ -140,17 +142,26 @@ class _SignupScreensState extends State<SignupScreens> {
                   try {
                     final auth = AuthService();
                     final firestore = FirestoreService();
-                   User ? user =  await auth.signup(
+                    User? user = await auth.signup(
                       emailController.text.trim(),
                       passController.text.trim(),
                     );
-                    if( user !=null){
-                      await firestore.saveUser(user: user, name: nameController.text.trim());
+                    if (user != null) {
+                      await firestore.saveUser(
+                        user: user,
+                        name: nameController.text.trim(),
+                      );
+                      if (!mounted) return;
+                      Provider.of<UserProvider>(
+                        context,
+                        listen: false,
+                      ).setUser(user: user, name: nameController.text.trim());
                     }
+                    if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Signup Successful")),
                     );
-                    Navigator.pushReplacementNamed(context, "/bottomNav");
+                    Navigator.pushReplacementNamed(context, "/login");
                   } catch (e) {
                     print("Error during signup: $e");
                     ScaffoldMessenger.of(
