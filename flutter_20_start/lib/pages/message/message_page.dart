@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_20_start/data/story_data.dart';
+import 'package:flutter_20_start/models/story_models.dart';
 import 'package:flutter_20_start/pages/profile/profile_page.dart';
 import 'package:flutter_20_start/pages/search/search_page.dart';
+import 'package:flutter_20_start/widgets/AddStoryField/addStoryField.dart';
+import 'package:flutter_20_start/widgets/StoryItemField/storyItimeField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:story_view/story_view.dart';
 
@@ -12,14 +16,6 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  // ✅ Dummy stories data
-  final List<Map<String, String>> stories = [
-    {"name": "Ali", "image": "https://picsum.photos/200/300?1"},
-    {"name": "Ahmed", "image": "https://picsum.photos/200/300?2"},
-    {"name": "Sara", "image": "https://picsum.photos/200/300?3"},
-    {"name": "Ayesha", "image": "https://picsum.photos/200/300?4"},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,15 +55,22 @@ class _MessagePageState extends State<MessagePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 🔥 Instagram-like Stories
           SizedBox(
             height: 120,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: stories.length,
+              itemCount: StoryData.stories.length + 1,
               itemBuilder: (context, index) {
-                final story = stories[index];
-                return GestureDetector(
+                if (index == 0) {
+                  return Addstoryfield(
+                    imageUrl:
+                        "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+                    onTap: () {},
+                  );
+                }
+                StoryModel story = StoryData.stories[index - 1];
+                return Storyitimefield(
+                  story: story,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -76,38 +79,10 @@ class _MessagePageState extends State<MessagePage> {
                       ),
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        /// Gradient Ring
-                        Container(
-                          padding: const EdgeInsets.all(3),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [Colors.purple, Colors.orange],
-                            ),
-                          ),
-                          child: CircleAvatar(
-                            radius: 32,
-                            backgroundImage: NetworkImage(story['image']!),
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          story['name']!,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
                 );
               },
             ),
           ),
-
-          const Divider(),
 
           const Center(
             child: Text("Message Page", style: TextStyle(fontSize: 18)),
@@ -119,7 +94,8 @@ class _MessagePageState extends State<MessagePage> {
 }
 
 class StoryScreen extends StatefulWidget {
-  final Map<String, String> story;
+  final StoryModel story;
+
   const StoryScreen({super.key, required this.story});
 
   @override
@@ -141,10 +117,7 @@ class _StoryScreenState extends State<StoryScreen> {
       body: StoryView(
         controller: _controller,
         storyItems: [
-          StoryItem.pageImage(
-            url: widget.story['image']!,
-            controller: _controller,
-          ),
+          StoryItem.pageImage(url: widget.story.image, controller: _controller),
         ],
         onComplete: () => Navigator.pop(context),
       ),

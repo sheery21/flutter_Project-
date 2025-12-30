@@ -13,17 +13,22 @@ import 'package:flutter_20_start/pages/search/search_page.dart';
 import 'package:flutter_20_start/pages/settings/setting_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => UserProvider(),),
-  ],
-  child: const MyWidget(),));
+  try {
+    await Firebase.initializeApp();
+    await dotenv.load(fileName: ".env" );
+  } catch (e) {
+    debugPrint("⚠️ .env file not found, continuing without it");
+  }
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      child: const MyWidget(),
+    ),
+  );
 }
 
 class MyWidget extends StatelessWidget {
@@ -31,12 +36,12 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       initialRoute: "/",
       routes: {
-        "/": (context) =>  Splashscreen(),
-        "/onboarding": (context) =>  OnboardingPage(),
-        "/bottomNav": (context) =>  BottomnavbarScreen(),
+        "/": (context) => Splashscreen(),
+        "/onboarding": (context) => OnboardingPage(),
+        "/bottomNav": (context) => BottomnavbarScreen(),
         "/login": (context) => LoginScreens(),
         "/signup": (context) => SignupScreens(),
         "message": (context) => MessagePage(),
