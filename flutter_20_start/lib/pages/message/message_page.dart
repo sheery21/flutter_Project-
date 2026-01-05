@@ -16,8 +16,16 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  StoryModel? myStory;
+
   @override
   Widget build(BuildContext context) {
+    for (var s in StoryData.stories) {
+      if (s.isMyStory) {
+        myStory = s;
+        break;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -63,11 +71,24 @@ class _MessagePageState extends State<MessagePage> {
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Addstoryfield(
-                    imageUrl:
-                        "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
-                    onTap: () {},
+                    imageUrl: myStory != null
+                        ? myStory!.image
+                        : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+                    hasStory: myStory != null,
+                    onOpenStory: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => StoryScreen(story: myStory!),
+                        ),
+                      );
+                    },
+                    onStoryAdded: () {
+                      setState(() {});
+                    },
                   );
                 }
+
                 StoryModel story = StoryData.stories[index - 1];
                 return Storyitimefield(
                   story: story,

@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:flutter_20_start/config/cloudinary_config.dart';
+
+class CloudinaryConfig {
+  static final String cloudName = "dq3igrsne";
+}
 
 class CloudinaryService {
   Future<String?> uploadImage(File imageFile) async {
@@ -11,7 +14,7 @@ class CloudinaryService {
     var request = http.MultipartRequest("POST", url);
 
     // Optional: agar preset use kar rahe ho
-    // request.fields['upload_preset'] = 'ml_default';
+    request.fields['upload_preset'] = 'flutter_upload_2025';
 
     request.files.add(
       await http.MultipartFile.fromPath('file', imageFile.path),

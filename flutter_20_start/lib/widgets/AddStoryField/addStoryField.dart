@@ -1,43 +1,97 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_20_start/features/screen/story_preview_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Addstoryfield extends StatelessWidget {
+  final String imageUrl;
+  final bool hasStory;
+  final VoidCallback onOpenStory;
+  final VoidCallback onStoryAdded;
+  Addstoryfield({
+    super.key,
+    required this.imageUrl,
+    required this.hasStory,
+    required this.onOpenStory,
+    required this.onStoryAdded,
+  });
 
-final VoidCallback onTap;
-final String imageUrl;
+  final ImagePicker _picker = ImagePicker();
 
-const Addstoryfield({super.key, required this.onTap, required this.imageUrl});
+  Future<void> _pick(BuildContext context, ImageSource source) async {
+    final XFile? image = await _picker.pickImage(source: source);
+    if (image == null) return;
 
-@override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-onTap: onTap,
-child: Padding(padding: const EdgeInsets.symmetric(horizontal: 10),
-   child: Column(
-    children: [
-      Stack(
-        alignment: Alignment.bottomRight,
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => StoryPreviewScreen(imageFile: File(image.path)),
+      ),
+    );
+
+    if (result == true) {
+      onStoryAdded();
+    }
+  }
+
+  void _showOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          CircleAvatar(radius: 36,
-          backgroundImage: NetworkImage(imageUrl),
+          ListTile(
+            leading: const Icon(Icons.camera_alt),
+            title: const Text("Camera"),
+            onTap: () {
+              Navigator.pop(context);
+              _pick(context, ImageSource.camera);
+            },
           ),
-          Container(
-            decoration: const
-            BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.green,
-            ),
-            padding: const EdgeInsets.all(3),
-            child: const Icon(Icons.add, color: Colors.white, size: 20,
-          )
-          )
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: const Text("Gallery"),
+            onTap: () {
+              Navigator.pop(context);
+              _pick(context, ImageSource.gallery);
+            },
+          ),
         ],
       ),
-      const SizedBox(height: 6),
-      const Text("Add Story", style: TextStyle(fontSize: 16)),
-    ],
-   ),
-),
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: hasStory ? onOpenStory : () => _showOptions(context),
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                CircleAvatar(
+                  radius: 36,
+                  backgroundImage: NetworkImage(imageUrl),
+                ),
+                if (!hasStory)
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green,
+                    ),
+                    child: const Icon(Icons.add, size: 18, color: Colors.white),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(hasStory ? "Your Story" : "Add Story"),
+        ],
+      ),
+    );
+  }
 }

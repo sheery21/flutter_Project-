@@ -24,7 +24,7 @@ class _SplashscreenState extends State<Splashscreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              BottomnavbarScreen(),
+              LoginScreens(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(opacity: animation, child: child);

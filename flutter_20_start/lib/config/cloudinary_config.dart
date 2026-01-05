@@ -1,8 +1,9 @@
+import 'package:flutter_20_start/services/cloudinary_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class CloudinaryConfig {
-  static final String cloudName = dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '';
-  static final String apiKey = dotenv.env['CLOUDINARY_API_KEY'] ?? '';
-  static final String apiSecret = dotenv.env['CLOUDINARY_API_SECRET'] ?? '';
-  static final String uploadPreset = dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '';
-}
+// class CloudinaryConfig {
+//   static final String cloudName = dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '';
+//   static final String apiKey = dotenv.env['CLOUDINARY_API_KEY'] ?? '';
+//   static final String apiSecret = dotenv.env['CLOUDINARY_API_SECRET'] ?? '';
+//   static final String uploadPreset = dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '';
+// }

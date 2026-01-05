@@ -30,7 +30,15 @@ class AuthService {
         email: email,
         password: password,
       );
-      return userCredential.user;
+
+      User? user = userCredential.user;
+      if (user == null) throw 'User not found';
+
+      String? idToken = await user.getIdToken();
+
+      print("ID Token: $idToken");
+
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw 'No user found for this email';
