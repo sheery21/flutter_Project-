@@ -44,7 +44,6 @@ class _MessagePageState extends State<MessagePage> {
           stories: [imageUrl],
           isMyStory: true,
         );
-        StoryData.stories.insert(0, myStory!);
       } else {
         myStory!.stories.add(imageUrl);
       }
@@ -52,13 +51,6 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   Widget build(BuildContext context) {
-    for (var s in StoryData.stories) {
-      if (s.isMyStory) {
-        myStory = s;
-        break;
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Padding(

@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/features/screen/story_preview_screen.dart';
-import 'package:flutter_20_start/services/cloudinary_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:palette_generator/palette_generator.dart';
 
-class Addstoryfield extends StatelessWidget {
+class Addstoryfield extends StatefulWidget {
   final String imageUrl;
   final bool hasStory;
   final VoidCallback onOpenStory;
   final Function(String imageUrl) onStoryAdded;
 
-  Addstoryfield({
+  const Addstoryfield({
     super.key,
     required this.imageUrl,
     required this.hasStory,
@@ -18,23 +18,56 @@ class Addstoryfield extends StatelessWidget {
     required this.onStoryAdded,
   });
 
-  final ImagePicker _picker = ImagePicker();
+  @override
+  State<Addstoryfield> createState() => _AddstoryfieldState();
+}
 
-  Future<void> _pick(BuildContext context, ImageSource source) async {
+class _AddstoryfieldState extends State<Addstoryfield> {
+  final ImagePicker _picker = ImagePicker();
+  Color borderColor = Colors.grey;
+
+  @override
+  void initState() {
+    super.initState();
+    _updatePalette();
+  }
+
+  @override
+  void didUpdateWidget(covariant Addstoryfield oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imageUrl != widget.imageUrl && widget.hasStory) {
+      _updatePalette();
+    }
+  }
+
+  Future<void> _updatePalette() async {
+    if (!widget.hasStory) return;
+
+    final palette = await PaletteGenerator.fromImageProvider(
+      NetworkImage(widget.imageUrl),
+    );
+
+    setState(() {
+      borderColor = palette.dominantColor?.color ?? Colors.grey;
+    });
+  }
+
+  Future<void> _pick(ImageSource source) async {
     final XFile? image = await _picker.pickImage(source: source);
     if (image == null) return;
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => StoryPreviewScreen(
           imageFile: File(image.path),
-          onStoryAdded: onStoryAdded,
+          onStoryAdded: widget.onStoryAdded,
         ),
       ),
     );
   }
 
-  void _showOptions(BuildContext context) {
+  void _showOptions() {
     showModalBottomSheet(
       context: context,
       builder: (_) => Column(
@@ -45,7 +78,7 @@ class Addstoryfield extends StatelessWidget {
             title: const Text("Camera"),
             onTap: () {
               Navigator.pop(context);
-              _pick(context, ImageSource.camera);
+              _pick(ImageSource.camera);
             },
           ),
           ListTile(
@@ -53,7 +86,7 @@ class Addstoryfield extends StatelessWidget {
             title: const Text("Gallery"),
             onTap: () {
               Navigator.pop(context);
-              _pick(context, ImageSource.gallery);
+              _pick(ImageSource.gallery);
             },
           ),
         ],
@@ -68,28 +101,61 @@ class Addstoryfield extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: hasStory ? onOpenStory : () => _showOptions(context),
+            onTap: widget.onOpenStory, // avatar tap → story open
             child: Stack(
               alignment: Alignment.bottomRight,
               children: [
-                CircleAvatar(
-                  radius: 36,
-                  backgroundImage: NetworkImage(imageUrl),
-                ),
-                if (!hasStory)
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
+                // 🔥 FRIEND-LIKE DYNAMIC BORDER
+                Container(
+                  padding: EdgeInsets.all(widget.hasStory ? 3 : 0),
+                  decoration: widget.hasStory
+                      ? BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [borderColor.withOpacity(0.5), borderColor],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        )
+                      : null,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.green,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
-                    child: const Icon(Icons.add, size: 18, color: Colors.white),
+                    child: CircleAvatar(
+                      radius: 36,
+                      backgroundImage: NetworkImage(widget.imageUrl),
+                    ),
                   ),
+                ),
+
+                // ➕ ADD BUTTON (separate tap)
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: _showOptions,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green,
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           const SizedBox(height: 6),
-          Text(hasStory ? "Your Story" : "Add Story"),
+          const Text("Your Story"),
         ],
       ),
     );
