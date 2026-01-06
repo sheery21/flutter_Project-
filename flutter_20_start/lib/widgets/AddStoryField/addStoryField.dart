@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/features/screen/story_preview_screen.dart';
+import 'package:flutter_20_start/services/cloudinary_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Addstoryfield extends StatelessWidget {
   final String imageUrl;
   final bool hasStory;
   final VoidCallback onOpenStory;
-  final VoidCallback onStoryAdded;
+  final Function(String imageUrl) onStoryAdded;
+
   Addstoryfield({
     super.key,
     required this.imageUrl,
@@ -21,17 +23,15 @@ class Addstoryfield extends StatelessWidget {
   Future<void> _pick(BuildContext context, ImageSource source) async {
     final XFile? image = await _picker.pickImage(source: source);
     if (image == null) return;
-
-    final result = await Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => StoryPreviewScreen(imageFile: File(image.path)),
+        builder: (_) => StoryPreviewScreen(
+          imageFile: File(image.path),
+          onStoryAdded: onStoryAdded,
+        ),
       ),
     );
-
-    if (result == true) {
-      onStoryAdded();
-    }
   }
 
   void _showOptions(BuildContext context) {

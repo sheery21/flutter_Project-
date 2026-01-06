@@ -19,6 +19,38 @@ class _MessagePageState extends State<MessagePage> {
   StoryModel? myStory;
 
   @override
+  @override
+  void initState() {
+    super.initState();
+    _loadMyStory();
+  }
+
+  void _loadMyStory() {
+    for (var s in StoryData.stories) {
+      if (s.isMyStory) {
+        myStory = s;
+        break;
+      }
+    }
+  }
+
+  void _addMyStory(String imageUrl) {
+    setState(() {
+      if (myStory == null) {
+        myStory = StoryModel(
+          name: "Your Story",
+          profileImage:
+              "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+          stories: [imageUrl],
+          isMyStory: true,
+        );
+        StoryData.stories.insert(0, myStory!);
+      } else {
+        myStory!.stories.add(imageUrl);
+      }
+    });
+  }
+
   Widget build(BuildContext context) {
     for (var s in StoryData.stories) {
       if (s.isMyStory) {
@@ -26,6 +58,7 @@ class _MessagePageState extends State<MessagePage> {
         break;
       }
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -72,9 +105,11 @@ class _MessagePageState extends State<MessagePage> {
                 if (index == 0) {
                   return Addstoryfield(
                     imageUrl: myStory != null
-                        ? myStory!.image
+                        ? myStory!.profileImage
                         : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+
                     hasStory: myStory != null,
+
                     onOpenStory: () {
                       Navigator.push(
                         context,
@@ -83,8 +118,9 @@ class _MessagePageState extends State<MessagePage> {
                         ),
                       );
                     },
-                    onStoryAdded: () {
-                      setState(() {});
+
+                    onStoryAdded: (imageUrl) {
+                      _addMyStory(imageUrl);
                     },
                   );
                 }
@@ -134,14 +170,12 @@ class _StoryScreenState extends State<StoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StoryView(
-        controller: _controller,
-        storyItems: [
-          StoryItem.pageImage(url: widget.story.image, controller: _controller),
-        ],
-        onComplete: () => Navigator.pop(context),
-      ),
+    return StoryView(
+      controller: _controller,
+      storyItems: widget.story.stories
+          .map((url) => StoryItem.pageImage(url: url, controller: _controller))
+          .toList(),
+      onComplete: () => Navigator.pop(context),
     );
   }
 }

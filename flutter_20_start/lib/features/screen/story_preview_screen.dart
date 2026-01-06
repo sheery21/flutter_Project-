@@ -5,7 +5,12 @@ import 'package:flutter_20_start/services/cloudinary_service.dart';
 
 class StoryPreviewScreen extends StatefulWidget {
   final imageFile;
-  const StoryPreviewScreen({super.key, required this.imageFile});
+  final Function(String) onStoryAdded;
+  const StoryPreviewScreen({
+    super.key,
+    required this.imageFile,
+    required this.onStoryAdded,
+  });
 
   @override
   State<StoryPreviewScreen> createState() => _StoryPreviewScreenState();
@@ -17,19 +22,19 @@ class _StoryPreviewScreenState extends State<StoryPreviewScreen> {
 
   Future<void> _addStory() async {
     setState(() => _isUploading = true);
+
     final imageUrl = await _cloudinaryService.uploadImage(widget.imageFile);
+
     setState(() => _isUploading = false);
+
     if (imageUrl == null) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Upload failed")));
       return;
     }
-    StoryData.stories.insert(
-      0,
-      StoryModel(name: "My Story", image: imageUrl, isMyStory: true),
-    );
 
+    widget.onStoryAdded(imageUrl);
     Navigator.pop(context);
   }
 
@@ -39,21 +44,26 @@ class _StoryPreviewScreenState extends State<StoryPreviewScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Center(child: Image.file(widget.imageFile, fit: BoxFit.cover)),
-          Positioned(
-            top: 40,
-            right: 20,
-            child: _isUploading
-                ? const CircularProgressIndicator(color: Colors.white)
-                : IconButton(
-                    icon: const Icon(
-                      Icons.add_circle,
-                      color: Colors.white,
-                      size: 36,
-                    ),
-                    onPressed: _addStory,
-                  ),
+          Positioned.fill(
+            child: Image.file(widget.imageFile, fit: BoxFit.cover),
           ),
+
+          if (!_isUploading)
+            Positioned(
+              top: 40,
+              right: 20,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.check_circle,
+                  color: Colors.white,
+                  size: 40,
+                ),
+                onPressed: _addStory,
+              ),
+            ),
+
+          if (_isUploading)
+            const Center(child: CircularProgressIndicator(color: Colors.white)),
         ],
       ),
     );

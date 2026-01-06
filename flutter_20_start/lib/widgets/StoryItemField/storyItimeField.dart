@@ -13,29 +13,34 @@ class Storyitimefield extends StatefulWidget {
 }
 
 class _StoryitimefieldState extends State<Storyitimefield> {
-  Color borderColor =Colors.grey;
+  Color borderColor = Colors.grey;
 
-   
-   @override
+  @override
   void initState() {
     super.initState();
     _updatePalette();
   }
 
-Future<void> _updatePalette() async {
-  final PaletteGenerator paletteGenerator = await PaletteGenerator.fromImageProvider(NetworkImage(widget.story.image));
-  setState(() {
-    borderColor = paletteGenerator.dominantColor?.color ?? Colors.grey;
-  }); 
-}
-
+  Future<void> _updatePalette() async {
+    final PaletteGenerator
+    paletteGenerator = await PaletteGenerator.fromImageProvider(
+      NetworkImage(
+        widget.story.profileImage.isNotEmpty
+            ? widget.story.profileImage
+            : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+      ),
+    );
+    setState(() {
+      borderColor = paletteGenerator.dominantColor?.color ?? Colors.grey;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
       child: Padding(
-        padding:  const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Container(
@@ -57,7 +62,11 @@ Future<void> _updatePalette() async {
                   padding: EdgeInsets.all(2.0),
                   child: CircleAvatar(
                     radius: 32,
-                    backgroundImage: NetworkImage(widget.story.image),
+                    backgroundImage: NetworkImage(
+                      widget.story.profileImage.isNotEmpty
+                          ? widget.story.profileImage
+                          : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+                    ),
                   ),
                 ),
               ),
