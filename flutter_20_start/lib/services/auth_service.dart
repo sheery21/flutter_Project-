@@ -36,7 +36,7 @@ class AuthService {
 
       String? idToken = await user.getIdToken();
 
-      print("ID Token: $idToken");
+      print("ID Token: $idToken");g
 
       return user;
     } on FirebaseAuthException catch (e) {
