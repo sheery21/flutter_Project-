@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
@@ -7,6 +10,7 @@ import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/InputField/inputField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreens extends StatefulWidget {
@@ -18,6 +22,7 @@ class SignupScreens extends StatefulWidget {
 
 class _SignupScreensState extends State<SignupScreens> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController ConPassController = TextEditingController();
@@ -25,6 +30,7 @@ class _SignupScreensState extends State<SignupScreens> {
   String nametext = "Your name";
   String emailtext = "Your email";
   String passText = "Password";
+  String phoneNumber = "Phone Number";
   String conPassText = "Confirm Password";
 
   bool hidePassword = true;
@@ -32,6 +38,7 @@ class _SignupScreensState extends State<SignupScreens> {
 
   String? nameError;
   String? emailError;
+  String? phoneNumberError;
   String? passError;
   String? conPassError;
 
@@ -69,6 +76,7 @@ class _SignupScreensState extends State<SignupScreens> {
       isFormFilled =
           nameError == null &&
           emailError == null &&
+          phoneNumberError == null &&
           passError == null &&
           conPassError == null;
     });
@@ -105,6 +113,13 @@ class _SignupScreensState extends State<SignupScreens> {
                 text: emailtext,
                 tohide: false,
                 errorText: emailError,
+                onChanged: (_) => checkForm(),
+              ),
+              const SizedBox(height: 20),
+              InputFieldHelper.CustomNumbField(
+                controller: phoneNumberController,
+                text: phoneNumber,
+                errorText: phoneNumberError,
                 onChanged: (_) => checkForm(),
               ),
               const SizedBox(height: 20),
@@ -150,12 +165,17 @@ class _SignupScreensState extends State<SignupScreens> {
                       await firestore.saveUser(
                         user: user,
                         name: nameController.text.trim(),
+                        phoneNumber: phoneNumberController.text.trim(),
+                        imageUrl: '',
                       );
                       if (!mounted) return;
-                      Provider.of<UserProvider>(
-                        context,
-                        listen: false,
-                      ).setUser(user: user, name: nameController.text.trim());
+                      Provider.of<UserProvider>(context, listen: false).setUser(
+                        user: user,
+                        name: nameController.text.trim(),
+                        email: user.email,
+                        phoneNumber: phoneNumberController.text.trim(),
+                        imageUrl: '',
+                      );
                     }
                     if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(

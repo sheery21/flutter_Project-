@@ -1,14 +1,26 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreService {
-  // Save user details after signup
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<void> saveUser({required User user, required String name}) async {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
+  /// Save user details after signup
+  Future<void> saveUser({
+    required User user,
+    required String name,
+    required String phoneNumber,
+    required String imageUrl,
+  }) async {
     try {
       await _firestore.collection('users').doc(user.uid).set({
         'name': name,
         'email': user.email,
+        'phoneNumber': phoneNumber,
+        'imageUrl': imageUrl,
         'uid': user.uid,
         'createdAt': FieldValue.serverTimestamp(),
       });
@@ -17,10 +29,13 @@ class FirestoreService {
     }
   }
 
-  // Get user details by UID
+  /// Get user details by UID
   Future<Map<String, dynamic>?> getUser(String uid) async {
     try {
-      DocumentSnapshot doc = await _firestore.collection("user").doc(uid).get();
+      DocumentSnapshot doc = await _firestore
+          .collection("users")
+          .doc(uid)
+          .get();
       if (doc.exists) {
         return doc.data() as Map<String, dynamic>;
       } else {
@@ -31,7 +46,38 @@ class FirestoreService {
     }
   }
 
-  // Update user details
+  /// Upload profile image and return download URL
+  Future<String> uploadProfileImage({
+    required String uid,
+    required File image,
+  }) async {
+    try {
+      final ref = _storage.ref().child('profile_images').child('$uid.jpg');
+      await ref.putFile(image);
+
+      // Return the download URL
+      final downloadUrl = await ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      throw 'Failed to upload profile image: $e';
+    }
+  }
+
+  /// Update profile image URL in Firestore
+  Future<void> updateProfileImage({
+    required String uid,
+    required String imageUrl,
+  }) async {
+    try {
+      await _firestore.collection("users").doc(uid).update({
+        'imageUrl': imageUrl,
+      });
+    } catch (e) {
+      throw 'Failed to update profile image: $e';
+    }
+  }
+
+  /// Update user details
   Future<void> updateUser({
     required String uid,
     String? name,

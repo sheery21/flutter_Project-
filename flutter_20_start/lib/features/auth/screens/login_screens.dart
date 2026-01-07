@@ -78,16 +78,33 @@ class _LoginScreensState extends State<LoginScreens> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Containerfield.customCircularImagesField(
-                    imagePath: "assets/images/facebook_icon.png",
+                  GestureDetector(
+                    onTap: () async {
+                      await AuthService().signInWithFacebook();
+                      Navigator.pushReplacementNamed(context, "/bottomNav");
+                    },
+                    child: Containerfield.customCircularImagesField(
+                      imagePath: "assets/images/facebook_icon.png",
+                    ),
                   ),
                   SizedBox(width: 20),
-                  Containerfield.customCircularImagesField(
-                    imagePath: "assets/images/google.png",
+                  GestureDetector(
+                    onTap: () async {
+                      await AuthService().signInWithGoogle();
+                      Navigator.pushReplacementNamed(context, "/bottomNav");
+                    },
+                    child: Containerfield.customCircularImagesField(
+                      imagePath: "assets/images/google.png",
+                    ),
                   ),
                   SizedBox(width: 20),
-                  Containerfield.customCircularImagesField(
-                    imagePath: "assets/images/apple_icon.png",
+                  GestureDetector(
+                    onTap: () async {
+                      await AuthService().signInWithApple();
+                    },
+                    child: Containerfield.customCircularImagesField(
+                      imagePath: "assets/images/apple_icon.png",
+                    ),
                   ),
                 ],
               ),
