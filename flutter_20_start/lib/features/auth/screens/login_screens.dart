@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
+import 'package:flutter_20_start/services/firestore_service.dart';
+import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/ContainerField/ContainerField.dart';
@@ -146,10 +150,27 @@ class _LoginScreensState extends State<LoginScreens> {
                   if (!isFormFilled) return;
                   try {
                     final auth = AuthService();
-                    await auth.login(
+                    final firebase = FirestoreService();
+                    User? user = await auth.login(
                       emailController.text.trim(),
                       passController.text.trim(),
                     );
+                    if (user == null) throw "User not found";
+
+                    final userDada = await firebase.getUser(user.uid);
+
+                    if (userDada == null) {
+                      throw "User data not found in Firesstore";
+                    }
+
+                    await LocalStorageService.saveUser(
+                      uid: user.uid,
+                      name: userDada["name"],
+                      email: userDada["email"],
+                      phone: userDada["phoneNumber"],
+                      imageUrl: userDada['imageUrl'] ?? "",
+                    );
+
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text("Login Successful")));

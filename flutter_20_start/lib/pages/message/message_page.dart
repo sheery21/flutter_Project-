@@ -3,9 +3,11 @@ import 'package:flutter_20_start/data/story_data.dart';
 import 'package:flutter_20_start/models/story_models.dart';
 import 'package:flutter_20_start/pages/profile/profile_page.dart';
 import 'package:flutter_20_start/pages/search/search_page.dart';
+import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/widgets/AddStoryField/addStoryField.dart';
 import 'package:flutter_20_start/widgets/StoryItemField/storyItimeField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:story_view/story_view.dart';
 
 class MessagePage extends StatefulWidget {
@@ -40,6 +42,7 @@ class _MessagePageState extends State<MessagePage> {
         myStory = StoryModel(
           name: "Your Story",
           profileImage:
+              context.read<UserProvider>().imageUrl ??
               "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
           stories: [imageUrl],
           isMyStory: true,
@@ -72,7 +75,19 @@ class _MessagePageState extends State<MessagePage> {
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               IconButton(
-                icon: const Icon(FontAwesomeIcons.circleUser, size: 30),
+                icon: Consumer<UserProvider>(
+                  builder: (context, userProvider, child) {
+                    if (userProvider.imageUrl != null &&
+                        userProvider.imageUrl!.isNotEmpty) {
+                      return CircleAvatar(
+                        radius: 16,
+                        backgroundImage: NetworkImage(userProvider.imageUrl!),
+                      );
+                    } else {
+                      return const Icon(FontAwesomeIcons.circleUser);
+                    }
+                  },
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,

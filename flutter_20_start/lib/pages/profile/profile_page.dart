@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
 import 'package:flutter_20_start/services/firestore_service.dart';
+import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -122,6 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () async {
                   await AuthService().logOut();
                   userProvider.clearUser();
+                  await LocalStorageService.clear();
 
                   Navigator.pushReplacementNamed(context, '/login');
                 },

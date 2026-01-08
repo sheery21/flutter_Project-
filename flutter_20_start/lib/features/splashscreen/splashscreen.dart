@@ -5,9 +5,12 @@ import 'package:flutter_20_start/features/auth/screens/login_screens.dart';
 import 'package:flutter_20_start/features/auth/screens/signup_screens.dart';
 import 'package:flutter_20_start/features/bottomNavbar/bottomNavbar_screen.dart';
 import 'package:flutter_20_start/onboarding/Onboarding_page.dart';
+import 'package:flutter_20_start/providers/user_Provider.dart';
+import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
+import 'package:provider/provider.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -17,14 +20,24 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  @override
-  Widget build(BuildContext context) {
-    Timer(Duration(seconds: 2), () {
+  Future<void> _checkLogin() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    final data = await LocalStorageService.getUser();
+
+    if (data["uid"] != null) {
+      context.read<UserProvider>().setUserFromLocal(
+        uid: data["uid"]!,
+        name: data["name"]!,
+        email: data["emali"]!,
+        phoneNumber: data["phoneNumber"]!,
+        imageUrl: data["imageUrl"]!,
+      );
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              SignupScreens(),
+              BottomnavbarScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(opacity: animation, child: child);
@@ -32,9 +45,24 @@ class _SplashscreenState extends State<Splashscreen> {
           transitionDuration: Duration(milliseconds: 800), // speed control
         ),
       );
-    });
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const SignupScreens()),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLogin();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
+      body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(color: Colorsfield.customColorField()),

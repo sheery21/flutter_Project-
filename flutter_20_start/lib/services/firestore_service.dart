@@ -52,13 +52,16 @@ class FirestoreService {
     required File image,
   }) async {
     try {
-      final ref = _storage.ref().child('profile_images').child('$uid.jpg');
-      await ref.putFile(image);
+      final ref = _storage.ref().child("profile_images").child("$uid.jpg");
+      final uploadTask =  await ref.putFile(image);
+
+      final snaphot = await uploadTask;
 
       // Return the download URL
-      final downloadUrl = await ref.getDownloadURL();
+      final downloadUrl = await snaphot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
+      print("Firebase Storage Error: $e");
       throw 'Failed to upload profile image: $e';
     }
   }
