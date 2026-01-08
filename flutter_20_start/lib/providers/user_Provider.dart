@@ -29,6 +29,22 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 💾 Load from Local Storage (AUTO LOGIN)
+  void setUserFromLocal({
+    required String uid,
+    required String name,
+    required String email,
+    String? imageUrl,
+    String? phoneNumber,
+  }) {
+    _user = FirebaseAuth.instance.currentUser;
+    _email = email;
+    _name = name;
+    _imageUrl = imageUrl;
+    _phuneNumber = phoneNumber;
+    notifyListeners();
+  }
+
   /// 🔄 Update only name
   void updateName(String name) {
     _name = name;
@@ -52,6 +68,7 @@ class UserProvider extends ChangeNotifier {
   /// 🚪 Logout
   void clearUser() {
     _user = null;
+    _email = null;
     _name = null;
     _imageUrl = null;
     _phuneNumber = null;
