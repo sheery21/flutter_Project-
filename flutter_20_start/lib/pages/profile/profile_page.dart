@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
@@ -18,7 +17,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   File? _newProfileImage;
-
   final picker = ImagePicker();
 
   Future pickProfileImage() async {
@@ -33,13 +31,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future uploadImage() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    print("UID => ${userProvider.user?.uid}");
     if (userProvider.user == null || _newProfileImage == null) return;
 
     try {
       final firestore = FirestoreService();
 
-      // Upload image to Firebase Storage and get URL
+      // Upload image to Firebase Storage
       String imageUrl = await firestore.uploadProfileImage(
         uid: userProvider.user!.uid,
         image: _newProfileImage!,
@@ -54,6 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // Update Provider
       userProvider.updateImage(imageUrl);
 
+      // Save in Local Storage
       await LocalStorageService.saveUser(
         uid: userProvider.user!.uid,
         name: userProvider.name ?? "",
@@ -76,70 +74,58 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colorsfield.customBlackColorField(),
-                ),
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: pickProfileImage,
-                      child: CircleAvatar(
-                        radius: 60,
-                        backgroundImage: _newProfileImage != null
-                            ? FileImage(_newProfileImage!)
-                            : (userProvider.imageUrl != null &&
-                                      userProvider.imageUrl!.isNotEmpty
-                                  ? NetworkImage(userProvider.imageUrl!)
-                                        as ImageProvider
-                                  : null),
-                        child:
-                            (_newProfileImage == null &&
-                                (userProvider.imageUrl == null ||
-                                    userProvider.imageUrl!.isEmpty))
-                            ? const Icon(Icons.add_a_photo, size: 50)
-                            : null,
-                      ),
-                    ),
-                  ],
-                ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: pickProfileImage,
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: _newProfileImage != null
+                    ? FileImage(_newProfileImage!)
+                    : (userProvider.imageUrl != null &&
+                                  userProvider.imageUrl!.isNotEmpty
+                              ? NetworkImage(userProvider.imageUrl!)
+                              : null)
+                          as ImageProvider<Object>?,
+                child:
+                    (_newProfileImage == null &&
+                        (userProvider.imageUrl == null ||
+                            userProvider.imageUrl!.isEmpty))
+                    ? const Icon(Icons.add_a_photo, size: 50)
+                    : null,
               ),
-              Text("Profile Page"),
-              SizedBox(height: 20),
+            ),
+            const SizedBox(height: 20),
+            Text(
               userProvider.user != null
-                  ? Text("Hello  ${userProvider.name}")
-                  : Text("No user logged in"),
-              Text("phoneNumber: ${userProvider.phoneNumber}"),
-
-              SizedBox(height: 90),
-              ElevatedButton(
-                onPressed: () async {
-                  await AuthService().logOut();
-                  userProvider.clearUser();
-                  await LocalStorageService.clear();
-
-                  Navigator.pushReplacementNamed(context, '/login');
-                },
-                child: Text("LOG OUT"),
-              ),
-            ],
-          ),
+                  ? "Hello ${userProvider.name}"
+                  : "No user logged in",
+              style: const TextStyle(fontSize: 18),
+            ),
+            Text("Phone: ${userProvider.phoneNumber ?? "-"}"),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () async {
+                await AuthService().logOut();
+                userProvider.clearUser();
+                await LocalStorageService.clear();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text("LOG OUT"),
+            ),
+          ],
         ),
       ),
     );

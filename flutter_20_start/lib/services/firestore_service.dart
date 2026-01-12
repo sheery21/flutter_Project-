@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,43 +14,57 @@ class FirestoreService {
     required String phoneNumber,
     String imageUrl = "",
   }) async {
-    await _firestore.collection('users').doc(user.uid).set({
-      'name': name,
-      'email': user.email,
-      'phoneNumber': phoneNumber,
-      'imageUrl': imageUrl,
-      'uid': user.uid,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _firestore.collection('users').doc(user.uid).set({
+        'name': name,
+        'email': user.email,
+        'phoneNumber': phoneNumber,
+        'imageUrl': imageUrl,
+        'uid': user.uid,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw 'Failed to save user data: $e';
+    }
   }
 
-  /// Get user details
+  /// Get user details by UID
   Future<Map<String, dynamic>?> getUser(String uid) async {
-    final doc = await _firestore.collection("users").doc(uid).get();
-    return doc.exists ? doc.data() : null;
+    try {
+      final doc = await _firestore.collection('users').doc(uid).get();
+      return doc.exists ? doc.data() as Map<String, dynamic> : null;
+    } catch (e) {
+      throw 'Failed to get user data: $e';
+    }
   }
 
-  /// 1️⃣ Upload image to Firebase Storage
+  /// Upload profile image and return download URL
   Future<String> uploadProfileImage({
     required String uid,
     required File image,
   }) async {
-    final ref = _storage.ref('profile_images/$uid.jpg');
-
-    final snapshot = await ref.putFile(image);
-    final url = await snapshot.ref.getDownloadURL();
-
-    return url;
+    try {
+      final ref = _storage.ref('profile_images/$uid.jpg');
+      final snapshot = await ref.putFile(image);
+      final url = await snapshot.ref.getDownloadURL();
+      return url;
+    } catch (e) {
+      throw 'Failed to upload profile image: $e';
+    }
   }
 
-  /// 2️⃣ Save image URL to Firestore
+  /// Update image URL in Firestore
   Future<void> updateProfileImageUrl({
     required String uid,
     required String imageUrl,
   }) async {
-    await _firestore.collection('users').doc(uid).update({
-      'imageUrl': imageUrl,
-    });
+    try {
+      await _firestore.collection('users').doc(uid).update({
+        'imageUrl': imageUrl,
+      });
+    } catch (e) {
+      throw 'Failed to update profile image URL: $e';
+    }
   }
 
   /// Update name / email
