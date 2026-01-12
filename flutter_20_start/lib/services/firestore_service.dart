@@ -13,88 +13,59 @@ class FirestoreService {
     required User user,
     required String name,
     required String phoneNumber,
-    required String imageUrl,
+    String imageUrl = "",
   }) async {
-    try {
-      await _firestore.collection('users').doc(user.uid).set({
-        'name': name,
-        'email': user.email,
-        'phoneNumber': phoneNumber,
-        'imageUrl': imageUrl,
-        'uid': user.uid,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-    } catch (e) {
-      throw 'Failed to save user data: $e';
-    }
+    await _firestore.collection('users').doc(user.uid).set({
+      'name': name,
+      'email': user.email,
+      'phoneNumber': phoneNumber,
+      'imageUrl': imageUrl,
+      'uid': user.uid,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 
-  /// Get user details by UID
+  /// Get user details
   Future<Map<String, dynamic>?> getUser(String uid) async {
-    try {
-      DocumentSnapshot doc = await _firestore
-          .collection("users")
-          .doc(uid)
-          .get();
-      if (doc.exists) {
-        return doc.data() as Map<String, dynamic>;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      throw 'Failed to get user data: $e';
-    }
+    final doc = await _firestore.collection("users").doc(uid).get();
+    return doc.exists ? doc.data() : null;
   }
 
-  /// Upload profile image and return download URL
+  /// 1️⃣ Upload image to Firebase Storage
   Future<String> uploadProfileImage({
     required String uid,
     required File image,
   }) async {
-    try {
-      final ref = _storage.ref().child("profile_images").child("$uid.jpg");
-      final uploadTask =  await ref.putFile(image);
+    final ref = _storage.ref('profile_images/$uid.jpg');
 
-      final snaphot = await uploadTask;
+    final snapshot = await ref.putFile(image);
+    final url = await snapshot.ref.getDownloadURL();
 
-      // Return the download URL
-      final downloadUrl = await snaphot.ref.getDownloadURL();
-      return downloadUrl;
-    } catch (e) {
-      print("Firebase Storage Error: $e");
-      throw 'Failed to upload profile image: $e';
-    }
+    return url;
   }
 
-  /// Update profile image URL in Firestore
-  Future<void> updateProfileImage({
+  /// 2️⃣ Save image URL to Firestore
+  Future<void> updateProfileImageUrl({
     required String uid,
     required String imageUrl,
   }) async {
-    try {
-      await _firestore.collection("users").doc(uid).update({
-        'imageUrl': imageUrl,
-      });
-    } catch (e) {
-      throw 'Failed to update profile image: $e';
-    }
+    await _firestore.collection('users').doc(uid).update({
+      'imageUrl': imageUrl,
+    });
   }
 
-  /// Update user details
+  /// Update name / email
   Future<void> updateUser({
     required String uid,
     String? name,
     String? email,
   }) async {
-    try {
-      Map<String, dynamic> data = {};
-      if (name != null) data['name'] = name;
-      if (email != null) data['email'] = email;
-      if (data.isNotEmpty) {
-        await _firestore.collection('users').doc(uid).update(data);
-      }
-    } catch (e) {
-      throw 'Failed to update user data: $e';
+    Map<String, dynamic> data = {};
+    if (name != null) data['name'] = name;
+    if (email != null) data['email'] = email;
+
+    if (data.isNotEmpty) {
+      await _firestore.collection('users').doc(uid).update(data);
     }
   }
 }

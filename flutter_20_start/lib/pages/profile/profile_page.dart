@@ -33,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future uploadImage() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    print("UID => ${userProvider.user?.uid}");
     if (userProvider.user == null || _newProfileImage == null) return;
 
     try {
@@ -45,13 +46,21 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
       // Update Firestore
-      await firestore.updateProfileImage(
+      await firestore.updateProfileImageUrl(
         uid: userProvider.user!.uid,
         imageUrl: imageUrl,
       );
 
       // Update Provider
       userProvider.updateImage(imageUrl);
+
+      await LocalStorageService.saveUser(
+        uid: userProvider.user!.uid,
+        name: userProvider.name ?? "",
+        email: userProvider.email ?? "",
+        phone: userProvider.phoneNumber ?? "",
+        imageUrl: imageUrl,
+      );
 
       ScaffoldMessenger.of(
         context,
