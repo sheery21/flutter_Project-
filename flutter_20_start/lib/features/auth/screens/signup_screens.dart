@@ -160,6 +160,7 @@ class _SignupScreensState extends State<SignupScreens> {
                     User? user = await auth.signup(
                       emailController.text.trim(),
                       passController.text.trim(),
+                      nameController.text.trim()
                     );
                     if (user != null) {
                       await firestore.saveUser(

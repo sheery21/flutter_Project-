@@ -146,35 +146,23 @@ class _LoginScreensState extends State<LoginScreens> {
                 text: "Login",
                 isEnabled: isFormFilled,
                 onPressed: () async {
-                  print("hello");
+                  checkForm();
                   if (!isFormFilled) return;
+
                   try {
                     final auth = AuthService();
-                    final firebase = FirestoreService();
                     User? user = await auth.login(
                       emailController.text.trim(),
                       passController.text.trim(),
-                    );
-                    if (user == null) throw "User not found";
-
-                    final userDada = await firebase.getUser(user.uid);
-
-                    if (userDada == null) {
-                      throw "User data not found in Firesstore";
-                    }
-
-                    await LocalStorageService.saveUser(
-                      uid: user.uid,
-                      name: userDada["name"],
-                      email: userDada["email"],
-                      phone: userDada["phoneNumber"],
-                      imageUrl: userDada['imageUrl'] ?? "",
-                    );
-
-                    ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(SnackBar(content: Text("Login Successful")));
-                    Navigator.pushReplacementNamed(context, "/bottomNav");
+                    );
+
+                    if (user != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Login Successful!")),
+                      );
+                      Navigator.pushReplacementNamed(context, "/bottomNav");
+                    }
                   } catch (e) {
                     ScaffoldMessenger.of(
                       context,

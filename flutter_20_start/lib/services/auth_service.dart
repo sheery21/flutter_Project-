@@ -1,17 +1,40 @@
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_20_start/providers/user_Provider.dart';
+import 'package:flutter_20_start/services/firestore_service.dart';
+import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //  SIGN UP
-  Future<User?> signup(String email, String Password) async {
+  Future<User?> signup(String email, String Password, String name) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: Password);
-      return userCredential.user;
+      User? user = userCredential.user;
+      if (user == null) throw 'User not created';
+
+      await FirestoreService().saveUser(
+        user: user,
+        name: name,
+        phoneNumber: '',
+        imageUrl: '',
+      );
+      // LocalStorage me bhi save
+      await LocalStorageService.saveUser(
+        uid: user.uid,
+        name: name,
+        email: email,
+        phone: '',
+        imageUrl: '',
+      );
+      print("Signup successful: UID = ${user.uid}");
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw 'No user found for this email';
@@ -27,33 +50,43 @@ class AuthService {
 
   // LOGIN
 
-  Future<User?> login(String email, String password) async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+  Future<User?> login(String email, String password, BuildContext context) async {
+  try {
+    UserCredential userCredential =
+        await _auth.signInWithEmailAndPassword(email: email, password: password);
+    User? user = userCredential.user;
+    if (user == null) throw 'User not found';
 
-      User? user = userCredential.user;
-      if (user == null) throw 'User not found';
+    final firestore = FirestoreService();
+    final userData = await firestore.getUser(user.uid);
+    if (userData == null) throw "No user data found in Firestore!";
 
-      String? idToken = await user.getIdToken();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.setUser(
+      user: user,
+      email: userData["email"],
+      name: userData["name"],
+      imageUrl: userData['imageUrl'],
+      phoneNumber: userData['phoneNumber'],
+    );
 
-      print("ID Token: $idToken");
+    // Local storage
+    await LocalStorageService.saveUser(
+      uid: user.uid,
+      name: userData['name'],
+      email: userData['email'],
+      phone: userData['phoneNumber'],
+      imageUrl: userData['imageUrl'] ?? "",
+    );
 
-      return user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw 'No user found for this email';
-      } else if (e.code == 'wrong-password') {
-        throw 'Incorrect password';
-      } else if (e.code == 'invalid-email') {
-        throw 'Invalid email address';
-      } else {
-        throw 'Login failed. Try again';
-      }
-    }
+    print("Login successful for: ${user.email}");
+    return user;
+  } on FirebaseAuthException catch (e) {
+    print("Login failed: ${e.code}");
+    rethrow;
   }
+}
+
 
   // LOGIN WITH GOOGLE
   Future<UserCredential> signInWithGoogle() async {

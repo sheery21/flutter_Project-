@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   /// Save user details after signup
   Future<void> saveUser({
@@ -39,15 +37,14 @@ class FirestoreService {
   }
 
   /// Upload profile image and return download URL
-  Future<String> uploadProfileImage({
+  Future<void> uploadProfileImage({
     required String uid,
-    required File image,
+    required String imageUrl,
   }) async {
     try {
-      final ref = _storage.ref('profile_images/$uid.jpg');
-      final snapshot = await ref.putFile(image);
-      final url = await snapshot.ref.getDownloadURL();
-      return url;
+      await _firestore.collection('users').doc(uid).update({
+        'imageUrl': imageUrl,
+      });
     } catch (e) {
       throw 'Failed to upload profile image: $e';
     }

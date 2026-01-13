@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/auth_service.dart';
+import 'package:flutter_20_start/services/cloudinary_service.dart';
 import 'package:flutter_20_start/services/firestore_service.dart';
 import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
@@ -35,12 +36,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     try {
       final firestore = FirestoreService();
+      final cloudinary = CloudinaryService();
 
-      // Upload image to Firebase Storage
-      String imageUrl = await firestore.uploadProfileImage(
-        uid: userProvider.user!.uid,
-        image: _newProfileImage!,
-      );
+      final imageUrl = await cloudinary.uploadImage(_newProfileImage!);
+
+      if (imageUrl == null) {
+        throw "Cloudinary upload failed";
+      }
 
       // Update Firestore
       await firestore.updateProfileImageUrl(
