@@ -37,13 +37,14 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   void _addMyStory(String imageUrl) {
+    final userProvider = context.read<UserProvider>();
     setState(() {
       if (myStory == null) {
         myStory = StoryModel(
           name: "Your Story",
-          profileImage:
-              context.read<UserProvider>().imageUrl ??
-              "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
+          profileImage: userProvider.imageUrl?.isNotEmpty == true
+              ? userProvider.imageUrl!
+              : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
           stories: [imageUrl],
           isMyStory: true,
         );
@@ -54,6 +55,7 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   Widget build(BuildContext context) {
+    final userImage = context.watch<UserProvider>().imageUrl;
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -111,8 +113,8 @@ class _MessagePageState extends State<MessagePage> {
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Addstoryfield(
-                    imageUrl: myStory != null
-                        ? myStory!.profileImage
+                    imageUrl: userImage != null && userImage.isNotEmpty
+                        ? userImage
                         : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
 
                     hasStory: myStory != null,

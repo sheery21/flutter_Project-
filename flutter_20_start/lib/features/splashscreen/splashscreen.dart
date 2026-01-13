@@ -27,12 +27,13 @@ class _SplashscreenState extends State<Splashscreen> {
 
     if (data["uid"] != null) {
       context.read<UserProvider>().setUserFromLocal(
-        uid: data["uid"]!,
-        name: data["name"]!,
-        email: data["emali"]!,
-        phoneNumber: data["phoneNumber"]!,
-        imageUrl: data["imageUrl"]!,
+        uid: data["uid"] ?? "",
+        name: data["name"] ?? "",
+        email: data["email"] ?? "",
+        phoneNumber: data["phoneNumber"] ?? "",
+        imageUrl: data["imageUrl"] ?? "",
       );
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -48,7 +49,7 @@ class _SplashscreenState extends State<Splashscreen> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const SignupScreens()),
+        MaterialPageRoute(builder: (_) => const LoginScreens()),
       );
     }
   }
