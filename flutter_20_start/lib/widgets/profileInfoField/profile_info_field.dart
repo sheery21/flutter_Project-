@@ -9,7 +9,7 @@ class ProfileInfoField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox( height: 16,),
+        SizedBox(height: 16),
         Text(label, style: TextStyle(color: Color(0xFF797C7B), fontSize: 18)),
         Padding(
           padding: EdgeInsetsGeometry.only(left: 8),
@@ -33,7 +33,7 @@ class ProfileInfoField extends StatelessWidget {
         children: [
           buildLabelValue("Display Name", userProvider.name ?? ""),
           buildLabelValue("Email Address", userProvider.email ?? ""),
-          // buildLabelValue("Display Name", userProvider.address ?? ""),
+          buildLabelValue("Address", userProvider.address ?? ""),
           buildLabelValue("Phone  Number", userProvider.phoneNumber ?? ""),
         ],
       ),

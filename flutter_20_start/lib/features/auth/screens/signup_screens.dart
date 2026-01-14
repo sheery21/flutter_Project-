@@ -22,13 +22,17 @@ class SignupScreens extends StatefulWidget {
 
 class _SignupScreensState extends State<SignupScreens> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController ConPassController = TextEditingController();
 
   String nametext = "Your name";
+  String lastNametext = "Your last name";
   String emailtext = "Your email";
+  String addresstext = "Your address";
   String passText = "Password";
   String phoneNumber = "Phone Number";
   String conPassText = "Confirm Password";
@@ -37,8 +41,10 @@ class _SignupScreensState extends State<SignupScreens> {
   bool isFormFilled = false;
 
   String? nameError;
+  String? lastNameError;
   String? emailError;
   String? phoneNumberError;
+  String? addressError;
   String? passError;
   String? conPassError;
 
@@ -75,6 +81,8 @@ class _SignupScreensState extends State<SignupScreens> {
       // Enable button only if all valid
       isFormFilled =
           nameError == null &&
+          lastNameError == null &&
+          addressError == null &&
           emailError == null &&
           phoneNumberError == null &&
           passError == null &&
@@ -107,12 +115,28 @@ class _SignupScreensState extends State<SignupScreens> {
                 errorText: nameError,
                 onChanged: (_) => checkForm(),
               ),
+              const SizedBox(height: 30),
+              InputFieldHelper.CustomTextField(
+                controller: lastNameController,
+                text: lastNametext,
+                tohide: false,
+                errorText: lastNameError,
+                onChanged: (_) => checkForm(),
+              ),
               const SizedBox(height: 20),
               InputFieldHelper.CustomTextField(
                 controller: emailController,
                 text: emailtext,
                 tohide: false,
                 errorText: emailError,
+                onChanged: (_) => checkForm(),
+              ),
+              const SizedBox(height: 20),
+              InputFieldHelper.CustomTextField(
+                controller: addressController,
+                text: addresstext,
+                tohide: false,
+                errorText: addressError,
                 onChanged: (_) => checkForm(),
               ),
               const SizedBox(height: 20),
@@ -160,21 +184,25 @@ class _SignupScreensState extends State<SignupScreens> {
                     User? user = await auth.signup(
                       emailController.text.trim(),
                       passController.text.trim(),
-                      nameController.text.trim()
+                      nameController.text.trim(),
                     );
                     if (user != null) {
                       await firestore.saveUser(
                         user: user,
                         name: nameController.text.trim(),
                         phoneNumber: phoneNumberController.text.trim(),
+                        lastName: lastNameController.text.trim(),
+                        address: addressController.text.trim(),
                         imageUrl: '',
                       );
                       if (!mounted) return;
                       Provider.of<UserProvider>(context, listen: false).setUser(
                         user: user,
                         name: nameController.text.trim(),
+                        lastName: lastNameController.text.trim(),
                         email: user.email,
                         phoneNumber: phoneNumberController.text.trim(),
+                        address: addressController.text.trim(),
                         imageUrl: '',
                       );
                     }

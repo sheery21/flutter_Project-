@@ -95,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           GestureDetector(
             onTap: pickProfileImage,
             child: CircleAvatar(
@@ -115,22 +114,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   : null,
             ),
           ),
-          const SizedBox(height: 20),
-          Container(
-            color: Colors.black,
-            child: Text(
-              userProvider.user != null
-                  ? "${userProvider.name}"
-                  : "No user logged in",
-              style: Textstylefield.Custom_an_H1_White_TextStyleField(),
-            ),
+          const SizedBox(height: 8),
+          Column(
+            children: [
+              Container(
+                color: Colors.black,
+                child: Text(
+                  userProvider.user != null
+                      ? "${userProvider.name}"
+                      : "No user logged in",
+                  style: Textstylefield.Custom_an_H1_White_TextStyleField(),
+                ),
+              ),
+              Text(
+                userProvider.user != null
+                    ? "@${userProvider.name}"
+                    : "No user logged in",
+                style: const TextStyle(fontSize: 16, color: Color(0xFF797C7B)),
+              ),
+            ],
           ),
-          Text(
-            userProvider.user != null
-                ? "@${userProvider.name}"
-                : "No user logged in",
-            style: const TextStyle(fontSize: 18, color: Color(0xFF797C7B)),
-          ),
+          SizedBox(height: 18),
           Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -172,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          Text("Phone: ${userProvider.phoneNumber ?? "-"}"),
+          SizedBox(height: 18),
           Expanded(
             child: Container(
               padding: EdgeInsets.only(left: 10, right: 10),
