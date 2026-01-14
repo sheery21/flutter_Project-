@@ -7,6 +7,8 @@ import 'package:flutter_20_start/services/firestore_service.dart';
 import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/CircleIconButtonField/circleIconBottonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
+import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
+import 'package:flutter_20_start/widgets/profileInfoField/profile_info_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -80,100 +82,124 @@ class _ProfilePageState extends State<ProfilePage> {
     final userProvider = context.watch<UserProvider>();
 
     return Scaffold(
+      backgroundColor: Colorsfield.customBlackColorField(),
       appBar: AppBar(
+        backgroundColor: Colorsfield.customBlackColorField(),
+        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
-          color: Colorsfield.customBlackColorField(),
+          color: Colors.white,
         ),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              GestureDetector(
-                onTap: pickProfileImage,
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: _newProfileImage != null
-                      ? FileImage(_newProfileImage!)
-                      : (userProvider.imageUrl != null &&
-                                    userProvider.imageUrl!.isNotEmpty
-                                ? NetworkImage(userProvider.imageUrl!)
-                                : null)
-                            as ImageProvider<Object>?,
-                  child:
-                      (_newProfileImage == null &&
-                          (userProvider.imageUrl == null ||
-                              userProvider.imageUrl!.isEmpty))
-                      ? const Icon(Icons.add_a_photo, size: 50)
-                      : null,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                userProvider.user != null
-                    ? "@${userProvider.name}"
-                    : "No user logged in",
-                style: const TextStyle(fontSize: 18),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colorsfield.customBlackColorField(),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleIconButton(
-                        icon: FontAwesomeIcons.commentDots,
-                        flipHorizontally: true,
-                        onTap: () {
-                          print("Comment tapped");
-                        },
-                      ),
-                      SizedBox(width: 30,),
-                      CircleIconButton(
-                        icon: FontAwesomeIcons.video,
-                        onTap: () {
-                          print("Phone tapped");
-                        },
-                      ),
-                      SizedBox(width: 30,),
-                      CircleIconButton(
-                        icon: FontAwesomeIcons.phone,
-                        onTap: () {
-                          print("Phone tapped");
-                        },
-                      ),
-                      SizedBox(width: 30,),
-                      CircleIconButton(
-                        icon: FontAwesomeIcons.ellipsis,
-                        onTap: () {
-                          print("Phone tapped");
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Text("Phone: ${userProvider.phoneNumber ?? "-"}"),
-              const SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () async {
-                  await AuthService().logOut();
-                  userProvider.clearUser();
-                  await LocalStorageService.clear();
-                  Navigator.pushReplacementNamed(context, '/login');
-                },
-                child: const Text("LOG OUT"),
-              ),
-            ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: pickProfileImage,
+            child: CircleAvatar(
+              radius: 60,
+              backgroundImage: _newProfileImage != null
+                  ? FileImage(_newProfileImage!)
+                  : (userProvider.imageUrl != null &&
+                                userProvider.imageUrl!.isNotEmpty
+                            ? NetworkImage(userProvider.imageUrl!)
+                            : null)
+                        as ImageProvider<Object>?,
+              child:
+                  (_newProfileImage == null &&
+                      (userProvider.imageUrl == null ||
+                          userProvider.imageUrl!.isEmpty))
+                  ? const Icon(Icons.add_a_photo, size: 50)
+                  : null,
+            ),
           ),
-        ),
+          const SizedBox(height: 20),
+          Container(
+            color: Colors.black,
+            child: Text(
+              userProvider.user != null
+                  ? "${userProvider.name}"
+                  : "No user logged in",
+              style: Textstylefield.Custom_an_H1_White_TextStyleField(),
+            ),
+          ),
+          Text(
+            userProvider.user != null
+                ? "@${userProvider.name}"
+                : "No user logged in",
+            style: const TextStyle(fontSize: 18, color: Color(0xFF797C7B)),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Colorsfield.customBlackColorField(),
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleIconButton(
+                    icon: FontAwesomeIcons.commentDots,
+                    flipHorizontally: true,
+                    onTap: () {
+                      print("Comment tapped");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  CircleIconButton(
+                    icon: FontAwesomeIcons.video,
+                    onTap: () {
+                      print("Phone tapped");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  CircleIconButton(
+                    icon: FontAwesomeIcons.phone,
+                    onTap: () {
+                      print("Phone tapped");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  CircleIconButton(
+                    icon: FontAwesomeIcons.ellipsis,
+                    onTap: () {
+                      print("Phone tapped");
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text("Phone: ${userProvider.phoneNumber ?? "-"}"),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const ProfileInfoField(),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await AuthService().logOut();
+                      userProvider.clearUser();
+                      await LocalStorageService.clear();
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: const Text("LOG OUT"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

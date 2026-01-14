@@ -82,6 +82,7 @@ class Textstylefield {
       fontWeight: FontWeight.bold,
     );
   }
+
   // Short have an account Text Style
   static TextStyle Custom_an_P3_TextStyleField() {
     return const TextStyle(
@@ -92,4 +93,12 @@ class Textstylefield {
     );
   }
 
+  static TextStyle Custom_an_H1_White_TextStyleField() {
+    return const TextStyle(
+      fontFamily: "ABeeZee",
+      color: Color(0xFFFFFFFF),
+      fontSize: 30,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }
