@@ -42,9 +42,6 @@ class _MessagePageState extends State<MessagePage> {
       if (myStory == null) {
         myStory = StoryModel(
           name: "Your Story",
-          profileImage: userProvider.imageUrl?.isNotEmpty == true
-              ? userProvider.imageUrl!
-              : "https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg",
           stories: [imageUrl],
           isMyStory: true,
         );

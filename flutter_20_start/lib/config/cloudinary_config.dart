@@ -7,3 +7,5 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 //   static final String apiSecret = dotenv.env['CLOUDINARY_API_SECRET'] ?? '';
 //   static final String uploadPreset = dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '';
 // }
+
+
