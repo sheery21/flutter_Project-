@@ -31,7 +31,10 @@ class ProfileInfoField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildLabelValue("Display Name", userProvider.name ?? ""),
+          buildLabelValue(
+            "Display Name",
+            "${userProvider.name ?? ""} ${userProvider.lastName ?? ""}",
+          ),
           buildLabelValue("Email Address", userProvider.email ?? ""),
           buildLabelValue("Address", userProvider.address ?? ""),
           buildLabelValue("Phone  Number", userProvider.phoneNumber ?? ""),

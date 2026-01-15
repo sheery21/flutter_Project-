@@ -78,16 +78,20 @@ class AuthService {
         user: user,
         email: userData["email"],
         name: userData["name"],
-        imageUrl: userData['imageUrl'],
-        phoneNumber: userData['phoneNumber'],
+        lastName: userData["lastName"],
+        address: userData["address"],
+        imageUrl: userData["imageUrl"],
+        phoneNumber: userData["phoneNumber"],
       );
 
       // Local storage
       await LocalStorageService.saveUser(
         uid: user.uid,
         name: userData['name'],
+        lastName: userData['lastName'],
         email: userData['email'],
         phone: userData['phoneNumber'],
+        address: userData['address'],
         imageUrl: userData['imageUrl'] ?? "",
       );
 
