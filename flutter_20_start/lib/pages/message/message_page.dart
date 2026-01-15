@@ -57,42 +57,47 @@ class _MessagePageState extends State<MessagePage> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: [
-              IconButton(
-                icon: const Icon(Icons.search, size: 32),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => SearchPage()),
-                  );
-                },
-              ),
-              const Text(
-                "Home",
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                icon: Consumer<UserProvider>(
-                  builder: (context, userProvider, child) {
-                    if (userProvider.imageUrl != null &&
-                        userProvider.imageUrl!.isNotEmpty) {
-                      return CircleAvatar(
-                        radius: 16,
-                        backgroundImage: NetworkImage(userProvider.imageUrl!),
+              SizedBox(height: 30,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.search, size: 32),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => SearchPage()),
                       );
-                    } else {
-                      return const Icon(FontAwesomeIcons.circleUser);
-                    }
-                  },
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ProfilePage()),
-                  );
-                },
+                    },
+                  ),
+                  const Text(
+                    "Home",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    icon: Consumer<UserProvider>(
+                      builder: (context, userProvider, child) {
+                        if (userProvider.imageUrl != null &&
+                            userProvider.imageUrl!.isNotEmpty) {
+                          return CircleAvatar(
+                            radius: 16,
+                            backgroundImage: NetworkImage(userProvider.imageUrl!),
+                          );
+                        } else {
+                          return const Icon(FontAwesomeIcons.circleUser);
+                        }
+                      },
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => ProfilePage()),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -102,6 +107,7 @@ class _MessagePageState extends State<MessagePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 40,),
           SizedBox(
             height: 120,
             child: ListView.builder(
