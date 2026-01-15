@@ -53,10 +53,29 @@ class _SignupScreensState extends State<SignupScreens> {
       // Name validation
       nameError = nameController.text.isEmpty ? "Enter your name" : null;
 
+      // Last Name
+      lastNameError = lastNameController.text.isEmpty
+          ? "Enter your last name"
+          : null;
+
+      // Address
+      addressError = addressController.text.isEmpty
+          ? "Enter your address"
+          : null;
+
+      // Phone Number
+      if (phoneNumberController.text.isEmpty) {
+        phoneNumberError = "Enter phone number";
+      } else if (phoneNumberController.text.length < 10) {
+        phoneNumberError = "Enter valid phone number";
+      } else {
+        phoneNumberError = null;
+      }
+
       // Email validation
       if (emailController.text.isEmpty) {
         emailError = "Enter your email";
-      } else if (!emailController.text.contains("@")) {
+      } else if (!emailController.text.contains("@gmail.com")) {
         emailError = "Enter a valid email";
       } else {
         emailError = null;
@@ -94,6 +113,7 @@ class _SignupScreensState extends State<SignupScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -172,7 +192,7 @@ class _SignupScreensState extends State<SignupScreens> {
                   });
                 },
               ),
-              const SizedBox(height: 160),
+              const SizedBox(height: 130),
               Butttonfield.Custom_LogInSignUp_ButtonField(
                 text: "Sign Up",
                 isEnabled: isFormFilled,
@@ -185,7 +205,11 @@ class _SignupScreensState extends State<SignupScreens> {
                       emailController.text.trim(),
                       passController.text.trim(),
                       nameController.text.trim(),
+                      lastName: lastNameController.text.trim(),
+                      phoneNumber: phoneNumberController.text.trim(),
+                      address: addressController.text.trim(),
                     );
+
                     if (user != null) {
                       await firestore.saveUser(
                         user: user,

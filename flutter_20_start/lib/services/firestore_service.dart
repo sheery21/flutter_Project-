@@ -54,7 +54,7 @@ class FirestoreService {
     }
   }
 
-  /// 🔄 Update user fields (name, lastname, email, phone, address)
+  /// 🔄 Update user fields (name, lastname, email, phoneNumber, address)
   Future<void> updateUser({
     required String uid,
     String? name,

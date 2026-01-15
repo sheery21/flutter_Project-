@@ -12,81 +12,92 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //  SIGN UP
-  Future<User?> signup(String email, String Password, String name) async {
+  Future<User?> signup(
+    String email,
+    String password,
+    String name, {
+    required String lastName,
+    required String phoneNumber,
+    required String address,
+  }) async {
     try {
       UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: Password);
-      User? user = userCredential.user;
-      if (user == null) throw 'User not created';
+          .createUserWithEmailAndPassword(email: email, password: password);
 
+      User? user = userCredential.user;
+      if (user == null) throw "User not created";
+
+      // Firestore
       await FirestoreService().saveUser(
         user: user,
         name: name,
-        phoneNumber: '',
-        imageUrl: '',
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        address: address,
+        imageUrl: "",
       );
-      // LocalStorage me bhi save
+
+      // Local Storage
       await LocalStorageService.saveUser(
         uid: user.uid,
         name: name,
+        lastName: lastName,
         email: email,
-        phone: '',
-        imageUrl: '',
+        phone: phoneNumber,
+        address: address,
+        imageUrl: "",
       );
-      print("Signup successful: UID = ${user.uid}");
+
       return user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw 'No user found for this email';
-      } else if (e.code == 'wrong-password') {
-        throw 'Incorrect password';
-      } else if (e.code == 'invalid-email') {
-        throw 'Invalid email address';
-      } else {
-        throw 'Login failed. Try again';
-      }
+    } catch (e) {
+      rethrow;
     }
   }
 
   // LOGIN
 
-  Future<User?> login(String email, String password, BuildContext context) async {
-  try {
-    UserCredential userCredential =
-        await _auth.signInWithEmailAndPassword(email: email, password: password);
-    User? user = userCredential.user;
-    if (user == null) throw 'User not found';
+  Future<User?> login(
+    String email,
+    String password,
+    BuildContext context,
+  ) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = userCredential.user;
+      if (user == null) throw 'User not found';
 
-    final firestore = FirestoreService();
-    final userData = await firestore.getUser(user.uid);
-    if (userData == null) throw "No user data found in Firestore!";
+      final firestore = FirestoreService();
+      final userData = await firestore.getUser(user.uid);
+      if (userData == null) throw "No user data found in Firestore!";
 
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.setUser(
-      user: user,
-      email: userData["email"],
-      name: userData["name"],
-      imageUrl: userData['imageUrl'],
-      phoneNumber: userData['phoneNumber'],
-    );
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.setUser(
+        user: user,
+        email: userData["email"],
+        name: userData["name"],
+        imageUrl: userData['imageUrl'],
+        phoneNumber: userData['phoneNumber'],
+      );
 
-    // Local storage
-    await LocalStorageService.saveUser(
-      uid: user.uid,
-      name: userData['name'],
-      email: userData['email'],
-      phone: userData['phoneNumber'],
-      imageUrl: userData['imageUrl'] ?? "",
-    );
+      // Local storage
+      await LocalStorageService.saveUser(
+        uid: user.uid,
+        name: userData['name'],
+        email: userData['email'],
+        phone: userData['phoneNumber'],
+        imageUrl: userData['imageUrl'] ?? "",
+      );
 
-    print("Login successful for: ${user.email}");
-    return user;
-  } on FirebaseAuthException catch (e) {
-    print("Login failed: ${e.code}");
-    rethrow;
+      print("Login successful for: ${user.email}");
+      return user;
+    } on FirebaseAuthException catch (e) {
+      print("Login failed: ${e.code}");
+      rethrow;
+    }
   }
-}
-
 
   // LOGIN WITH GOOGLE
   Future<UserCredential> signInWithGoogle() async {

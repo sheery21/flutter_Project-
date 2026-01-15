@@ -121,14 +121,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: Colors.black,
                 child: Text(
                   userProvider.user != null
-                      ? "${userProvider.name}"
+                      ? "${userProvider.name} ${userProvider.lastName}"
                       : "No user logged in",
                   style: Textstylefield.Custom_an_H1_White_TextStyleField(),
                 ),
               ),
               Text(
                 userProvider.user != null
-                    ? "@${userProvider.name}"
+                    ? "@${userProvider.name}${userProvider.lastName}"
                     : "No user logged in",
                 style: const TextStyle(fontSize: 16, color: Color(0xFF797C7B)),
               ),
