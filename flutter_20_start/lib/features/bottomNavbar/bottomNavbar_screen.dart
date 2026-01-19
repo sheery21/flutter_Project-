@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/pages/calls/call_page.dart';
 import 'package:flutter_20_start/pages/contacts/contact_page.dart';

@@ -21,7 +21,8 @@ void main() async {
     await Firebase.initializeApp();
     await dotenv.load(fileName: ".env" );
   } catch (e) {
-    debugPrint("⚠️ .env file not found, continuing without it");
+    debugPrint("⚠️ .env file not found, continuing without it"
+    );
   }
   runApp(
     MultiProvider(
