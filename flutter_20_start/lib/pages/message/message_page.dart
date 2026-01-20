@@ -5,6 +5,7 @@ import 'package:flutter_20_start/pages/profile/profile_page.dart';
 import 'package:flutter_20_start/pages/search/search_page.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/widgets/AddStoryField/addStoryField.dart';
+import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/StoryItemField/storyItimeField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -54,28 +55,44 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     final userImage = context.watch<UserProvider>().imageUrl;
     return Scaffold(
+      backgroundColor: Colorsfield.customBlackColorField(),
       appBar: AppBar(
+        backgroundColor: Colorsfield.customBlackColorField(),
         title: Padding(
           padding: const EdgeInsets.only(right: 20),
           child: Column(
             children: [
-              SizedBox(height: 30,),
+              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.search, size: 32),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => SearchPage()),
-                      );
-                    },
+                  CircleAvatar(
+                    backgroundColor: Color(0xff051D13),
+                    radius: 20,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.search,
+                        size: 32,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SearchPage()),
+                        );
+                      },
+                    ),
                   ),
+                  SizedBox(width: 100),
                   const Text(
                     "Home",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
+                  SizedBox(width: 80),
                   IconButton(
                     icon: Consumer<UserProvider>(
                       builder: (context, userProvider, child) {
@@ -83,7 +100,9 @@ class _MessagePageState extends State<MessagePage> {
                             userProvider.imageUrl!.isNotEmpty) {
                           return CircleAvatar(
                             radius: 16,
-                            backgroundImage: NetworkImage(userProvider.imageUrl!),
+                            backgroundImage: NetworkImage(
+                              userProvider.imageUrl!,
+                            ),
                           );
                         } else {
                           return const Icon(FontAwesomeIcons.circleUser);
@@ -107,7 +126,7 @@ class _MessagePageState extends State<MessagePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 40,),
+          SizedBox(height: 40),
           SizedBox(
             height: 120,
             child: ListView.builder(
@@ -153,8 +172,24 @@ class _MessagePageState extends State<MessagePage> {
             ),
           ),
 
-          const Center(
-            child: Text("Message Page", style: TextStyle(fontSize: 18)),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text("Message Page", style: TextStyle(fontSize: 18)),
+                  ),
+                  
+                ],
+              ),
+            ),
           ),
         ],
       ),
