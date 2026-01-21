@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/data/story_data.dart';
 import 'package:flutter_20_start/models/story_models.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/widgets/AddStoryField/addStoryField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/StoryItemField/storyItimeField.dart';
+import 'package:flutter_20_start/widgets/customAppBarFIeld/customAppBarField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:story_view/story_view.dart';
@@ -56,72 +58,8 @@ class _MessagePageState extends State<MessagePage> {
     final userImage = context.watch<UserProvider>().imageUrl;
     return Scaffold(
       backgroundColor: Colorsfield.customBlackColorField(),
-      appBar: AppBar(
-        backgroundColor: Colorsfield.customBlackColorField(),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: Column(
-            children: [
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Color(0xff051D13),
-                    radius: 20,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.search,
-                        size: 32,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => SearchPage()),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 100),
-                  const Text(
-                    "Home",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(width: 80),
-                  IconButton(
-                    icon: Consumer<UserProvider>(
-                      builder: (context, userProvider, child) {
-                        if (userProvider.imageUrl != null &&
-                            userProvider.imageUrl!.isNotEmpty) {
-                          return CircleAvatar(
-                            radius: 16,
-                            backgroundImage: NetworkImage(
-                              userProvider.imageUrl!,
-                            ),
-                          );
-                        } else {
-                          return const Icon(FontAwesomeIcons.circleUser);
-                        }
-                      },
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => ProfilePage()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: const Customappbarfield(title: "Home",
+       showProfileIcon: true,),
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
