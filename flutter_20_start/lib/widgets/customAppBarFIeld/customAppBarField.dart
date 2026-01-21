@@ -6,14 +6,20 @@ import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+  enum AppBarActionType {
+  profile,
+  call,
+  contacts,
+  settings,
+}
 class Customappbarfield extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final bool showProfileIcon;
+  final AppBarActionType actionType;
 
   const Customappbarfield({
     super.key,
     required this.title,
-    this.showProfileIcon = true,
+    required this.actionType,
   });
 
   @override
@@ -61,37 +67,61 @@ class Customappbarfield extends StatelessWidget implements PreferredSizeWidget {
                 ),
 
                 /// 👤 Profile Icon (conditional)
-                showProfileIcon
-                    ? IconButton(
-                        icon: Consumer<UserProvider>(
-                          builder: (context, userProvider, child) {
-                            if (userProvider.imageUrl != null &&
-                                userProvider.imageUrl!.isNotEmpty) {
-                              return CircleAvatar(
-                                radius: 16,
-                                backgroundImage: NetworkImage(
-                                  userProvider.imageUrl!,
-                                ),
-                              );
-                            }
-                            return const Icon(FontAwesomeIcons.circleUser);
-                          },
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const ProfilePage(),
-                            ),
-                          );
-                        },
-                      )
-                    : const SizedBox(width: 40),
+                _buildActionIcon(context),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildActionIcon(BuildContext context) {
+    switch (actionType) {
+      case AppBarActionType.profile:
+        return IconButton(
+          icon: Consumer<UserProvider>(
+            builder: (context, userProvider, child) {
+              if (userProvider.imageUrl != null &&
+                  userProvider.imageUrl!.isNotEmpty) {
+                return CircleAvatar(
+                  radius: 16,
+                  backgroundImage: NetworkImage(userProvider.imageUrl!),
+                );
+              }
+              return const Icon(FontAwesomeIcons.circleUser);
+            },
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ProfilePage()),
+            );
+          },
+        );
+      case AppBarActionType.call:
+        return IconButton(
+          icon: const Icon(Icons.call, color: Colors.white, size: 26),
+          onPressed: () {
+            debugPrint("Call icon pressed");
+          },
+        );
+
+      case AppBarActionType.contacts:
+        return IconButton(
+          icon: const Icon(Icons.contact_page, color: Colors.white, size: 26),
+          onPressed: () {
+            debugPrint("Contacts icon pressed");
+          },
+        );
+
+      case AppBarActionType.settings:
+        return IconButton(
+          icon: const Icon(Icons.settings, color: Colors.white, size: 26),
+          onPressed: () {
+            debugPrint("Settings icon pressed");
+          },
+        );
+    }
   }
 }

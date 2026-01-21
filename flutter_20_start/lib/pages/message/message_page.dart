@@ -58,8 +58,10 @@ class _MessagePageState extends State<MessagePage> {
     final userImage = context.watch<UserProvider>().imageUrl;
     return Scaffold(
       backgroundColor: Colorsfield.customBlackColorField(),
-      appBar: const Customappbarfield(title: "Home",
-       showProfileIcon: true,),
+      appBar: const Customappbarfield(
+        title: "Home",
+        actionType: AppBarActionType.profile,
+      ),
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +126,6 @@ class _MessagePageState extends State<MessagePage> {
                   Center(
                     child: Text("Message Page", style: TextStyle(fontSize: 18)),
                   ),
-                  
                 ],
               ),
             ),
