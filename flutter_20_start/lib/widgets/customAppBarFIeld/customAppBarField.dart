@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_20_start/pages/ContactsList/ContactsListPage.dart';
 import 'package:flutter_20_start/pages/profile/profile_page.dart';
 import 'package:flutter_20_start/pages/search/search_page.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
@@ -111,7 +112,12 @@ class Customappbarfield extends StatelessWidget implements PreferredSizeWidget {
         return IconButton(
           icon: const Icon(Icons.contact_page, color: Colors.white, size: 26),
           onPressed: () {
-            debugPrint("Contacts icon pressed");
+            Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const Contactslistpage(),
+        ),
+      );
           },
         );
 
