@@ -5,6 +5,7 @@ import 'package:flutter_20_start/features/auth/screens/signup_screens.dart';
 import 'package:flutter_20_start/features/bottomNavbar/bottomNavbar_screen.dart';
 import 'package:flutter_20_start/features/splashscreen/splashscreen.dart';
 import 'package:flutter_20_start/onboarding/Onboarding_page.dart';
+import 'package:flutter_20_start/pages/ContactsList/ContactsListPage.dart';
 import 'package:flutter_20_start/pages/calls/call_page.dart';
 import 'package:flutter_20_start/pages/contacts/contact_page.dart';
 import 'package:flutter_20_start/pages/message/message_page.dart';
@@ -51,6 +52,7 @@ class MyWidget extends StatelessWidget {
         "profile": (context) => ProfilePage(),
         "settings": (context) => SettingPage(),
         "search": (context) => SearchPage(),
+        "contactsListPage": (context) => Contactslistpage(),
       },
       debugShowCheckedModeBanner: false,
     );
