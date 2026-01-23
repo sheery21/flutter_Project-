@@ -7,12 +7,8 @@ import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-  enum AppBarActionType {
-  profile,
-  call,
-  contacts,
-  settings,
-}
+enum AppBarActionType { profile, call, contacts, settings }
+
 class Customappbarfield extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final AppBarActionType actionType;
@@ -113,11 +109,9 @@ class Customappbarfield extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.contact_page, color: Colors.white, size: 26),
           onPressed: () {
             Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const Contactslistpage(),
-        ),
-      );
+              context,
+              MaterialPageRoute(builder: (_) => const Contactslistpage()),
+            );
           },
         );
 

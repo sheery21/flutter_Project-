@@ -14,24 +14,27 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colorsfield.customBlackColorField(),
-       appBar: const Customappbarfield(
+      appBar: const Customappbarfield(
         title: "Contscts",
         actionType: AppBarActionType.contacts,
       ),
-      body: Center(
-        child: Expanded(          
-          child: Container(
-            width: MediaQuery.of( context).size.width,
-            height: MediaQuery.of( context).size.height,
-             decoration: BoxDecoration(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
                 ),
               ),
-            child: Center(child: Text("Message Page"))),
-        ),
+              child: Center(child: Text("Message Page")),
+            ),
+          ),
+        ],
       ),
     );
   }

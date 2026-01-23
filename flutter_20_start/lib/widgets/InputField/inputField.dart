@@ -78,7 +78,6 @@ class InputFieldHelper {
           TextField(
             controller: controller,
 
-            
             onChanged: onChanged,
             cursorColor: const Color(0xFF24786D),
             keyboardType: TextInputType.phone,
