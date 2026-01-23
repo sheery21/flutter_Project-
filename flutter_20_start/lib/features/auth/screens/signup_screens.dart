@@ -116,7 +116,7 @@ class _SignupScreensState extends State<SignupScreens> {
         scrollDirection: Axis.vertical,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          // height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(vertical: 50),
           decoration: BoxDecoration(color: Colorsfield.customColorField()),
           child: Column(

@@ -72,7 +72,10 @@ class _StoryitimefieldState extends State<Storyitimefield> {
               ),
             ),
             const SizedBox(height: 6),
-            Text(widget.story.name, style: const TextStyle(fontSize: 16 , color: Colors.white)),
+            Text(
+              widget.story.name,
+              style: const TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ],
         ),
       ),
