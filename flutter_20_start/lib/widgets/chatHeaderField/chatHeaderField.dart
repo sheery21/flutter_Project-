@@ -22,10 +22,11 @@ class ChatHeader extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(userProvider != null ? userProvider.name! : "User Name"),
                 Text(
-                  userProvider.isOnline ? " (Online)" : " (Offline)",
+                  userProvider.isOnline ? " Active now" : " (Offline)",
                   style: TextStyle(
                     fontSize: 12,
                     color: userProvider.isOnline ? Colors.green : Colors.red,
