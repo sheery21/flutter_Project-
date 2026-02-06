@@ -24,6 +24,8 @@ class FirestoreService {
         'address': address,
         'imageUrl': imageUrl,
         'createdAt': FieldValue.serverTimestamp(),
+        'lastSeen': FieldValue.serverTimestamp(),
+        'isOnline': true,
       });
     } catch (e) {
       throw 'Failed to save user data: $e';
@@ -73,6 +75,31 @@ class FirestoreService {
 
     if (data.isNotEmpty) {
       await _firestore.collection('users').doc(uid).update(data);
+    }
+  }
+
+  Future<void> setUserOnline(String uid) async {
+    try {
+      await _firestore.collection('users').doc(uid).update({
+        "isOnline": true,
+        "lastSeen": FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> setUserOffline() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await _firestore.collection('users').doc(uid).update({
+          "isOnline": false,
+          "lastSeen": FieldValue.serverTimestamp(),
+        });
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }

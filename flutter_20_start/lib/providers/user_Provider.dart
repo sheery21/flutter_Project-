@@ -10,7 +10,7 @@ class UserProvider extends ChangeNotifier {
   String? _imageUrl;
   String? _phoneNumber;
   String? _address;
-
+  bool _isOnline = false;
   // 🔹 Getters
   User? get user => _user;
   String? get email => _email;
@@ -19,7 +19,7 @@ class UserProvider extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   String? get phoneNumber => _phoneNumber;
   String? get address => _address;
-
+  bool get isOnline => _isOnline;
   // 🔹 Initial set (Signup / Login)
   void setUser({
     required User user,
@@ -29,6 +29,7 @@ class UserProvider extends ChangeNotifier {
     String? imageUrl,
     String? phoneNumber,
     String? address,
+    bool isOnline = false,
   }) {
     _user = user;
     _email = email;
@@ -37,6 +38,7 @@ class UserProvider extends ChangeNotifier {
     _imageUrl = imageUrl;
     _phoneNumber = phoneNumber;
     _address = address;
+    _isOnline = isOnline;
     notifyListeners();
   }
 
@@ -49,6 +51,7 @@ class UserProvider extends ChangeNotifier {
     String? imageUrl,
     String? phoneNumber,
     String? address,
+    bool isOnline = false,
   }) {
     _user = FirebaseAuth.instance.currentUser;
     _email = email;
@@ -57,6 +60,7 @@ class UserProvider extends ChangeNotifier {
     _imageUrl = imageUrl;
     _phoneNumber = phoneNumber;
     _address = address;
+    _isOnline = isOnline;
     notifyListeners();
   }
 
@@ -78,6 +82,11 @@ class UserProvider extends ChangeNotifier {
 
   void updateImage(String imageUrl) {
     _imageUrl = imageUrl;
+    notifyListeners();
+  }
+
+  void updateOnlineStatus(bool isOnline) {
+    _isOnline = isOnline;
     notifyListeners();
   }
 

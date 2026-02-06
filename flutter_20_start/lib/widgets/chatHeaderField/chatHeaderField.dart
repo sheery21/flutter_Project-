@@ -21,7 +21,18 @@ class ChatHeader extends StatelessWidget {
                   : const AssetImage("assets/default_profile.png"),
             ),
             const SizedBox(width: 10),
-            Text(userProvider != null ? userProvider.name! : "User Name"),
+            Column(
+              children: [
+                Text(userProvider != null ? userProvider.name! : "User Name"),
+                Text(
+                  userProvider.isOnline ? " (Online)" : " (Offline)",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: userProvider.isOnline ? Colors.green : Colors.red,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

@@ -50,6 +50,7 @@ class _LoginScreensState extends State<LoginScreens> {
       });
     }
 
+    final FirestoreService _firestoreService = FirestoreService();
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -158,6 +159,7 @@ class _LoginScreensState extends State<LoginScreens> {
                     );
 
                     if (user != null) {
+                      await _firestoreService.setUserOnline(user.uid);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Login Successful!")),
                       );

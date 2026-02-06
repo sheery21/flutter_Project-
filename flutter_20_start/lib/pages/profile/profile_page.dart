@@ -195,6 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       await AuthService().logOut();
                       userProvider.clearUser();
                       await LocalStorageService.clear();
+                      await FirestoreService().setUserOffline();
                       Navigator.pushReplacementNamed(context, '/login');
                     },
                     child: const Text("LOG OUT"),
