@@ -79,9 +79,30 @@ class _ContactslistpageState extends State<Contactslistpage> {
                         : "No Name",
                   ),
                   subtitle: Text(phone),
+                  onTap: () {
+                    sendContactRequest(
+                      name: contact.displayName,
+                      phone: contact.phones.isNotEmpty
+                          ? contact.phones.first.number
+                          : "No Number",
+                    );
+                  },
                 );
               },
             ),
+    );
+  }
+
+  void sendContactRequest({required String name, required String phone}) {
+    debugPrint("Request sent to:");
+    debugPrint("Name: $name");
+    debugPrint("Phone: $phone");
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Contact request sent to $name"),
+        duration: const Duration(seconds: 2),
+      ),
     );
   }
 }

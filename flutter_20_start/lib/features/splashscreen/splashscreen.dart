@@ -10,6 +10,7 @@ import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
 import 'package:flutter_20_start/widgets/ColorsField/colorsField.dart';
 import 'package:flutter_20_start/widgets/TextStyleField/TextStyleField.dart';
+import 'package:flutter_20_start/widgets/chatHeaderField/chatHeaderField.dart';
 import 'package:provider/provider.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              BottomnavbarScreen(),
+              ChatHeader(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(opacity: animation, child: child);
