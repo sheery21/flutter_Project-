@@ -18,7 +18,7 @@ class ChatHeader extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              
+
               children: [
                 Stack(
                   children: [
