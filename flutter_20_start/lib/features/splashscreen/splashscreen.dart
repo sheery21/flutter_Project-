@@ -5,6 +5,7 @@ import 'package:flutter_20_start/features/auth/screens/login_screens.dart';
 import 'package:flutter_20_start/features/auth/screens/signup_screens.dart';
 import 'package:flutter_20_start/features/bottomNavbar/bottomNavbar_screen.dart';
 import 'package:flutter_20_start/onboarding/Onboarding_page.dart';
+import 'package:flutter_20_start/pages/chatPage/chatPage.dart';
 import 'package:flutter_20_start/providers/user_Provider.dart';
 import 'package:flutter_20_start/services/local_storage_service.dart';
 import 'package:flutter_20_start/widgets/ButtonField/butttonField.dart';
@@ -39,7 +40,7 @@ class _SplashscreenState extends State<Splashscreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              ChatHeader(),
+              Chatpage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(opacity: animation, child: child);

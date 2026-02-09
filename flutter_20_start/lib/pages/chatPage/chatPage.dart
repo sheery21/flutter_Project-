@@ -13,7 +13,31 @@ class _ChatpageState extends State<Chatpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChatHeader(),
-      body: Container(),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Center(
+            //   child: Container(
+            //     height: 90,
+            //     width: 300,
+            //     color: Colors.green,
+            //     child: Center(child: Text("hello")),
+            //   ),
+            // ),
+            // Center(
+            //   child: Container(
+            //     height: 90,
+            //     width: 300,
+            //     color: Colors.amber,
+            //     child: Center(child: Text("hello")),
+            //   ),
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
