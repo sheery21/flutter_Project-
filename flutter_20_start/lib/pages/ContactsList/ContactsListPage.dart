@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_20_start/pages/chatPage/chatPage.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -80,11 +81,20 @@ class _ContactslistpageState extends State<Contactslistpage> {
                   ),
                   subtitle: Text(phone),
                   onTap: () {
-                    sendContactRequest(
-                      name: contact.displayName,
-                      phone: contact.phones.isNotEmpty
-                          ? contact.phones.first.number
-                          : "No Number",
+                    final receiverId = phone;
+                    final chatId = generateChatId("USER_123", receiverId);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => Chatpage(
+                          chatId: chatId,
+                          receiverId: receiverId,
+                          receiverName: contact.displayName,
+                          receiverImage:
+                              "", // contacts mein image nahi hoti usually
+                        ),
+                      ),
                     );
                   },
                 );
@@ -104,5 +114,9 @@ class _ContactslistpageState extends State<Contactslistpage> {
         duration: const Duration(seconds: 2),
       ),
     );
+  }
+
+  String generateChatId(String uid1, String uid2) {
+    return uid1.compareTo(uid2) < 0 ? "${uid1}_$uid2" : "${uid2}_$uid1";
   }
 }

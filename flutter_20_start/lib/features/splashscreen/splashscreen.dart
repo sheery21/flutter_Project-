@@ -39,8 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              Chatpage(),
+          pageBuilder: (context, animation, secondaryAnimation) => BottomnavbarScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
             return FadeTransition(opacity: animation, child: child);

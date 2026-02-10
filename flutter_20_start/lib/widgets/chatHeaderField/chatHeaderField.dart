@@ -5,7 +5,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
-  const ChatHeader({super.key});
+  final String name;
+  final String imageUrl;
+  final bool isOnline;
+
+  const ChatHeader({
+    super.key,
+    required this.name,
+    required this.imageUrl,
+    required this.isOnline,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(120);
@@ -29,7 +38,8 @@ class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
                       radius: 25,
                       backgroundImage: userProvider != null
                           ? NetworkImage(userProvider.imageUrl!)
-                          : const AssetImage("assets/default_profile.png"),
+                          : const AssetImage("assets/default_profile.png")
+                                as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,
@@ -38,9 +48,7 @@ class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
                         width: 12,
                         height: 12,
                         decoration: BoxDecoration(
-                          color: userProvider.isOnline
-                              ? Colors.green
-                              : Colors.red,
+                          color: isOnline ? Colors.green : Colors.red,
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
@@ -53,12 +61,10 @@ class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      userProvider != null ? userProvider.name! : "User Name",
-                    ),
+                    Text(name, style: const TextStyle(color: Colors.black)),
                     SizedBox(height: 2),
                     Text(
-                      userProvider.isOnline ? "Active now" : "Offline",
+                      isOnline ? "Active now" : "Offline",
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ],
