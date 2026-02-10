@@ -18,15 +18,18 @@ class ChatService {
     required String receiverId,
     required String text,
   }) async {
-    await _firestore
-        .collection("chats")
-        .doc(chatId)
-        .collection("messages")
-        .add({
-          "text": text,
-          "senderId": senderId,
-          "receiverId": receiverId,
-          "timeStamp": FieldValue.serverTimestamp(),
-        });
+    final chatRef = _firestore.collection("chats").doc(chatId);
+    await chatRef.collection("messages").add({
+      "text": text,
+      "senderId": senderId,
+      "receiverId": receiverId,
+      "timeStamp": FieldValue.serverTimestamp(),
+    });
+    await chatRef.set({
+      "users": [senderId, receiverId],
+      "lastMessage": text,
+      "lastMessageSender": senderId,
+      "lastMessageTime": FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
   }
 }

@@ -25,6 +25,18 @@ class _ChatpageState extends State<Chatpage> {
   final ChatService chatService = ChatService();
 
   final String currentUserId = "USER_123";
+
+  String _formatTime(Timestamp timestamp) {
+    final date = timestamp.toDate();
+    return "${date.hour}:${date.minute.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
