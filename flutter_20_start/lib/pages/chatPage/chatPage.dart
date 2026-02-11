@@ -25,13 +25,8 @@ class _ChatpageState extends State<Chatpage> {
   final TextEditingController messageController = TextEditingController();
   final ChatService chatService = ChatService();
 
-  String genarateChatId(String user1, String user2) {
-    List<String> ids = [user1, user2];
-    ids.sort();
-    return ids.join();
-  }
-
-  String get currentUserId => FirebaseAuth.instance.currentUser!.uid;
+  final String currentUserId = "USER_123";
+  // String get currentUserId => FirebaseAuth.instance.currentUser!.uid;
 
   String _formatTime(Timestamp timestamp) {
     final date = timestamp.toDate();
