@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_20_start/services/chat_service.dart';
 import 'package:flutter_20_start/widgets/chatHeaderField/chatHeaderField.dart';
@@ -24,7 +25,13 @@ class _ChatpageState extends State<Chatpage> {
   final TextEditingController messageController = TextEditingController();
   final ChatService chatService = ChatService();
 
-  final String currentUserId = "USER_123";
+  String genarateChatId(String user1, String user2) {
+    List<String> ids = [user1, user2];
+    ids.sort();
+    return ids.join();
+  }
+
+  String get currentUserId => FirebaseAuth.instance.currentUser!.uid;
 
   String _formatTime(Timestamp timestamp) {
     final date = timestamp.toDate();

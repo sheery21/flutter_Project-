@@ -1,7 +1,6 @@
-
 import 'package:flutter_12_start/Model/category_model.dart';
 
-List<CategoryModel> getCategories(){
+List<CategoryModel> getCategories() {
   List<CategoryModel> categories = [];
   CategoryModel categoryModel = new CategoryModel();
 
@@ -62,4 +61,3 @@ List<CategoryModel> getCategories(){
 
   return categories;
 }
-

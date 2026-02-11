@@ -1,7 +1,6 @@
-
 import 'package:flutter_12_start/Model/burger_model.dart';
 
-List<BurgerModel> getBurger(){
+List<BurgerModel> getBurger() {
   List<BurgerModel> burger = [];
   BurgerModel burgerModel = new BurgerModel();
 
@@ -31,11 +30,9 @@ List<BurgerModel> getBurger(){
   burgerModel.description = "Cheddar cheese, BBQ sauce, lettuce,";
   burgerModel.ingredients = "\$13.99";
 
-
   burger.add(burgerModel);
 
   burgerModel = new BurgerModel();
 
   return burger;
 }
-

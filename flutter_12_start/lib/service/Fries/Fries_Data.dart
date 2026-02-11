@@ -1,7 +1,6 @@
-
 import 'package:flutter_12_start/Model/Fries_model.dart';
 
-List<FriesModel> getFries(){
+List<FriesModel> getFries() {
   List<FriesModel> fries = [];
   FriesModel friesModel = new FriesModel();
 
@@ -36,4 +35,3 @@ List<FriesModel> getFries(){
 
   return fries;
 }
-
