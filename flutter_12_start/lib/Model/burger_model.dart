@@ -1,7 +1,7 @@
-class BurgerModel{
-  String ? name;
-  String ? image;
-  String ? price;
-  String ? description;
-  String ? ingredients;
+class BurgerModel {
+  String? name;
+  String? image;
+  String? price;
+  String? description;
+  String? ingredients;
 }

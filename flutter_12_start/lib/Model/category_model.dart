@@ -1,4 +1,4 @@
-class CategoryModel{
-  String ? image;
-  String ? name;
+class CategoryModel {
+  String? image;
+  String? name;
 }

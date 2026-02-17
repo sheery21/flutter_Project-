@@ -1,4 +1,4 @@
-class FriesModel{
+class FriesModel {
   String? name;
   String? image;
   String? price;
