@@ -1,7 +1,10 @@
 // import 'dart:ui_web';
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_21_start/counter_controller.dart';
+import 'package:flutter_21_start/image_picker_controller.dart';
 import 'package:flutter_21_start/screen_one.dart';
 // import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
@@ -15,8 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final CounterController controller = Get.put(CounterController());
+  final ImagePickerController imageController = Get.put(
+    ImagePickerController(),
+  );
   double opacity = .4;
   bool notification = false;
+
   @override
   Widget build(BuildContext context) {
     print('rebuild');
@@ -121,6 +128,61 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            // SizedBox(
+            //   height: 150,
+            //   child: ListView.builder(
+            //     itemCount: controller.fruitList.length,
+            //     itemBuilder: (context, index) {
+            //       return Card(
+            //         child: ListTile(
+            //           onTap: () {
+            //             if (controller.tempFruitList.contains(
+            //               controller.fruitList[index].toString(),
+            //             )) {
+            //               controller.removeFromFavourit(
+            //                 controller.fruitList[index].toString(),
+            //               );
+            //             } else {
+            //               controller.addToFavourit(
+            //                 controller.fruitList[index].toString(),
+            //               );
+            //             }
+            //           },
+            //           title: Text(controller.fruitList[index].toString()),
+            //           trailing: Obx(
+            //             () => Icon(
+            //               Icons.favorite,
+            //               color:
+            //                   controller.tempFruitList.contains(
+            //                     controller.fruitList[index].toString(),
+            //                   )
+            //                   ? Colors.red
+            //                   : Colors.white,
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+
+            Obx(() {
+              return Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: imageController.imagePath.isNotEmpty
+                        ? FileImage(File(imageController.imagePath.toString()))
+                        : null,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      imageController.getImage();
+                    },
+                    child: Text("Pick Image"),
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       ),
