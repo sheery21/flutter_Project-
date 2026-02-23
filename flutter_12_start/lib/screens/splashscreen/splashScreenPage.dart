@@ -12,8 +12,6 @@ class SplashscreenPage extends StatefulWidget {
 }
 
 class _SplashscreenPageState extends State<SplashscreenPage> {
-
-
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3), () {
@@ -24,26 +22,26 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
               Statedloginpage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             // Fade effect
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return FadeTransition(opacity: animation, child: child);
           },
           transitionDuration: Duration(milliseconds: 800), // speed control
         ),
       );
     });
 
-
     return Scaffold(
-      body: Container(child: Column(children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: UiHelper.CustomImage(imagePath: 'boarbwalk-background.jpg' ),
-        )
-      ],
-      ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: UiHelper.CustomImage(
+                imagePath: 'boarbwalk-background.jpg',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -77,7 +77,8 @@ class _OffersState extends State<OffersPage> {
                               children: [
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '20% off your',
@@ -96,26 +97,35 @@ class _OffersState extends State<OffersPage> {
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.star,
-                                        color: Color(0xFFFCD151), size: 18),
+                                    const Icon(
+                                      Icons.star,
+                                      color: Color(0xFFFCD151),
+                                      size: 18,
+                                    ),
                                     const SizedBox(width: 4),
-                                    Text('4.8',
-                                        style: UiHelper.blackTextFeildStyle()),
+                                    Text(
+                                      '4.8',
+                                      style: UiHelper.blackTextFeildStyle(),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
 
                             const SizedBox(height: 5),
-                            Text('Double Cheese Combo',
-                                style: UiHelper.ShortTextFeildStyle()),
+                            Text(
+                              'Double Cheese Combo',
+                              style: UiHelper.ShortTextFeildStyle(),
+                            ),
                             const SizedBox(height: 10),
 
                             // Price & Button
                             Row(
                               children: [
-                                Text('\$12.99',
-                                    style: UiHelper.blueTextFeildStyle()),
+                                Text(
+                                  '\$12.99',
+                                  style: UiHelper.blueTextFeildStyle(),
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: ElevatedButton(
@@ -131,7 +141,7 @@ class _OffersState extends State<OffersPage> {
                                         gradient: const LinearGradient(
                                           colors: [
                                             Color(0xFF366190),
-                                            Color(0xFF2D7ED7)
+                                            Color(0xFF2D7ED7),
                                           ],
                                         ),
                                         borderRadius: BorderRadius.circular(50),
@@ -141,8 +151,7 @@ class _OffersState extends State<OffersPage> {
                                         height: 40,
                                         child: Text(
                                           'Order Now',
-                                          style:
-                                          UiHelper.witeTextFeildStyle(),
+                                          style: UiHelper.witeTextFeildStyle(),
                                         ),
                                       ),
                                     ),
@@ -161,8 +170,7 @@ class _OffersState extends State<OffersPage> {
               const SizedBox(height: 20),
 
               // Ad Free Header
-              Text('Ad-Free Experience',
-                  style: UiHelper.blackTextFeildStyle()),
+              Text('Ad-Free Experience', style: UiHelper.blackTextFeildStyle()),
               const SizedBox(height: 15),
 
               // Ad-Free Section
@@ -193,25 +201,28 @@ class _OffersState extends State<OffersPage> {
                     const Text(
                       'Subscribe to get an ad-free experience and',
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF6B7280)),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF6B7280),
+                      ),
                     ),
                     const SizedBox(height: 5),
                     const Text(
                       'unlock premium features without',
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF6B7280)),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF6B7280),
+                      ),
                     ),
                     const SizedBox(height: 5),
                     const Text(
                       'interruptions',
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF6B7280)),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF6B7280),
+                      ),
                     ),
                     const SizedBox(height: 20),
 

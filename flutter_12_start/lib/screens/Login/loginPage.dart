@@ -88,9 +88,17 @@ class _LoginPageState extends State<LoginPage> {
               left: 220,
               child: Row(
                 children: [
-                  UiHelper.CustomTextButton(text: 'Forgot your password?', callback: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Resetpassword()));
-                  })
+                  UiHelper.CustomTextButton(
+                    text: 'Forgot your password?',
+                    callback: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Resetpassword(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -99,7 +107,12 @@ class _LoginPageState extends State<LoginPage> {
               left: 30,
               child: UiHelper.CustomButton(
                 callback: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Bottomnav(startIndex: 0,)));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Bottomnav(startIndex: 0),
+                    ),
+                  );
                 },
                 buttonName: 'Login',
               ),
@@ -157,8 +170,11 @@ class _LoginPageState extends State<LoginPage> {
                     style: UiHelper.blackTextFeildStyle(),
                   ),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignupPage()));
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupPage()),
+                      );
                     },
                     child: Text(
                       'Create now.',

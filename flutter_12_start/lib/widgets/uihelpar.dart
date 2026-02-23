@@ -40,6 +40,7 @@ class UiHelper {
       ),
     );
   }
+
   static CustomWhiteTextField({
     required TextEditingController controller,
     required String text,
@@ -47,7 +48,7 @@ class UiHelper {
   }) {
     return Container(
       height: 44,
-      width:  345,
+      width: 345,
       decoration: BoxDecoration(
         color: Color(0xFFF3F4F6),
         borderRadius: BorderRadius.circular(10),
@@ -57,20 +58,10 @@ class UiHelper {
         controller: controller,
         decoration: InputDecoration(
           hintText: text,
-          hintStyle: TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-          ),
+          hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
           prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 10,
-            ),
-            child: Icon(
-              Icons.search,
-              color: Color(0XFF8E8E93),
-              size: 20,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+            child: Icon(Icons.search, color: Color(0XFF8E8E93), size: 20),
           ),
           isDense: true,
           contentPadding: EdgeInsets.symmetric(vertical: 10),
@@ -131,6 +122,7 @@ class UiHelper {
       fit: fit,
     );
   }
+
   static Widget CustomRadiusImage({
     required String imagePath,
     double? height,
@@ -142,17 +134,18 @@ class UiHelper {
     double bottomRight = 0,
   }) {
     return ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(topLeft),
-          topRight: Radius.circular(topRight),
-          bottomLeft: Radius.circular(bottomLeft),
-          bottomRight: Radius.circular(bottomRight),
-        ),child: Image.asset(
-      'assets/images/${imagePath}',
-      height: height,
-      width: width,
-      fit: fit,
-    ),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(topLeft),
+        topRight: Radius.circular(topRight),
+        bottomLeft: Radius.circular(bottomLeft),
+        bottomRight: Radius.circular(bottomRight),
+      ),
+      child: Image.asset(
+        'assets/images/${imagePath}',
+        height: height,
+        width: width,
+        fit: fit,
+      ),
     );
   }
 
@@ -288,6 +281,7 @@ class UiHelper {
       fontFamily: 'Poppins',
     );
   }
+
   static TextStyle boldBlackTextFeildStyle() {
     return TextStyle(
       color: Color(0xFF32343E),
@@ -296,7 +290,6 @@ class UiHelper {
       fontFamily: 'Poppins',
     );
   }
-
 
   static TextStyle witeTextFeildStyle() {
     return TextStyle(
@@ -315,6 +308,7 @@ class UiHelper {
       fontFamily: 'Poppins',
     );
   }
+
   static TextStyle boldDailyDealsTextFeildStyle() {
     return TextStyle(
       color: Color(0xFF212121),
@@ -323,6 +317,7 @@ class UiHelper {
       fontFamily: 'Poppins',
     );
   }
+
   static TextStyle ShortTextFeildStyle() {
     return TextStyle(
       color: Color(0xFF6B7280),
@@ -336,7 +331,7 @@ class UiHelper {
     required String text,
     required bool tohide,
     TextInputType textInputType = TextInputType.number,
-    int maxLength = 2
+    int maxLength = 2,
   }) {
     return Container(
       height: 48,
@@ -376,7 +371,11 @@ class UiHelper {
                 ),
               ),
             ),
-            Icon(Icons.keyboard_arrow_down_outlined ,color: Color(0xFFAFAFAF), size: 16,)
+            Icon(
+              Icons.keyboard_arrow_down_outlined,
+              color: Color(0xFFAFAFAF),
+              size: 16,
+            ),
           ],
         ),
       ),

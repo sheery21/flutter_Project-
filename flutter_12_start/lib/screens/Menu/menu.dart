@@ -44,8 +44,10 @@ class _OderMenuState extends State<OderMenu> {
             const SizedBox(height: 15),
             Expanded(
               child: GridView.builder(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
                 itemCount: widget.categories.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // 2 column
@@ -57,7 +59,13 @@ class _OderMenuState extends State<OderMenu> {
                   final category = widget.categories[index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CatgorTile( categoryName: category.name!)));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CatgorTile(categoryName: category.name!),
+                        ),
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
