@@ -128,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+
             // SizedBox(
             //   height: 150,
             //   child: ListView.builder(
@@ -165,7 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
             //     },
             //   ),
             // ),
-
             Obx(() {
               return Column(
                 children: [
