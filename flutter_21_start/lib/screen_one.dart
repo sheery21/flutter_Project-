@@ -6,7 +6,7 @@ import 'package:get/state_manager.dart';
 
 class ScreenOne extends StatefulWidget {
   var name;
-   ScreenOne({super.key, this.name});
+  ScreenOne({super.key, this.name});
 
   @override
   State<ScreenOne> createState() => _ScreenOneState();
