@@ -201,14 +201,14 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 20),
 
               InkWell(
-                onTap: (){
+                onTap: () {
                   loginController.loginApi();
                 },
                 child: Container(
                   height: 45,
                   decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(23)
+                    color: Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(23),
                   ),
                   child: Center(child: Text("logIn")),
                 ),

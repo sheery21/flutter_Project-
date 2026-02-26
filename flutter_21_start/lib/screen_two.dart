@@ -19,7 +19,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
+          Center(                             
             child: TextButton(
               onPressed: () {
                 Get.to(HomeScreen());
