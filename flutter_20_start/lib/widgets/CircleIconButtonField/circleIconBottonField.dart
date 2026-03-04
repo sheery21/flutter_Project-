@@ -28,7 +28,7 @@ class CircleIconButton extends StatelessWidget {
       iconWidget = Transform.scale(scaleX: -1, child: iconWidget);
     }
     return InkWell(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(50),      
       onTap: onTap,
       child: CircleAvatar(
         radius: radius,
