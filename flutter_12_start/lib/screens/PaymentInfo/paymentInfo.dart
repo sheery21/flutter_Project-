@@ -44,18 +44,19 @@ class _PaymentinfoState extends State<Paymentinfo> {
                 ),
                 SizedBox(height: 25),
                 DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(10),
-                  color: const Color(0xFF6B7280),
-                  strokeWidth: 1.5,
-                  dashPattern: [3, 3],
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
+                  options: RoundedRectDottedBorderOptions(
+                    radius: const Radius.circular(10),
+                    color: const Color(0xFF6B7280),
+                    strokeWidth: 1.5,
+                    dashPattern: const [3, 3],
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
                     height: 80,
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(Icons.add, color: Color(0xFF6B7280)),
                           SizedBox(width: 5),
                           Text(
