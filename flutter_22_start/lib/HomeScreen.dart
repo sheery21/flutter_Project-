@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final prefs =  await SharedPreferences.getInstance();
 
                   prefs.setString(KEYNAME, name);
-                  setState(() {});
+                  getValue();
                 },
                 child: Text("Submit", style: TextStyle(fontSize: 20)),
               ),
