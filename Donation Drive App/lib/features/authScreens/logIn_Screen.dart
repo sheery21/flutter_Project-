@@ -10,41 +10,54 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-TextEditingController controller = TextEditingController();
-String text = "Email";
-bool tohide = true;
+final TextEditingController controller = TextEditingController();
+
+bool tohide = false;
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFFF8F9FA)
-        ),
+        decoration: BoxDecoration(color: Color(0xFFF8F9FA)),
         width: MediaQuery.of(context).size.width,
-        child:
-         Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset("assets/images/ContainerLogin.png"),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Text("Welcome Back", style: TextStyleField.Heading_1()),
-            SizedBox(height: 8,),
-            Text("Sign in to access your admin dashboard", style: ShortTextField.Heading_1()),
-            SizedBox(height: 25,),
+            SizedBox(height: 8),
+            Text(
+              "Sign in to access your admin dashboard",
+              style: ShortTextField.Heading_1(),
+            ),
+            SizedBox(height: 25),
             Container(
-              width: 300,
-              height: 50,
+              width: 350,
+
               decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
-              child:Column(children: [
-                 LoginInputfield.AdminEmail(
-                controller: controller,
-                text: text,
-                tohide: tohide,
+              child: Padding(
+                padding: const EdgeInsets.all(22),
+                child: Column(
+                  children: [
+                    LoginInputfield.AdminEmail(
+                      controller: controller,
+                      labeltext : "Email Address",
+                      text: "admin@example.com",
+                      tohide: tohide,
+                    ),
+                    SizedBox(height: 20,),
+                    LoginInputfield.AdminPassword(
+                      controller: controller,
+                      labeltext : "Email Address",
+                      text: "admin@example.com",
+                      tohide: tohide,
+                    ),
+                  ],
+                ),
               ),
-              ],)
             ),
           ],
         ),
