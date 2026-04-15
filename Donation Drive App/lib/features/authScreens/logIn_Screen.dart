@@ -1,3 +1,4 @@
+import 'package:donation_drive/widgets/ButtonsField/loginButtonField.dart';
 import 'package:donation_drive/widgets/InputField/logIn_InputField.dart';
 import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 final TextEditingController controller = TextEditingController();
 
 bool tohide = false;
+bool isHidden = true;
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
@@ -53,8 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: controller,
                       labeltext: "Password",
                       text: "Enter your password",
-                      tohide: tohide,
+                      tohide: isHidden,
+                      onToggle: () => setState(() { isHidden = !isHidden;}),
                     ),
+                    SizedBox(height: 20),
+                    Buttonsfield.Loginbuttonfield(text: "Sign In", onPressed: (){
+                      print(controller.text);
+                    })
                   ],
                 ),
               ),

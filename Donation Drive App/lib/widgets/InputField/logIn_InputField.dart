@@ -21,20 +21,21 @@ class LoginInputfield {
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(                                                                                                                                                                                                                                            
+        TextFormField(
           controller: controller,
           obscureText: tohide,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: text,
-            focusColor: Color.fromARGB(255, 229, 229, 231),
+            fillColor: Color(0xFFF8F9FA),
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
 
             // labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xFF717182), width: 2),  
+              borderSide: BorderSide(color: Color.fromARGB(255, 27, 79, 131)),
+              //  borderSide: BorderSide.none,
             ),
 
             prefixIcon: Opacity(
@@ -58,6 +59,7 @@ class LoginInputfield {
     required String text,
     required String labeltext,
     required bool tohide,
+    required VoidCallback onToggle,
     String? errorText,
   }) {
     return Column(
@@ -77,6 +79,8 @@ class LoginInputfield {
           obscureText: tohide,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
+            fillColor: Color(0xFFF8F9FA),
+            filled: true,
             labelText: text, // ✅ label
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -92,6 +96,11 @@ class LoginInputfield {
                 opacity: 0.5,
                 child: FaIcon(FontAwesomeIcons.lock, size: 18),
               ),
+            ),
+
+            suffixIcon: IconButton(
+              onPressed: onToggle,
+              icon: Icon(tohide ? Icons.visibility_off : Icons.visibility  , color: Colors.grey,),
             ),
 
             errorText: errorText,
