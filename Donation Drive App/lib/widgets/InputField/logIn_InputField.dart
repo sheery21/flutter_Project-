@@ -21,23 +21,28 @@ class LoginInputfield {
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
+        TextFormField(                                                                                                                                                                                                                                            
           controller: controller,
           obscureText: tohide,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: text, // ✅ label
+            hintText: text,
+            focusColor: Color.fromARGB(255, 229, 229, 231),
+            filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
 
+            // labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.blue, width: 2),
+              borderSide: BorderSide(color: Color(0xFF717182), width: 2),  
             ),
 
-            prefixIcon: Padding(
-              padding: const EdgeInsets.all(15),
-              child: FaIcon(FontAwesomeIcons.envelope, size: 18),
+            prefixIcon: Opacity(
+              opacity: 0.5,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: FaIcon(FontAwesomeIcons.envelope, size: 18),
+              ),
             ),
 
             errorText: errorText,
@@ -83,7 +88,10 @@ class LoginInputfield {
 
             prefixIcon: Padding(
               padding: const EdgeInsets.all(15),
-              child: FaIcon(FontAwesomeIcons.envelope, size: 18),
+              child: Opacity(
+                opacity: 0.5,
+                child: FaIcon(FontAwesomeIcons.lock, size: 18),
+              ),
             ),
 
             errorText: errorText,

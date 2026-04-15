@@ -44,15 +44,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     LoginInputfield.AdminEmail(
                       controller: controller,
-                      labeltext : "Email Address",
+                      labeltext: "Email Address",
                       text: "admin@example.com",
                       tohide: tohide,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20),
                     LoginInputfield.AdminPassword(
                       controller: controller,
-                      labeltext : "Email Address",
-                      text: "admin@example.com",
+                      labeltext: "Password",
+                      text: "Enter your password",
                       tohide: tohide,
                     ),
                   ],
