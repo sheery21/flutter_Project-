@@ -7,7 +7,13 @@ class Remembermefield {
   }) {
     return Row(
       children: [
-        Checkbox(value: value, onChanged: onChanged),
+        Checkbox(
+          value: value,
+          onChanged: onChanged,
+          activeColor: Colors.blue,
+          checkColor: Colors.white,
+          side: BorderSide(color: Color(0xFFCCCCCC)),
+        ),
         GestureDetector(
           onTap: () {
             onChanged(!value);
@@ -16,10 +22,9 @@ class Remembermefield {
             "Remember me",
             style: TextStyle(
               fontFamily: "Inter",
-              color: Color(0xFF0A0A0A),
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              decoration: TextDecoration.underline,
+              color: Color(0xFF717182),
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

@@ -25,18 +25,23 @@ class LoginInputfield {
           controller: controller,
           obscureText: tohide,
           keyboardType: TextInputType.emailAddress,
+
           decoration: InputDecoration(
             hintText: text,
             fillColor: Color(0xFFF8F9FA),
             filled: true,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
 
-            // labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color.fromARGB(255, 27, 79, 131)),
-              //  borderSide: BorderSide.none,
+              borderSide: BorderSide(color: Color.fromARGB(255, 226, 226, 228), width: 1),
             ),
+
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Colors.blue, width: 2),
+            ),
+
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
 
             prefixIcon: Opacity(
               opacity: 0.5,
@@ -81,14 +86,24 @@ class LoginInputfield {
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             fillColor: Color(0xFFF8F9FA),
-          hintText: text,
+            hintText: text,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
 
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.blue, width: 2),
+              borderSide: const BorderSide(color: Colors.black, width: 2),
+            ),
+
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Color.fromARGB(255, 226, 226, 228), width: 1),
+            ),
+
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Colors.blue, width: 2),
             ),
 
             prefixIcon: Padding(
@@ -101,7 +116,10 @@ class LoginInputfield {
 
             suffixIcon: IconButton(
               onPressed: onToggle,
-              icon: Icon(tohide ? Icons.visibility_off : Icons.visibility  , color: Colors.grey,),
+              icon: Icon(
+                tohide ? Icons.visibility_off : Icons.visibility,
+                color: Colors.grey,
+              ),
             ),
 
             errorText: errorText,

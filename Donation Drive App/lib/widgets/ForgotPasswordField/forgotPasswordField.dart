@@ -12,9 +12,8 @@ class Forgotpasswordfield {
           style: TextStyle(
             fontFamily: "Inter",
             color: ColorsField.MainColorField(),
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            decoration: TextDecoration.underline,
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
