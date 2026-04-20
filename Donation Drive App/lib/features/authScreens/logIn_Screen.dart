@@ -6,6 +6,7 @@ import 'package:donation_drive/widgets/RememberMeField/rememberMeField.dart';
 import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,8 +21,26 @@ final TextEditingController passwordController = TextEditingController();
 bool tohide = false;
 bool isHidden = true;
 bool isRemember = false;
+const String ISLOGGEDIN = "";
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  void checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool(ISLOGGEDIN) ?? false;
+    if (isLoggedIn) {
+      // Navigator.pushReplacementNamed(context, "/dashboard");
+      print("User is already logged in");
+    } else {
+      print("User is not logged in");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,15 +127,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () async {
                             String email = EmailController.text.trim();
                             String password = passwordController.text.trim();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
 
-                            
-
-                            if (EmailController.text == "admin@example.com"  && passwordController.text == "admin123") {
-                             await prefs
+                            if (EmailController.text == "admin@exam```3ple.com" &&
+                                passwordController.text == "admin123") {
+                              await prefs.setBool(ISLOGGEDIN, true);
+                              // Navigator.pushReplacementNamed(context, "/dashboard");
+                              print("Login Successful");
                             } else {
-                           
+                              print("Invalid email or password");
                             }
-
                           },
                         ),
                         SizedBox(height: 10),
