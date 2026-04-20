@@ -77,11 +77,12 @@ class LoginInputfield {
         TextFormField(
           controller: controller,
           obscureText: tohide,
+
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             fillColor: Color(0xFFF8F9FA),
+          hintText: text,
             filled: true,
-            labelText: text, // ✅ label
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
 

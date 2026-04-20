@@ -37,9 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 25),
             Container(
-              width: 350,
+              width: MediaQuery.of(context).size.width * 0.9,
 
-              decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+              decoration: BoxDecoration(
+                color: Color(0xFFFFFFFF),
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(22),
                 child: Column(
@@ -56,12 +59,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       labeltext: "Password",
                       text: "Enter your password",
                       tohide: isHidden,
-                      onToggle: () => setState(() { isHidden = !isHidden;}),
+                      onToggle: () => setState(() {
+                        isHidden = !isHidden;
+                      }),
                     ),
+                    SizedBox(height: 10),
+                    Row(children: []),
                     SizedBox(height: 20),
-                    Buttonsfield.Loginbuttonfield(text: "Sign In", onPressed: (){
-                      print(controller.text);
-                    })
+                    Buttonsfield.Loginbuttonfield(
+                      text: "Sign In",
+                      onPressed: () {},
+                    ),
                   ],
                 ),
               ),
