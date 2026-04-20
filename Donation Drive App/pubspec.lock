@@ -340,7 +340,11 @@ packages:
       sha256: "046d3928e16fa4dc46e8350415661755ab759d9fc97fc21b5ab295f71e4f0499"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "15.1.0"
+=======
+    version: "15.0.2"
+>>>>>>> flutter
   web:
     dependency: transitive
     description:
