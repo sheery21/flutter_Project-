@@ -1,3 +1,9 @@
+import 'package:donation_drive/Pages/DashBoardPage/DashBoardPage.dart';
+import 'package:donation_drive/Pages/ProfilePage/profilePage.dart';
+import 'package:donation_drive/Pages/QR_SheetPage/QR_SheetPage.dart';
+import 'package:donation_drive/Pages/ScanPage/scanPage.dart';
+import 'package:donation_drive/Pages/TokensPage/tokensPage.dart';
+import 'package:donation_drive/features/BottomNavbar/bottomNavbar.dart';
 import 'package:donation_drive/features/authScreens/logIn_Screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +20,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      home: const MyHomePage(),
+
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key, });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -31,6 +36,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return  MaterialApp(
+      initialRoute: "/",
+      routes: {
+        "/" : (context) => const LoginScreen(),
+        "/dashboard" : (context) => const Dashboardpage(),
+        "/BottomNavbar" : (context) => const Bottomnavbar(),
+        "/Profile" : (context) => const Profilepage(),
+        "/QR_Sheet" : (context) => const QrSheetpage(),
+        "/Tokens" : (context) => const Tokenspage(),
+        "/Scan" : (context) => const Scanpage(),
+
+
+      },
+    );
   }
 }

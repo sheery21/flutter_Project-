@@ -21,7 +21,7 @@ final TextEditingController passwordController = TextEditingController();
 bool tohide = false;
 bool isHidden = true;
 bool isRemember = false;
-const String ISLOGGEDIN = "";
+const String ISLOGGEDIN = "isLoggedIn";
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = prefs.getBool(ISLOGGEDIN) ?? false;
     if (isLoggedIn) {
-      // Navigator.pushReplacementNamed(context, "/dashboard");
+      Navigator.pushReplacementNamed(context, "/BottomNavbar");
       print("User is already logged in");
     } else {
       print("User is not logged in");
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
 
-                            if (EmailController.text == "admin@exam```3ple.com" &&
+                            if (EmailController.text == "admin@example.com" &&
                                 passwordController.text == "admin123") {
                               await prefs.setBool(ISLOGGEDIN, true);
                               // Navigator.pushReplacementNamed(context, "/dashboard");
