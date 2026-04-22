@@ -21,13 +21,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
-
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, });
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -36,18 +35,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       initialRoute: "/",
       routes: {
-        "/" : (context) => const LoginScreen(),
-        "/dashboard" : (context) => const Dashboardpage(),
-        "/BottomNavbar" : (context) => const Bottomnavbar(),
-        "/Profile" : (context) => const Profilepage(),
-        "/QR_Sheet" : (context) => const QrSheetpage(),
-        "/Tokens" : (context) => const Tokenspage(),
-        "/Scan" : (context) => const Scanpage(),
-
-
+        "/": (context) => const LoginScreen(),
+        "/dashboard": (context) => const Dashboardpage(),
+        "/BottomNavbar": (context) => const Bottomnavbar(),
+        "/Profile": (context) => const Profilepage(),
+        "/QR_Sheet": (context) => const QrSheetpage(),
+        "/Tokens": (context) => const Tokenspage(),
+        "/Scan": (context) => const Scanpage(),
       },
     );
   }

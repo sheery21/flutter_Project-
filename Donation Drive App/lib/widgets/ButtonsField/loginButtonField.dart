@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 class Buttonsfield {
   static Loginbuttonfield({
     required String text,
-    required VoidCallback onPressed
-}){
+    required VoidCallback onPressed,
+  }) {
     return Container(
       width: double.infinity,
       height: 48,
@@ -21,16 +21,19 @@ class Buttonsfield {
           backgroundColor: ColorsField.MainColorField(),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-          ),),
-        onPressed: onPressed, child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: "Inter",
-          color: Color(0xFFFFFFFF),
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+          ),
         ),
-      ),),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontFamily: "Inter",
+            color: Color(0xFFFFFFFF),
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }

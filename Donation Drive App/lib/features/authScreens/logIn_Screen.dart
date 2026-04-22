@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 8),
                 Text(
                   "Sign in to access your admin dashboard",
-                  style: ShortTextField.Heading_1(),
+                  style: ShortTextField.mainShortText_1(),
                 ),
                 SizedBox(height: 25),
                 Container(

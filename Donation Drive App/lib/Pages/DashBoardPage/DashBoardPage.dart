@@ -13,9 +13,7 @@ class Dashboardpage extends StatefulWidget {
   State<Dashboardpage> createState() => _DashboardpageState();
 }
 
-
 class _DashboardpageState extends State<Dashboardpage> {
-
   // Future<TokenAnalyticsModel> fetchAnalytics() async {
   //   final response = await http.get(Uri.parse("YOUR_API_URL"));
   //
@@ -37,7 +35,6 @@ class _DashboardpageState extends State<Dashboardpage> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -48,7 +45,7 @@ class _DashboardpageState extends State<Dashboardpage> {
                 subtitle: "Tap to view details",
               ),
               SizedBox(height: 20),
-        
+
               Container(
                 width: MediaQuery.of(context).size.width / 1.1,
                 child: Row(
@@ -77,7 +74,7 @@ class _DashboardpageState extends State<Dashboardpage> {
                   ],
                 ),
               ),
-        
+
               SizedBox(height: 15),
               DistributionSummaryCard(
                 title: "Awam Distribution x Tuba \n Foundation",
@@ -112,10 +109,11 @@ class _DashboardpageState extends State<Dashboardpage> {
               //   },
               // )
               TokenAnalyticsCard(
-                unregistered: 124,
+                unregistered: 2024,
                 registered: 93,
                 delivered: 1383,
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),

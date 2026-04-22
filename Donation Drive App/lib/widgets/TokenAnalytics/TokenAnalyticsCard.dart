@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class TokenAnalyticsCard extends StatelessWidget {
@@ -47,17 +48,34 @@ class TokenAnalyticsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // 🔵 Donut Chart Placeholder
-              Container(
-                height: 90,
-                width: 90,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.shade300, width: 10),
-                ),
-                child: Center(
-                  child: Text(
-                    "${unregistered + registered + delivered}",
-                    style: TextStyle(),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: PieChart(
+                  PieChartData(
+                    startDegreeOffset: -90,
+                    sectionsSpace: 1,
+                    centerSpaceRadius: 30,
+                    sections: [
+                      PieChartSectionData(
+                        color: Colors.orange,
+                        value: unregistered.toDouble(),
+                        showTitle: false,
+                        radius: 20,
+                      ),
+                      PieChartSectionData(
+                        color: Colors.green,
+                        value: registered.toDouble(),
+                        showTitle: false,
+                        radius: 20,
+                      ),
+                      PieChartSectionData(
+                        color: Colors.grey,
+                        value: delivered.toDouble(),
+                        showTitle: false,
+                        radius: 20,
+                      ),
+                    ],
                   ),
                 ),
               ),

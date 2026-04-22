@@ -33,7 +33,10 @@ class LoginInputfield {
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color.fromARGB(255, 226, 226, 228), width: 1),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 226, 226, 228),
+                width: 1,
+              ),
             ),
 
             focusedBorder: OutlineInputBorder(
@@ -98,7 +101,10 @@ class LoginInputfield {
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color.fromARGB(255, 226, 226, 228), width: 1),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 226, 226, 228),
+                width: 1,
+              ),
             ),
 
             focusedBorder: OutlineInputBorder(

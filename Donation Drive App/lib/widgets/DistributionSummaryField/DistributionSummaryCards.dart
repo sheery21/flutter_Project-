@@ -74,7 +74,6 @@ class DistributionSummaryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-
               _statusBox(
                 "Unregistered",
                 unregistered,
