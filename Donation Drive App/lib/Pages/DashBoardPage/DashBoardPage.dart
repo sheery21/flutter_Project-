@@ -1,9 +1,12 @@
+import 'package:donation_drive/features/Controllers/dashboard_controller.dart';
 import 'package:donation_drive/widgets/DistributionSummaryField/DistributionSummaryCards.dart';
 import 'package:donation_drive/widgets/NavbarField/navBarField.dart';
 import 'package:donation_drive/widgets/TokenAnalytics/TokenAnalyticsCard.dart';
+import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetailsSheet.dart';
 import 'package:donation_drive/widgets/TokenSummaryFirld/tokenSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class Dashboardpage extends StatefulWidget {
@@ -14,13 +17,11 @@ class Dashboardpage extends StatefulWidget {
 }
 
 class _DashboardpageState extends State<Dashboardpage> {
-  // Future<TokenAnalyticsModel> fetchAnalytics() async {
-  //   final response = await http.get(Uri.parse("YOUR_API_URL"));
-  //
-  //   final data = jsonDecode(response.body);
-  //
-  //   return TokenAnalyticsModel.fromJson(data);
-  // }
+  final DashboardController controller = Get.put(
+    DashboardController(),
+    permanent: false,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +40,22 @@ class _DashboardpageState extends State<Dashboardpage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 20),
-              TokenSummaryCard(
-                title: "Total Tokens",
-                value: 700,
-                subtitle: "Tap to view details",
+              Obx(
+                () => TokenSummaryCard(
+                  title: "Total Tokens",
+                  value: controller.totalTokens.value,
+                  subtitle: "Tap to view details",
+                  onTap: () {
+                    print(
+                      "UI rebuild - TotalTokens: ${controller.totalTokens.value.toString()}",
+                    );
+                    Get.bottomSheet(
+                      TokenDetailsSheet(controller: controller),
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                    );
+                  },
+                ),
               ),
               SizedBox(height: 20),
 
@@ -76,42 +89,34 @@ class _DashboardpageState extends State<Dashboardpage> {
               ),
 
               SizedBox(height: 15),
-              DistributionSummaryCard(
-                title: "Awam Distribution x Tuba \n Foundation",
-                subtitle: "500 Total",
-                unregistered: 318,
-                registered: 25,
-                delivered: 157,
-              ),
+
+              Obx(() {
+                if (controller.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                return Column(
+                  children: controller.campaigns.map((item) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 13),
+                      child: DistributionSummaryCard(
+                        title: item["title"],
+                        subtitle: "${item["total"]} Total",
+                        unregistered: item["unregistered"],
+                        registered: item["registered"],
+                        delivered: item["delivered"],
+                      ),
+                    );
+                  }).toList(),
+                );
+              }),
               SizedBox(height: 13),
-              DistributionSummaryCard(
-                title: "Awan Distribution x FGRF",
-                subtitle: "500 total",
-                unregistered: 1706,
-                registered: 68,
-                delivered: 1226,
-              ),
-              SizedBox(height: 13),
-              // FutureBuilder<TokenAnalyticsModel>(
-              //   future: fetchAnalytics(),
-              //   builder: (context, snapshot) {
-              //     if (!snapshot.hasData) {
-              //       return CircularProgressIndicator();
-              //     }
-              //
-              //     final data = snapshot.data!;
-              //
-              //     return TokenAnalyticsCard(
-              //       unregistered: data.unregistered,
-              //       registered: data.registered,
-              //       delivered: data.delivered,
-              //     );
-              //   },
-              // )
-              TokenAnalyticsCard(
-                unregistered: 2024,
-                registered: 93,
-                delivered: 1383,
+              Obx(
+                () => TokenAnalyticsCard(
+                  unregistered: controller.unregistered.value,
+                  registered: controller.registered.value,
+                  delivered: controller.delivered.value,
+                ),
               ),
               SizedBox(height: 20),
             ],

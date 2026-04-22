@@ -1,3 +1,4 @@
+import 'package:donation_drive/features/Controllers/logInController.dart';
 import 'package:donation_drive/widgets/ButtonsField/loginButtonField.dart';
 import 'package:donation_drive/widgets/ColorsField/ColorField.dart';
 import 'package:donation_drive/widgets/ForgotPasswordField/forgotPasswordField.dart';
@@ -6,6 +7,7 @@ import 'package:donation_drive/widgets/RememberMeField/rememberMeField.dart';
 import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,32 +17,9 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final TextEditingController EmailController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
-
-bool tohide = false;
-bool isHidden = true;
-bool isRemember = false;
-const String ISLOGGEDIN = "isLoggedIn";
+final Logincontroller controller = Get.put(Logincontroller());
 
 class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    super.initState();
-    checkLoginStatus();
-  }
-
-  void checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool(ISLOGGEDIN) ?? false;
-    if (isLoggedIn) {
-      Navigator.pushReplacementNamed(context, "/BottomNavbar");
-      print("User is already logged in");
-    } else {
-      print("User is not logged in");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,82 +62,62 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         LoginInputfield.AdminEmail(
-                          controller: EmailController,
+                          controller: controller.emailController,
                           labeltext: "Email Address",
                           text: "admin@example.com",
-                          tohide: tohide,
+                          tohide: false,
                         ),
+
                         SizedBox(height: 20),
-                        LoginInputfield.AdminPassword(
-                          controller: passwordController,
-                          labeltext: "Password",
-                          text: "Enter your password",
-                          tohide: isHidden,
-                          onToggle: () => setState(() {
-                            isHidden = !isHidden;
-                          }),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          width: double.infinity,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Remembermefield.build(
-                                value: isRemember,
-                                onChanged: (val) {
-                                  setState(() {
-                                    isRemember = val ?? false;
-                                  });
-                                },
-                              ),
-                              // SizedBox(width: 20),
-                              Forgotpasswordfield.build(
-                                onTap: () {
-                                  print("Forgot Password");
-                                },
-                              ),
-                            ],
+
+                        Obx(
+                          () => LoginInputfield.AdminPassword(
+                            controller: controller.passwordController,
+                            text: "Enter your password",
+                            labeltext: "Password",
+                            tohide: controller.isHidden.value,
+                            onToggle: controller.togglePassword,
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Buttonsfield.Loginbuttonfield(
-                          text: "Sign In",
-                          onPressed: () async {
-                            String email = EmailController.text.trim();
-                            String password = passwordController.text.trim();
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
 
-                            if (EmailController.text == "admin@example.com" &&
-                                passwordController.text == "admin123") {
-                              await prefs.setBool(ISLOGGEDIN, true);
-                              // Navigator.pushReplacementNamed(context, "/dashboard");
-                              print("Login Successful");
-                            } else {
-                              print("Invalid email or password");
-                            }
-                          },
+                        SizedBox(height: 10),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(
+                              () => Remembermefield.build(
+                                value: controller.isRemember.value,
+                                onChanged: controller.toggleRemember,
+                              ),
+                            ),
+                            Forgotpasswordfield.build(
+                              onTap: () {
+                                print("Forgot Password");
+                              },
+                            ),
+                          ],
                         ),
+
+                        SizedBox(height: 20),
+
+                        Obx(
+                          () => Buttonsfield.Loginbuttonfield(
+                            text: controller.isLoading.value
+                                ? "Loading..."
+                                : "Sign In",
+                            onPressed: controller.isLoading.value
+                                ? () {} // 👈 NULL nahi de sakte agar VoidCallback required hai
+                                : () {
+                                    controller.login();
+                                  },
+                          ),
+                        ),
+
                         SizedBox(height: 10),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: 18),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Donation Management System",
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "v1.0",
-                      style: TextStyle(color: ColorsField.MainColorField()),
-                    ),
-                  ],
                 ),
               ],
             ),
