@@ -23,7 +23,7 @@ class GenerateQRHeader extends StatelessWidget {
         border: Border.all(color: Colors.white.withOpacity(0.2)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
+        padding: const EdgeInsets.only(left: 13.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

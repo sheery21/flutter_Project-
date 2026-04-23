@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         "/BottomNavbar": (context) => const Bottomnavbar(),
         "/Profile": (context) => const Profilepage(),
         "/QR_Sheet": (context) => const QrSheetpage(),
-        "/Tokens": (context) => const Tokenspage(),
+        "/Tokens": (context) =>  Tokenspage(),
         "/Scan": (context) => const Scanpage(),
       },
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class GenerateTokenCard extends StatelessWidget {
   final String title;
@@ -19,13 +20,13 @@ class GenerateTokenCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F6FA),
+        color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 1,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -33,22 +34,21 @@ class GenerateTokenCard extends StatelessWidget {
         children: [
           /// Top Row
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// Icon Box
               Container(
-                height: 50,
-                width: 50,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF2D5BFF), Color(0xFF6A5BFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFF2B7FFF).withOpacity(0.08),
+                      blurRadius: 6,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: const Icon(Icons.qr_code, color: Colors.white),
+                child: SvgPicture.asset("assets/Icons/QR_Icon.svg"),
               ),
-
               const SizedBox(width: 12),
 
               /// Texts
@@ -59,14 +59,19 @@ class GenerateTokenCard extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        fontFamily: "DMSans",
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(color: Colors.grey, fontSize: 13),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontFamily: "Inter",
+                      ),
                     ),
                   ],
                 ),
@@ -86,15 +91,16 @@ class GenerateTokenCard extends StatelessWidget {
                 gradient: const LinearGradient(
                   colors: [Color(0xFF2D5BFF), Color(0xFF6A5BFF)],
                 ),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: const Center(
                 child: Text(
                   "Generate Tokens",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    fontFamily: "Inter",
                   ),
                 ),
               ),
