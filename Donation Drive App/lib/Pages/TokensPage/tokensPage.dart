@@ -7,13 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Tokenspage extends StatefulWidget {
-final QRController controller = Get.put(QRController());
-
+  final QRController controller = Get.put(QRController());
 
   @override
   State<Tokenspage> createState() => _TokenspageState();
 }
-
 
 class _TokenspageState extends State<Tokenspage> {
   @override
@@ -27,11 +25,7 @@ class _TokenspageState extends State<Tokenspage> {
             const SizedBox(height: 40),
 
             /// HEADER
-            GenerateQRHeader(
-              total: 5000,
-              active: 875,
-              delivered: 1750,
-            ),
+            GenerateQRHeader(total: 5000, active: 875, delivered: 1750),
 
             /// OVERLAP EFFECT (optional spacing)
             Transform.translate(
@@ -49,8 +43,7 @@ class _TokenspageState extends State<Tokenspage> {
                     subtitle: "Tokens TD-0501 to TD-1000",
                     onTap: () {},
                   ),
-                  Filterfield()
-
+                  Filterfield(),
                 ],
               ),
             ),
