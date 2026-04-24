@@ -17,6 +17,7 @@ class _TokenspageState extends State<Tokenspage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor: const Color(0xFFF5F6FA),
       body: SingleChildScrollView(
         child: Column(
@@ -29,24 +30,28 @@ class _TokenspageState extends State<Tokenspage> {
 
             /// OVERLAP EFFECT (optional spacing)
             Transform.translate(
-              offset: Offset(0, -20), // thoda overlap feel
-              child: Column(
-                children: [
-                  GenerateTokenCard(
-                    title: "Awan Distribution x Tuba Foundation",
-                    subtitle: "Tokens TD-0001 to TD-0500",
-                    onTap: () {},
-                  ),
+              offset: Offset(0, -20 , ), // thoda overlap feel
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    GenerateTokenCard(
+                      title: "Awan Distribution x Tuba Foundation",
+                      subtitle: "Tokens TD-0001 to TD-0500",
+                      onTap: () {},
+                    ),
 
-                  GenerateTokenCard(
-                    title: "City Relief Campaign",
-                    subtitle: "Tokens TD-0501 to TD-1000",
-                    onTap: () {},
-                  ),
-                  Filterfield(),
-                ],
+                    GenerateTokenCard(
+                      title: "City Relief Campaign",
+                      subtitle: "Tokens TD-0501 to TD-1000",
+                      onTap: () {},
+                    ),
+                   Filterfield(),
+                  ],
+                ),
               ),
             ),
+
           ],
         ),
       ),

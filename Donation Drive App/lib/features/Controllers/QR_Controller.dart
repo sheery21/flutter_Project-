@@ -11,8 +11,8 @@ class QRController extends GetxController {
   var searchText = "".obs;
 
   final campaigns = [
-    "Awam Distribution x Tuba Foundation",
-    "Awan Distribution x FGRF",
+    "Awam x Tuba Foundation",
+    "Awan x FGRF",
   ];
 
   final status = ["Unregistered", "Expired", "Active", "Delivered"];
