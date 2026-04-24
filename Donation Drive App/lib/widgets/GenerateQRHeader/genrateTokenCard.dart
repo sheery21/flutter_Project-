@@ -1,3 +1,4 @@
+import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -67,11 +68,7 @@ class GenerateTokenCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontFamily: "Inter",
-                      ),
+                      style: ShortTextField.mainShortText_2()
                     ),
                   ],
                 ),

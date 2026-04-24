@@ -3,37 +3,42 @@ import 'package:donation_drive/features/authScreens/logIn_Screen.dart';
 import 'package:donation_drive/widgets/FiltersField/filterField.dart';
 import 'package:donation_drive/widgets/GenerateQRHeader/generateQRHeader.dart';
 import 'package:donation_drive/widgets/GenerateQRHeader/genrateTokenCard.dart';
+import 'package:donation_drive/widgets/TextStyleField/textField.dart';
+import 'package:donation_drive/widgets/TokenCard/tokenCard.dart';
+import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetailsSheet.dart';
+import 'package:donation_drive/widgets/TokenSummaryFirld/tokenSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Tokenspage extends StatefulWidget {
-  final QRController controller = Get.put(QRController());
-
+  const Tokenspage({super.key});
   @override
   State<Tokenspage> createState() => _TokenspageState();
 }
 
 class _TokenspageState extends State<Tokenspage> {
+  final QRController controller = Get.put(QRController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      backgroundColor: const Color(0xFFF5F6FA),
+      appBar: AppBar(
+        toolbarHeight: 10,
+        backgroundColor: const Color(0xFFFAFAF9),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-
             /// HEADER
             GenerateQRHeader(total: 5000, active: 875, delivered: 1750),
 
             /// OVERLAP EFFECT (optional spacing)
             Transform.translate(
-              offset: Offset(0, -20 , ), // thoda overlap feel
+              offset: Offset(0, -20), // thoda overlap feel
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GenerateTokenCard(
                       title: "Awan Distribution x Tuba Foundation",
@@ -46,29 +51,53 @@ class _TokenspageState extends State<Tokenspage> {
                       subtitle: "Tokens TD-0501 to TD-1000",
                       onTap: () {},
                     ),
-                   Filterfield(),
+                    Filterfield(),
+
+                    SizedBox(
+                      child: Text(
+                        "Showing 10 of 3,500 tokens",
+                        style: ShortTextField.mainShortText_3(),
+                      ),
+                    ),
+                    Obx(() {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: controller.filteredList.length,
+                        itemBuilder: (context, index) {
+                          final item = controller.filteredList[index];
+                          return TokenCard(
+                            campaign: item.campaign,
+                            status: item.status,
+                            serial: item.serialNumber,
+                            date: item.generatedData,
+                          );
+                        },
+                      );
+                    }),
+                    Obx(() {
+                      return controller.filteredList.length < controller.qrList.length
+                          ? SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.loadMore();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white70,
+                          ),
+                          child: const Text("Load More"),
+                        ),
+                      )
+                          : const SizedBox(); // hide when all loaded
+                    }),
                   ],
                 ),
               ),
             ),
-
           ],
         ),
       ),
     );
-  }
-}
-
-IconData getStatusIcon(String status) {
-  switch (status) {
-    case "Active":
-      return Icons.check_circle;
-    case "Delivered":
-      return Icons.local_shipping;
-    case "Expired":
-      return Icons.cancel;
-    case "Unregistered":
-    default:
-      return Icons.radio_button_unchecked;
   }
 }

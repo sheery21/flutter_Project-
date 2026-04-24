@@ -66,10 +66,10 @@ class DashboardController extends GetxController {
       },
       {
         "title": "Awan Distribution x FGRF",
-        "total": 3000,
-        "unregistered": 1706,
-        "registered": 68,
-        "delivered": 1226,
+        "total": 1706,
+        "unregistered": 68,
+        "registered": 1226,
+        "delivered": 26,
       },
     ]);
 

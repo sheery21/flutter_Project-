@@ -18,6 +18,14 @@ class ShortTextField {
       fontWeight: FontWeight.w400,
     );
   }
+  static TextStyle mainShortText_3() {
+    return const TextStyle(
+      fontFamily: "Inter",
+      color: Color(0xFF4A5565),
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    );
+  }
 
   static TextStyle Cards_1() {
     return const TextStyle(
