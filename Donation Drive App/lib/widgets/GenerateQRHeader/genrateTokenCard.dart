@@ -1,3 +1,4 @@
+import 'package:donation_drive/widgets/ButtonsField/buttonField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -66,10 +67,7 @@ class GenerateTokenCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: ShortTextField.mainShortText_2()
-                    ),
+                    Text(subtitle, style: ShortTextField.mainShortText_2()),
                   ],
                 ),
               ),
@@ -79,29 +77,11 @@ class GenerateTokenCard extends StatelessWidget {
           const SizedBox(height: 16),
 
           /// Button
-          GestureDetector(
-            onTap: onTap,
-            child: Container(
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF2D5BFF), Color(0xFF6A5BFF)],
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Center(
-                child: Text(
-                  "Generate Tokens",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Inter",
-                  ),
-                ),
-              ),
-            ),
+          //   onTap: onTap,
+          //         "Generate Tokens",
+          Buttonfield.Mainbuttonfield(
+            text: "Generate Tokens",
+            onPressed: onTap,
           ),
         ],
       ),

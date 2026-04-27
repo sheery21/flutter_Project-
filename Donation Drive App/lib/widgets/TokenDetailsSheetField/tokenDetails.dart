@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Model/QRTokenModel.dart';
+import 'package:donation_drive/widgets/ButtonsField/buttonField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +166,7 @@ class TokenDetails extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 35),
 
             Container(
               width: double.infinity,
@@ -175,23 +176,12 @@ class TokenDetails extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: ElevatedButton.icon(
+              // SvgPicture.asset("assets/Icons/download_QR.svg"),
+              // "Download QR Code",
+              child: Buttonfield.MainbuttonWithIconfield(
+                text: "Download QR Code",
                 onPressed: () {},
                 icon: SvgPicture.asset("assets/Icons/download_QR.svg"),
-                label: Text(
-                  "Download QR Code",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                ),
               ),
             ),
 
