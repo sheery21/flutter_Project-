@@ -72,13 +72,11 @@ class _TokenspageState extends State<Tokenspage> {
                             status: item.status,
                             serial: item.serialNumber,
                             date: item.generatedData,
-                            onView: (){
+                            onView: () {
                               Get.bottomSheet(
-
                                 TokenDetails(item: item),
                                 isScrollControlled: true,
                                 backgroundColor: const Color(0xFFFAFAF9),
-
                               );
                             },
                           );
@@ -94,11 +92,14 @@ class _TokenspageState extends State<Tokenspage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white70,
                         ),
-                        child: Obx(() => Text(
-                          controller.filteredList.length >= controller.qrList.length
-                              ? "Show Less"
-                              : "Load More",
-                        )),
+                        child: Obx(
+                          () => Text(
+                            controller.filteredList.length >=
+                                    controller.qrList.length
+                                ? "Show Less"
+                                : "Load More",
+                          ),
+                        ),
                       ),
                     ),
                   ],

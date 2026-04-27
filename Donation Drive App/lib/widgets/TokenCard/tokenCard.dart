@@ -8,7 +8,7 @@ class TokenCard extends StatelessWidget {
   final String status;
   final String serial;
   final DateTime date;
-final VoidCallback onView;
+  final VoidCallback onView;
 
   const TokenCard({
     super.key,
@@ -129,7 +129,7 @@ final VoidCallback onView;
               const SizedBox(width: 6),
               Text(
                 DateFormat("dd/MM/yyyy").format(date),
-                style:ShortTextField.mainShortText_3(),
+                style: ShortTextField.mainShortText_3(),
               ),
             ],
           ),
@@ -156,7 +156,4 @@ final VoidCallback onView;
       ),
     );
   }
-
-
-
 }

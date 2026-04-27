@@ -9,4 +9,13 @@ class TextStyleField {
       fontWeight: FontWeight.bold,
     );
   }
+
+  static TextStyle Heading_2() {
+    return const TextStyle(
+      fontFamily: "Inter",
+      color: Color(0xFF030213),
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+    );
+  }
 }
