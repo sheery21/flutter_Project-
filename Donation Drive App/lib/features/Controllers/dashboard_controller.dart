@@ -59,17 +59,17 @@ class DashboardController extends GetxController {
     campaigns.assignAll([
       {
         "title": "Awam Distribution x Tuba \nFoundation",
-        "total": 500,
-        "unregistered": 318,
-        "registered": 25,
-        "delivered": 157,
+        "total": 12345,
+        "unregistered": 12345,
+        "registered": 12345,
+        "delivered": 12345,
       },
       {
         "title": "Awan Distribution x FGRF",
-        "total": 1706,
-        "unregistered": 68,
-        "registered": 1226,
-        "delivered": 26,
+        "total": 12345,
+        "unregistered": 12345,
+        "registered": 12345,
+        "delivered": 12345,
       },
     ]);
 

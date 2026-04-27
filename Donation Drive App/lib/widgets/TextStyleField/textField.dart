@@ -18,6 +18,7 @@ class ShortTextField {
       fontWeight: FontWeight.w400,
     );
   }
+
   static TextStyle mainShortText_3() {
     return const TextStyle(
       fontFamily: "Inter",

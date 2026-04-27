@@ -8,6 +8,7 @@ class TokenCard extends StatelessWidget {
   final String status;
   final String serial;
   final DateTime date;
+final VoidCallback onView;
 
   const TokenCard({
     super.key,
@@ -15,6 +16,7 @@ class TokenCard extends StatelessWidget {
     required this.status,
     required this.serial,
     required this.date,
+    required this.onView,
   });
 
   Color getStatusColor() {
@@ -138,7 +140,9 @@ class TokenCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                onView();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey.shade200,
                 foregroundColor: Colors.black,
@@ -147,8 +151,12 @@ class TokenCard extends StatelessWidget {
               child: const Text("View Details"),
             ),
           ),
+          const SizedBox(height: 42),
         ],
       ),
     );
   }
+
+
+
 }

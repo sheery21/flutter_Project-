@@ -66,8 +66,8 @@ class TokenDetailsSheet extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         item["icon"],
-                        height: 38,
-                        width: 38,
+                        height: 37,
+                        width: 37,
                         colorFilter: ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,
@@ -96,10 +96,6 @@ class TokenDetailsSheet extends StatelessWidget {
                 );
               },
             ),
-
-            SizedBox(height: 15),
-
-            // 🔥 extra purple card (like image)
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(16),
@@ -118,7 +114,7 @@ class TokenDetailsSheet extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 16),
+            SizedBox(height: 40),
 
             // 🔥 Close button
             GestureDetector(
@@ -134,7 +130,7 @@ class TokenDetailsSheet extends StatelessWidget {
                 child: Text("Close", style: TextStyle(color: Colors.white)),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 170),
           ],
         );
       }),

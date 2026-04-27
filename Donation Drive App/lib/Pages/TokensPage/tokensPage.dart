@@ -5,6 +5,7 @@ import 'package:donation_drive/widgets/GenerateQRHeader/generateQRHeader.dart';
 import 'package:donation_drive/widgets/GenerateQRHeader/genrateTokenCard.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:donation_drive/widgets/TokenCard/tokenCard.dart';
+import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetails.dart';
 import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetailsSheet.dart';
 import 'package:donation_drive/widgets/TokenSummaryFirld/tokenSummaryCard.dart';
 import 'package:flutter/material.dart';
@@ -71,26 +72,35 @@ class _TokenspageState extends State<Tokenspage> {
                             status: item.status,
                             serial: item.serialNumber,
                             date: item.generatedData,
+                            onView: (){
+                              Get.bottomSheet(
+
+                                TokenDetails(item: item),
+                                isScrollControlled: true,
+                                backgroundColor: const Color(0xFFFAFAF9),
+
+                              );
+                            },
                           );
                         },
                       );
                     }),
-                    Obx(() {
-                      return controller.filteredList.length < controller.qrList.length
-                          ? SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            controller.loadMore();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white70,
-                          ),
-                          child: const Text("Load More"),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.loadMore();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white70,
                         ),
-                      )
-                          : const SizedBox(); // hide when all loaded
-                    }),
+                        child: Obx(() => Text(
+                          controller.filteredList.length >= controller.qrList.length
+                              ? "Show Less"
+                              : "Load More",
+                        )),
+                      ),
+                    ),
                   ],
                 ),
               ),

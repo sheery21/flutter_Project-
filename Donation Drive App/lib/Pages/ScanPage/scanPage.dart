@@ -14,6 +14,12 @@ final QRController controller = Get.put(QRController());
 class _ScanpageState extends State<Scanpage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Scan")));
+    return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 10,
+          backgroundColor: const Color(0xFFFAFAF9)
+          ,),
+            // body: ,
+    );
   }
 }

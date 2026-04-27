@@ -64,7 +64,6 @@ class Filterfield extends StatelessWidget {
                   border: Border.all(color: Color(0xFFE5E7EB)),
                 ),
                 child: TextField(
-                  style: TextStyle(color: Colors.white),
                   onChanged: (val) => controller.searchText.value = val,
                   decoration: InputDecoration(
                     hintText: "Search by serial number...",
