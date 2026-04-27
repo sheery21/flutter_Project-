@@ -2,6 +2,7 @@ import 'package:donation_drive/features/Controllers/QR_Controller.dart';
 import 'package:donation_drive/widgets/ScanToDeliverField/ScanToDeliverField.dart';
 import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
+import 'package:donation_drive/widgets/UserDetailsSheet/userDetailsSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ class Scanpage extends StatefulWidget {
 }
 
 final QRController controller = Get.put(QRController());
+final _formKey = GlobalKey<FormState>();
 
 final TextEditingController serialController = TextEditingController();
 
@@ -39,15 +41,31 @@ class _ScanpageState extends State<Scanpage> {
 
             const SizedBox(height: 10),
 
-            ScanToDeliverField(
-              controller: serialController,
-              onLookup: () {
-                print("Lookup: ${serialController.text}");
-              },
-              onScan: () {
-                print("Lookup: ${serialController.text}");
-              },
-            ),
+            Form(
+              key: _formKey,
+              child: ScanToDeliverField(
+                controller: serialController,
+                onLookup: () {
+                  if (_formKey.currentState!.validate()) {
+
+                    final serial = serialController.text.trim();
+                    final result = controller.findBySerial(serial);
+
+                    if (result != null) {
+                      Get.bottomSheet(
+                        UserdetailsSheet(item: result),
+                        isScrollControlled: true,
+                        backgroundColor: const Color(0xFFFAFAF9),
+                      );
+                    } else {
+                      Get.snackbar("Error", "Token not found");
+                    }
+
+                  }
+                },
+                onScan: () {},
+              ),
+            )
           ],
         ),
       ),

@@ -13,8 +13,6 @@ class QRController extends GetxController {
   final campaigns = ["Awam x Tuba Foundation", "Awan x FGRF"];
   final status = ["Unregistered", "Expired", "Active", "Delivered"];
 
-
-
   int _currentLimit = 10;
 
   @override
@@ -32,8 +30,14 @@ class QRController extends GetxController {
           serialNumber: "${i.toString().padLeft(4, "0")}",
           campaign: campaigns[i % campaigns.length],
           status: status[i % status.length],
-          QR_Code: "assets/Icons/QR_Icon.svg",
+          QR_Code: "QR_$i",
           generatedData: DateTime(2026, 2, 26, 18, 1),
+
+          userName: "User $i",
+          userCNIC: "42101-123456$i",
+          userPhone: "0300-00000$i",
+          userNumberOfPeopleInHouse: "${(i % 6) + 1}",
+          userImage: "assets/images/user_Image.svg",
         ),
       );
     }
@@ -86,12 +90,20 @@ class QRController extends GetxController {
       return matchCampaign && matchStatus && matchSearch;
     }).toList();
 
-    if(_currentLimit >= temp.length){
+    if (_currentLimit >= temp.length) {
       _currentLimit = 10;
-    }else{
+    } else {
       _currentLimit += 10;
     }
 
     filteredList.assignAll(temp.take(_currentLimit).toList());
+  }
+
+  QrTokenmodel? findBySerial(String serial) {
+    try {
+      return qrList.firstWhere((item) => item.serialNumber == serial);
+    } catch (e) {
+      return null;
+    }
   }
 }
