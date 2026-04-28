@@ -1,19 +1,33 @@
+import 'package:donation_drive/features/Controllers/QR_Controller.dart';
+import 'package:donation_drive/widgets/CampaignDropdownField/campaignDropdownField.dart';
+import 'package:donation_drive/widgets/PageHeaderField/pageHeaderField.dart';
+import 'package:donation_drive/widgets/QrCardField/QrCardField.dart';
+import 'package:donation_drive/widgets/QrGridField/QrGridField.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class QrSheetpage extends StatefulWidget {
-  const QrSheetpage({super.key});
+class QrSheetpage extends StatelessWidget {
+  QrSheetpage({super.key});
 
-  @override
-  State<QrSheetpage> createState() => _QrSheetpageState();
-}
+  final QRController controller = Get.put(QRController());
 
-class _QrSheetpageState extends State<QrSheetpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("QR Sheet"),
-        centerTitle: true,
+      appBar: AppBar(title: Text("QR Sheet"), centerTitle: true),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              PageHeaderField(),
+              SizedBox(height: 12),
+              CampaignDropdownField(),
+              SizedBox(height: 12),
+              QrGridField(),
+            ],
+          ),
+        ),
       ),
     );
   }
