@@ -8,11 +8,11 @@ class QrTokenmodel {
   final String status;
   final String QR_Code;
   final DateTime generatedData;
-   String userName;
-   String userCNIC;
-   String userPhone;
-   String userNumberOfPeopleInHouse;
-   String  userImage;
+  String userName;
+  String userCNIC;
+  String userPhone;
+  String userNumberOfPeopleInHouse;
+  String userImage;
 
   QrTokenmodel({
     required this.serialNumber,

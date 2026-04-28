@@ -90,15 +90,17 @@ class _UserdetailsSheetState extends State<UserdetailsSheet> {
           _input("Family Members", familyController),
           SizedBox(height: 50),
 
-          Buttonfield.Writebuttonfield(text: "Update", onPressed: () {
-
-                widget.item.userName = nameController.text;
-                widget.item.userCNIC = cnicController.text;
-                widget.item.userPhone = phoneController.text;
-                widget.item.userNumberOfPeopleInHouse = familyController.text;
-                Get.back();
-                Get.snackbar("Success", "Updated Successfully");
-          },),
+          Buttonfield.Writebuttonfield(
+            text: "Update",
+            onPressed: () {
+              widget.item.userName = nameController.text;
+              widget.item.userCNIC = cnicController.text;
+              widget.item.userPhone = phoneController.text;
+              widget.item.userNumberOfPeopleInHouse = familyController.text;
+              Get.back();
+              Get.snackbar("Success", "Updated Successfully");
+            },
+          ),
           SizedBox(height: 100),
         ],
       ),

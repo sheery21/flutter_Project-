@@ -47,7 +47,6 @@ class _ScanpageState extends State<Scanpage> {
                 controller: serialController,
                 onLookup: () {
                   if (_formKey.currentState!.validate()) {
-
                     final serial = serialController.text.trim();
                     final result = controller.findBySerial(serial);
 
@@ -60,12 +59,11 @@ class _ScanpageState extends State<Scanpage> {
                     } else {
                       Get.snackbar("Error", "Token not found");
                     }
-
                   }
                 },
                 onScan: () {},
               ),
-            )
+            ),
           ],
         ),
       ),
