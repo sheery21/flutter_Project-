@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
@@ -9,6 +10,7 @@ class DashboardController extends GetxController {
   var unregistered = 0.obs;
   var registered = 0.obs;
   var delivered = 0.obs;
+  var details = 0.obs;
 
   // Campaigns
   var campaigns = <Map<String, dynamic>>[].obs;
@@ -23,26 +25,51 @@ class DashboardController extends GetxController {
     {
       "title": "Total Tokens",
       "value": totalTokens.value,
-      "color": 0xFF4A3AFF,
+      "color": const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF2B7FFF), Color(0xFF155DFC)],
+      ),
       "icon": "assets/Icons/Tokens.svg",
-    },
-    {
-      "title": "Delivered",
-      "value": delivered.value,
-      "color": 0xFF00C853,
-      "icon": "assets/Icons/Delivered.svg",
-    },
-    {
-      "title": "Registered",
-      "value": registered.value,
-      "color": 0xFF2962FF,
-      "icon": "assets/Icons/Registered.svg",
     },
     {
       "title": "Unregistered",
       "value": unregistered.value,
-      "color": 0xFFFF6D00,
+      "color": const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFFF6900), Color(0xFFF54900)],
+      ),
       "icon": "assets/Icons/Unregistered.svg",
+    },
+    {
+      "title": "Registered",
+      "value": registered.value,
+      "color": const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF00C950), Color(0xFF00A63E)],
+      ),
+      "icon": "assets/Icons/Registered.svg",
+    },
+    {
+      "title": "Delivered",
+      "value": delivered.value,
+      "color": const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF62748E), Color(0xFF45556C)],
+      ),
+      "icon": "assets/Icons/Delivered.svg",
+    },{
+      "title": "With Details",
+      "value": delivered.value,
+      "color": const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFAD46FF), Color(0xFF9810FA)],
+      ),
+      "icon": "assets/Icons/chartColumn1.svg",
     },
   ];
 
@@ -55,7 +82,7 @@ class DashboardController extends GetxController {
     unregistered.value = 2024;
     registered.value = 93;
     delivered.value = 1383;
-
+    details.value = 1;
     campaigns.assignAll([
       {
         "title": "Awam Distribution x Tuba \nFoundation",

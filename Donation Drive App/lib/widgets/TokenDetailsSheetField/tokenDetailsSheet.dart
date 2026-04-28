@@ -1,5 +1,4 @@
 import 'package:donation_drive/features/Controllers/dashboard_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -12,8 +11,8 @@ class TokenDetailsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
         color: Color(0xFFF8F9FA),
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
@@ -22,26 +21,25 @@ class TokenDetailsSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Token Details",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
 
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
 
-            Text(
+            const Text(
               "Complete breakdown of all tokens",
               style: TextStyle(color: Colors.grey),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // 🔥 GRID like image (2x2)
             GridView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: controller.tokenDetails.length,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
@@ -49,16 +47,12 @@ class TokenDetailsSheet extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 final item = controller.tokenDetails[index];
+                final gradient = item["color"] as LinearGradient;
 
                 return Container(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(item["color"]),
-                        Color(item["color"]).withOpacity(0.8),
-                      ],
-                    ),
+                    gradient: gradient,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Column(
@@ -68,24 +62,27 @@ class TokenDetailsSheet extends StatelessWidget {
                         item["icon"],
                         height: 37,
                         width: 37,
-                        colorFilter: ColorFilter.mode(
+                        colorFilter: const ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,
                         ),
                       ),
 
-                      Spacer(),
+                      const Spacer(),
 
                       Text(
                         item["title"],
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
                       ),
 
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
 
                       Text(
                         item["value"].toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -96,27 +93,7 @@ class TokenDetailsSheet extends StatelessWidget {
                 );
               },
             ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.deepPurple],
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: [
-                  SvgPicture.asset("assets/Icons/chartColumn1.svg"),
-                  SizedBox(width: 10),
-                  Text("With Details 1", style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
 
-            SizedBox(height: 40),
-
-            // 🔥 Close button
             GestureDetector(
               onTap: () => Get.back(),
               child: Container(
@@ -127,10 +104,13 @@ class TokenDetailsSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 alignment: Alignment.center,
-                child: Text("Close", style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  "Close",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
-            SizedBox(height: 170),
+            const SizedBox(height: 120),
           ],
         );
       }),
