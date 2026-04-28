@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
+import 'package:donation_drive/widgets/Mobile_Scanner/mobile_scanner.dart';
 import 'package:donation_drive/widgets/ScanToDeliverField/ScanToDeliverField.dart';
 import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
@@ -61,7 +62,33 @@ class _ScanpageState extends State<Scanpage> {
                     }
                   }
                 },
-                onScan: () {},
+                onScan: () async {
+                  final result = await Get.to(() => const QRScannerScreen());
+
+                  print("SCANNED VALUE: $result");
+
+                  if (result != null) {
+
+                    final number = result.replaceAll("QR_", "");
+                    final cleaned = number.padLeft(4, "0");
+
+                    print("CLEANED: $cleaned");
+
+                    serialController.text = cleaned;
+                    final data = controller.findBySerial(cleaned);
+
+                    print("FOUND DATA: $data");
+                    if (data != null) {
+                      Get.bottomSheet(
+                        UserdetailsSheet(item: data),
+                        isScrollControlled: true,
+                        backgroundColor: const Color(0xFFFAFAF9),
+                      );
+                    } else {
+                      Get.snackbar("Error", "Token not found");
+                    }
+                  }
+                },
               ),
             ),
           ],
