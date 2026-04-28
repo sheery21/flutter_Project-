@@ -68,7 +68,6 @@ class _ScanpageState extends State<Scanpage> {
                   print("SCANNED VALUE: $result");
 
                   if (result != null) {
-
                     final number = result.replaceAll("QR_", "");
                     final cleaned = number.padLeft(4, "0");
 
