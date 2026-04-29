@@ -1,5 +1,4 @@
 import 'package:donation_drive/features/Model/QRTokenModel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class QRController extends GetxController {
@@ -13,7 +12,8 @@ class QRController extends GetxController {
   final campaigns = ["Awam x Tuba Foundation", "Awan x FGRF"];
   final status = ["Unregistered", "Expired", "Active", "Delivered"];
 
-  int _currentLimit = 10;
+  int page = 0;
+  final int limit = 10;
 
   @override
   void onInit() {
@@ -32,7 +32,6 @@ class QRController extends GetxController {
           status: status[i % status.length],
           QR_Code: "QR_$i",
           generatedData: DateTime(2026, 2, 26, 18, 1),
-
           userName: "User $i",
           userCNIC: "42101-123456$i",
           userPhone: "0300-00000$i",
@@ -45,10 +44,8 @@ class QRController extends GetxController {
     applyFilter(reset: true);
   }
 
-  void applyFilter({bool reset = false}) {
-    if (reset) _currentLimit = 10;
-
-    List<QrTokenmodel> temp = qrList.where((item) {
+  List<QrTokenmodel> getFilteredData() {
+    return qrList.where((item) {
       final matchCampaign =
           selectedCampaign.value.isEmpty ||
           item.campaign == selectedCampaign.value;
@@ -65,38 +62,6 @@ class QRController extends GetxController {
 
       return matchCampaign && matchStatus && matchSearch;
     }).toList();
-
-    filteredList.assignAll(temp.take(_currentLimit).toList());
-  }
-
-  void loadMore() {
-    _currentLimit += 10;
-
-    List<QrTokenmodel> temp = qrList.where((item) {
-      final matchCampaign =
-          selectedCampaign.value.isEmpty ||
-          item.campaign == selectedCampaign.value;
-
-      final matchStatus =
-          selectedStatus.value.isEmpty || item.status == selectedStatus.value;
-
-      final matchSearch =
-          searchText.value.isEmpty ||
-          item.serialNumber.toLowerCase().contains(
-            searchText.value.toLowerCase(),
-          ) ||
-          item.campaign.toLowerCase().contains(searchText.value.toLowerCase());
-
-      return matchCampaign && matchStatus && matchSearch;
-    }).toList();
-
-    if (_currentLimit >= temp.length) {
-      _currentLimit = 10;
-    } else {
-      _currentLimit += 10;
-    }
-
-    filteredList.assignAll(temp.take(_currentLimit).toList());
   }
 
   QrTokenmodel? findBySerial(String serial) {
@@ -105,5 +70,46 @@ class QRController extends GetxController {
     } catch (e) {
       return null;
     }
+  }
+
+  void applyFilter({bool reset = false}) {
+    if (reset) page = 0;
+
+    final temp = getFilteredData();
+
+    int start = page * limit;
+    int end = start + limit;
+
+    if (start >= temp.length) {
+      page = 0;
+      start = 0;
+      end = limit;
+    }
+
+    filteredList.assignAll(
+      temp.sublist(start, end > temp.length ? temp.length : end),
+    );
+  }
+
+  void loadNext() {
+    if (hasNext) {
+      page++;
+      applyFilter();
+    }
+  }
+
+  void loadPrevious() {
+    if (hasPrevious) {
+      page--;
+      applyFilter();
+    }
+  }
+
+  bool get hasNext {
+    return (page + 1) * limit < getFilteredData().length;
+  }
+
+  bool get hasPrevious {
+    return page > 0;
   }
 }

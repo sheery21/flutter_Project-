@@ -1,3 +1,4 @@
+import 'package:donation_drive/Pages/QrDetailPage/QrDetailPage.dart';
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
 import 'package:donation_drive/widgets/QrCardField/QrCardField.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class QrGridField extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final item = controller.filteredList[index];
-          return QrCardField(data: item);
+          return GestureDetector( onTap: (){
+            Get.to(() => QrDetailPage(data: item , campaign: item.campaign));
+          }, child: QrCardField(data: item));
         },
       ),
     );

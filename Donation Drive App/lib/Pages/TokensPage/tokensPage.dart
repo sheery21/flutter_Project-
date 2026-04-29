@@ -87,7 +87,7 @@ class _TokenspageState extends State<Tokenspage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          controller.loadMore();
+                          controller.loadNext();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white70,

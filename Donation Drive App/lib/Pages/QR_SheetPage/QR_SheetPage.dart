@@ -14,19 +14,44 @@ class QrSheetpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("QR Sheet"), centerTitle: true),
+      appBar: AppBar(
+        toolbarHeight: 10,
+        backgroundColor: const Color(0xFFFAFAF9),
+      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            children: [
-              PageHeaderField(),
-              SizedBox(height: 12),
-              CampaignDropdownField(),
-              SizedBox(height: 12),
-              QrGridField(),
-            ],
-          ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFFFFFFFF),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 7,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    PageHeaderField(),
+                    SizedBox(height: 12),
+                    CampaignDropdownField(),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0),
+              child: QrGridField(),
+            ),
+          ],
         ),
       ),
     );
