@@ -1,5 +1,7 @@
 import 'package:donation_drive/features/Model/QRTokenModel.dart';
+import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QrCardField extends StatelessWidget {
   final QrTokenmodel data;
@@ -14,35 +16,43 @@ class QrCardField extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            spreadRadius: 2,
-          ),
+          BoxShadow(color: Color(0xFFE5E7EB), blurRadius: 1, spreadRadius: 2),
         ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Container(height: 100, width: 100, color: Colors.black),
+          Container(
+            height: 100,
+            width: 100,
+            child: QrImageView(data: data.QR_Code),
+          ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
 
           Text(
             data.serialNumber,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
           ),
 
-          const SizedBox(height: 6),
-
-          const Text(
-            "ابتدائی شناختی کارڈ (CNIC) ضروری سافٹ لانچ",
+          Text(
+            "ابتدائی شناختی کارڈ",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12, color: Colors.grey),
+            style: ShortTextField.UrduText(),
+          ),
+
+          Text(
+            "ضروری ساتھ (CNIC)",
+            textAlign: TextAlign.center,
+            style: ShortTextField.UrduText(),
+          ),
+
+          Text(
+            "لائیں",
+            textAlign: TextAlign.center,
+            style: ShortTextField.UrduText(),
           ),
         ],
       ),
     );
-    ;
   }
 }

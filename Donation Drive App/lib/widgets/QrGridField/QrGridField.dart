@@ -20,7 +20,7 @@ class QrGridField extends StatelessWidget {
           crossAxisCount: 2,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
-          childAspectRatio: 0.9,
+          childAspectRatio: 0.80,
         ),
         itemBuilder: (context, index) {
           final item = controller.filteredList[index];

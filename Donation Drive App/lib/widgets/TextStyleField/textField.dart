@@ -36,4 +36,12 @@ class ShortTextField {
       fontWeight: FontWeight.w400,
     );
   }
+  static TextStyle UrduText() {
+    return const TextStyle(
+      fontSize: 12,
+      color: Color(0xFF4A5565),
+      height: 1.5,
+      fontFamily: "NotoNastaliqUrdu",
+    );
+  }
 }

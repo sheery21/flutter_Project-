@@ -17,7 +17,7 @@ class QrSheetpage extends StatelessWidget {
       appBar: AppBar(title: Text("QR Sheet"), centerTitle: true),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           child: Column(
             children: [
               PageHeaderField(),

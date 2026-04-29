@@ -135,5 +135,10 @@ flutter:
         - asset: assets/fonts/Outfit.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+    - family: NotoNastaliqUrdu
+      fonts:
+        - asset: assets/fonts/NotoNastaliqUrdu.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
