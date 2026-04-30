@@ -50,7 +50,6 @@ class PageHeaderField extends StatelessWidget {
               ),
             ),
 
-
           if (controller.hasNext)
             GestureDetector(
               onTap: controller.loadNext,

@@ -28,7 +28,7 @@ class CampaignDropdownField extends StatelessWidget {
             }).toList(),
             onChanged: (value) {
               controller.selectedCampaign.value = value ?? "";
-              controller.applyFilter( reset:  true);
+              controller.applyFilter(reset: true);
             },
           ),
         ),

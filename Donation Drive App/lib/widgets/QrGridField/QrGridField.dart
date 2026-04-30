@@ -25,9 +25,12 @@ class QrGridField extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final item = controller.filteredList[index];
-          return GestureDetector( onTap: (){
-            Get.to(() => QrDetailPage(data: item , campaign: item.campaign));
-          }, child: QrCardField(data: item));
+          return GestureDetector(
+            onTap: () {
+              Get.to(() => QrDetailPage(data: item, campaign: item.campaign));
+            },
+            child: QrCardField(data: item),
+          );
         },
       ),
     );

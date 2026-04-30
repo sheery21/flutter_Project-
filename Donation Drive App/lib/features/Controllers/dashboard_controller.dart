@@ -61,7 +61,8 @@ class DashboardController extends GetxController {
         colors: [Color(0xFF62748E), Color(0xFF45556C)],
       ),
       "icon": "assets/Icons/Delivered.svg",
-    },{
+    },
+    {
       "title": "With Details",
       "value": delivered.value,
       "color": const LinearGradient(
