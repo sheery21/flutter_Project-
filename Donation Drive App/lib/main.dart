@@ -20,16 +20,17 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      routes: {
-        "/logIn": (context) => const LoginScreen(),
-        "/dashboard": (context) => const Dashboardpage(),
-        "/BottomNavbar": (context) => const Bottomnavbar(),
-        "/Profile": (context) => const Profilepage(),
-        "/QR_Sheet": (context) => QrSheetpage(),
-        "/Tokens": (context) => Tokenspage(),
-        "/Scan": (context) => const Scanpage(),
-      },
+      initialRoute: "/logIn",
+      getPages: [
+        GetPage(name: "/logIn" , page: () => const LoginScreen()),
+        GetPage(name: "/dashboard" , page: () => const Dashboardpage()),
+        GetPage(name: "/BottomNavbar" , page: () => const Bottomnavbar()),
+        GetPage(name: "/Profile" , page: () => const Profilepage()),
+        GetPage(name: "/QR_Sheet" , page: () =>  QrSheetpage()),
+        GetPage(name: "/Tokens" , page: () => const Tokenspage()),
+        GetPage(name: "/Scan" , page: () => const Scanpage()),
+
+      ]
     );
   }
 }

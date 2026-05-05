@@ -5,6 +5,12 @@ class QRController extends GetxController {
   var qrList = <QrTokenmodel>[].obs;
   var filteredList = <QrTokenmodel>[].obs;
 
+  List<QrTokenmodel> _allFiltered = [];
+
+  void _prepareFilteredData() {
+    _allFiltered = getFilteredData();
+  }
+
   var selectedCampaign = "".obs;
   var selectedStatus = "".obs;
   var searchText = "".obs;
@@ -73,26 +79,35 @@ class QRController extends GetxController {
   }
 
   void applyFilter({bool reset = false}) {
-    if (reset) page = 0;
-
-    final temp = getFilteredData();
+    if (reset) {
+      page = 0;
+      filteredList.clear();
+      _prepareFilteredData();
+    }
+    ;
 
     int start = page * limit;
     int end = start + limit;
 
-    if (start >= temp.length) {
-      page = 0;
-      start = 0;
-      end = limit;
-    }
+    if (start >= _allFiltered.length) return;
 
-    filteredList.assignAll(
-      temp.sublist(start, end > temp.length ? temp.length : end),
+    final newData = _allFiltered.sublist(
+      start,
+      end > _allFiltered.length ? _allFiltered.length : end,
     );
+
+    if (reset) {
+      filteredList.assignAll(newData);
+    } else {
+      filteredList.addAll(newData); // append
+    }
   }
 
   void loadNext() {
-    if (hasNext) {
+    if (filteredList.length >= _allFiltered.length) {
+      // Show Less
+      applyFilter(reset: true);
+    } else {
       page++;
       applyFilter();
     }
@@ -105,6 +120,8 @@ class QRController extends GetxController {
     }
   }
 
+  bool get isAllLoaded => filteredList.length >= _allFiltered.length;
+
   bool get hasNext {
     return (page + 1) * limit < getFilteredData().length;
   }
@@ -112,4 +129,7 @@ class QRController extends GetxController {
   bool get hasPrevious {
     return page > 0;
   }
+
+
+
 }

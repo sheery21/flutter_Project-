@@ -70,6 +70,10 @@ dependencies:
 
 #  package_info_plus: ^10.1.0
   package_info_plus: ^10.1.0
+
+#  image_gallery_saver: ^2.0.3
+  image_gallery_saver_plus: ^4.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

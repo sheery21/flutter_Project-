@@ -6,8 +6,6 @@ import 'package:donation_drive/widgets/GenerateQRHeader/genrateTokenCard.dart';
 import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:donation_drive/widgets/TokenCard/tokenCard.dart';
 import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetails.dart';
-import 'package:donation_drive/widgets/TokenDetailsSheetField/tokenDetailsSheet.dart';
-import 'package:donation_drive/widgets/TokenSummaryFirld/tokenSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,6 @@
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
 import 'package:donation_drive/widgets/CampaignDropdownField/campaignDropdownField.dart';
 import 'package:donation_drive/widgets/PageHeaderField/pageHeaderField.dart';
-import 'package:donation_drive/widgets/QrCardField/QrCardField.dart';
 import 'package:donation_drive/widgets/QrGridField/QrGridField.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

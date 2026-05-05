@@ -6,6 +6,7 @@ import 'package:donation_drive/widgets/ButtonsField/loginButtonField.dart';
 import 'package:donation_drive/widgets/ColorsField/ColorField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
@@ -24,34 +25,25 @@ class QrDetailPage extends StatefulWidget {
 class _QrDetailPageState extends State<QrDetailPage> {
   final ScreenshotController screenshotController = ScreenshotController();
 
-  // Future<void> downloadQR() async {
-  //   final image = await screenshotController.capture();
-  //   if (image == null) return;
-  //
-  //   final dir = await getTemporaryDirectory();
-  //   final filePath =
-  //       '${dir.path}/QR_${DateTime.now().millisecondsSinceEpoch}.png';
-  //
-  //   final file = File(filePath);
-  //   await file.writeAsBytes(image);
-  //
-  //   await GallerySaver.saveImage(file.path);
-  //
-  //   ScaffoldMessenger.of(
-  //     context,
-  //   ).showSnackBar(SnackBar(content: Text("Saved to Gallery")));
-  //
-  //   // final dir = await getApplicationDocumentsDirectory();
-  //   // final file = File(
-  //   //   '${dir.path}/QR_${DateTime.now().millisecondsSinceEpoch}.png',
-  //   // );
-  //   //
-  //   // await file.writeAsBytes(image);
-  //   //
-  //   // ScaffoldMessenger.of(
-  //   //   context,
-  //   // ).showSnackBar(SnackBar(content: Text("QR Downloaded")));
-  // }
+  Future<void> downloadQR() async {
+    final image = await screenshotController.capture();
+    if (image == null) return;
+
+    final result = await ImageGallerySaverPlus.saveImage(
+      image,
+      quality: 100,
+      name: "QR_${DateTime.now().millisecondsSinceEpoch}",
+    );
+    if (result["isSuccess"] == true) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("QR saved to gallery")));
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Failed to save QR")));
+    }
+  }
 
   Future<void> shareQR() async {
     final image = await screenshotController.capture();
@@ -153,7 +145,7 @@ class _QrDetailPageState extends State<QrDetailPage> {
               Buttonfield.MainbuttonWithIconfield(
                 text: "Download QR",
                 onPressed: () {
-                  // downloadQR();
+                  downloadQR();
                 },
                 icon: SvgPicture.asset("assets/Icons/download_QR.svg"),
               ),

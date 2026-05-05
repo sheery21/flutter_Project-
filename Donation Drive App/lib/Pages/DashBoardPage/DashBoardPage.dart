@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Controllers/dashboard_controller.dart';
+import 'package:donation_drive/widgets/AdminLayout/adminLayout.dart';
 import 'package:donation_drive/widgets/DistributionSummaryField/DistributionSummaryCards.dart';
 import 'package:donation_drive/widgets/NavbarField/navBarField.dart';
 import 'package:donation_drive/widgets/TokenAnalytics/TokenAnalyticsCard.dart';
@@ -16,6 +17,8 @@ class Dashboardpage extends StatefulWidget {
   State<Dashboardpage> createState() => _DashboardpageState();
 }
 
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
 class _DashboardpageState extends State<Dashboardpage> {
   final DashboardController controller = Get.put(
     DashboardController(),
@@ -25,104 +28,108 @@ class _DashboardpageState extends State<Dashboardpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer:  AdminLayout(),
       appBar: Navbarfield.mainNavbar(
         onMenuTap: () {
+          scaffoldKey.currentState!.openDrawer();
           print("hello");
         },
         onBellTap: () {
           print("hello");
         },
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              Obx(
-                () => TokenSummaryCard(
-                  title: "Total Tokens",
-                  value: controller.totalTokens.value,
-                  subtitle: "Tap to view details",
-                  onTap: () {
-                    print(
-                      "UI rebuild - TotalTokens: ${controller.totalTokens.value.toString()}",
-                    );
-                    Get.bottomSheet(
-                      TokenDetailsSheet(controller: controller),
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: 20),
+      body:
+       SingleChildScrollView(
+         child: Container(
+           width: MediaQuery.of(context).size.width,
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: [
+               SizedBox(height: 20),
+               Obx(
+                 () => TokenSummaryCard(
+                   title: "Total Tokens",
+                   value: controller.totalTokens.value,
+                   subtitle: "Tap to view details",
+                   onTap: () {
+                     print(
+                       "UI rebuild - TotalTokens: ${controller.totalTokens.value.toString()}",
+                     );
+                     Get.bottomSheet(
+                       TokenDetailsSheet(controller: controller),
+                       isScrollControlled: true,
+                       backgroundColor: Colors.transparent,
+                     );
+                   },
+                 ),
+               ),
+               SizedBox(height: 20),
 
-              Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "By Campaingn",
-                      style: TextStyle(
-                        fontFamily: "Outfit",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "View All",
-                        style: TextStyle(
-                          color: Color(0xFFF54900),
-                          fontFamily: "Outfit",
-                          fontSize: 15,
-                          fontWeight: FontWeight.w100,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+               Container(
+                 width: MediaQuery.of(context).size.width / 1.1,
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     Text(
+                       "By Campaingn",
+                       style: TextStyle(
+                         fontFamily: "Outfit",
+                         fontSize: 18,
+                         fontWeight: FontWeight.w400,
+                       ),
+                     ),
+                     GestureDetector(
+                       onTap: () {},
+                       child: Text(
+                         "View All",
+                         style: TextStyle(
+                           color: Color(0xFFF54900),
+                           fontFamily: "Outfit",
+                           fontSize: 15,
+                           fontWeight: FontWeight.w100,
+                         ),
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
 
-              SizedBox(height: 15),
+               SizedBox(height: 15),
 
-              Obx(() {
-                if (controller.isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
-                }
+               Obx(() {
+                 if (controller.isLoading.value) {
+                   return Center(child: CircularProgressIndicator());
+                 }
 
-                return Column(
-                  children: controller.campaigns.map((item) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 13),
-                      child: DistributionSummaryCard(
-                        title: item["title"],
-                        subtitle: "${item["total"]} Total",
-                        unregistered: item["unregistered"],
-                        registered: item["registered"],
-                        delivered: item["delivered"],
-                      ),
-                    );
-                  }).toList(),
-                );
-              }),
-              SizedBox(height: 13),
-              Obx(
-                () => TokenAnalyticsCard(
-                  unregistered: controller.unregistered.value,
-                  registered: controller.registered.value,
-                  delivered: controller.delivered.value,
-                ),
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
+                 return Column(
+                   children: controller.campaigns.map((item) {
+                     return Padding(
+                       padding: const EdgeInsets.only(bottom: 13),
+                       child: DistributionSummaryCard(
+                         title: item["title"],
+                         subtitle: "${item["total"]} Total",
+                         unregistered: item["unregistered"],
+                         registered: item["registered"],
+                         delivered: item["delivered"],
+                       ),
+                     );
+                   }).toList(),
+                 );
+               }),
+               SizedBox(height: 13),
+               Obx(
+                 () => TokenAnalyticsCard(
+                   unregistered: controller.unregistered.value,
+                   registered: controller.registered.value,
+                   delivered: controller.delivered.value,
+                 ),
+               ),
+               SizedBox(height: 20),
+             ],
+           ),
+         ),
+       ),
     );
   }
 }
