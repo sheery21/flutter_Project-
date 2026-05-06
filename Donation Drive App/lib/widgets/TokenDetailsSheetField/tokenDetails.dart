@@ -124,9 +124,12 @@ class TokenDetails extends StatelessWidget {
                 ),
 
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Status", style: ShortTextField.mainShortText_2()),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text("Status", style: ShortTextField.mainShortText_2()),
+                    ),
                     SizedBox(height: 4),
 
                     /// Badge

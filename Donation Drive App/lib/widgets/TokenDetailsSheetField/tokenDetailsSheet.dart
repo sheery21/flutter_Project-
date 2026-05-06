@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Controllers/dashboard_controller.dart';
+import 'package:donation_drive/widgets/ButtonsField/buttonField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -96,18 +97,11 @@ class TokenDetailsSheet extends StatelessWidget {
 
             GestureDetector(
               onTap: () => Get.back(),
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  "Close",
-                  style: TextStyle(color: Colors.white),
-                ),
+              child: Buttonfield.Mainbuttonfield(
+                text: "Close",
+                onPressed: () {
+                  Get.back();
+                },
               ),
             ),
             const SizedBox(height: 120),

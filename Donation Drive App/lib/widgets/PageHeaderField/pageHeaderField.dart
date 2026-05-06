@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PageHeaderField extends StatelessWidget {
-  PageHeaderField({super.key});
+  final QRController controller;
+  PageHeaderField({super.key , required this.controller});
 
-  final QRController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

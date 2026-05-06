@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
+import 'package:donation_drive/features/Controllers/QrSheetController/qrSheetController.dart';
 import 'package:donation_drive/widgets/CampaignDropdownField/campaignDropdownField.dart';
 import 'package:donation_drive/widgets/PageHeaderField/pageHeaderField.dart';
 import 'package:donation_drive/widgets/QrGridField/QrGridField.dart';
@@ -8,10 +9,12 @@ import 'package:get/get.dart';
 class QrSheetpage extends StatelessWidget {
   QrSheetpage({super.key});
 
-  final QRController controller = Get.put(QRController());
+  final QrSheetController controller = Get.put(QrSheetController());
 
   @override
   Widget build(BuildContext context) {
+
+    controller.isPaginationMode = true;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 10,
@@ -38,9 +41,9 @@ class QrSheetpage extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    PageHeaderField(),
+                    PageHeaderField( controller: controller,),
                     SizedBox(height: 12),
-                    CampaignDropdownField(),
+                    CampaignDropdownField(controller: controller, ),
                   ],
                 ),
               ),
@@ -48,7 +51,7 @@ class QrSheetpage extends StatelessWidget {
             SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0),
-              child: QrGridField(),
+              child: QrGridField(controller: controller,),
             ),
           ],
         ),

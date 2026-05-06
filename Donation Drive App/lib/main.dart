@@ -22,15 +22,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/logIn",
       getPages: [
-        GetPage(name: "/logIn" , page: () => const LoginScreen()),
-        GetPage(name: "/dashboard" , page: () => const Dashboardpage()),
-        GetPage(name: "/BottomNavbar" , page: () => const Bottomnavbar()),
-        GetPage(name: "/Profile" , page: () => const Profilepage()),
-        GetPage(name: "/QR_Sheet" , page: () =>  QrSheetpage()),
-        GetPage(name: "/Tokens" , page: () => const Tokenspage()),
-        GetPage(name: "/Scan" , page: () => const Scanpage()),
-
-      ]
+        GetPage(name: "/logIn", page: () => const LoginScreen()),
+        GetPage(name: "/dashboard", page: () => const Dashboardpage()),
+        GetPage(name: "/BottomNavbar", page: () => const Bottomnavbar()),
+        GetPage(name: "/Profile", page: () => const Profilepage()),
+        GetPage(name: "/QR_Sheet", page: () => QrSheetpage()),
+        GetPage(name: "/Tokens", page: () => const Tokenspage()),
+        GetPage(name: "/Scan", page: () => const Scanpage()),
+      ],
     );
   }
 }

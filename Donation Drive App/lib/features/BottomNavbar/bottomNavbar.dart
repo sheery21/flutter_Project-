@@ -51,7 +51,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
                   ? ColorsField.MainColorField()
                   : Color(0xFF99A1AF),
             ),
-            label: "Home",
+            label: "Dashboard",
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
@@ -70,7 +70,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
                 color: ColorsField.MainColorField(),
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
-              child: Icon(Icons.qr_code_scanner, color: Color(0xFF99A1AF)),
+              child: Icon(Icons.qr_code_scanner, color: Color(0xFFFFFFFF)),
             ),
             label: "Scan",
           ),

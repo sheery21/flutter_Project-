@@ -1,5 +1,9 @@
 import 'package:donation_drive/Pages/DashBoardPage/DashBoardPage.dart';
+import 'package:donation_drive/widgets/ButtonsField/buttonField.dart';
+import 'package:donation_drive/widgets/ButtonsField/logOutButtonField.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminLayout extends StatefulWidget {
   const AdminLayout({super.key});
@@ -14,9 +18,9 @@ class _AdminLayoutState extends State<AdminLayout> {
   final pages = [
     Dashboardpage(),
     Center(child: Text("Donations")),
-    Center(child: Text("Donors")),
-    Center(child: Text("Analytics")),
-    Center(child: Text("Settings")),
+    Center(child: Text("Tokens")),
+    Center(child: Text("Scan")),
+    Center(child: Text("QR")),
   ];
 
   @override
@@ -50,13 +54,33 @@ class _AdminLayoutState extends State<AdminLayout> {
           SizedBox(height: 30),
 
           sidebarItem(Icons.home, "Dashboard", 0),
-          sidebarItem(Icons.card_giftcard, "Donations", 1),
-          sidebarItem(Icons.people, "Donors", 2),
-          sidebarItem(Icons.show_chart, "Analytics", 3),
 
-          Divider(color: Colors.white38),
+          // 🔥 Donations → Tokens
+          sidebarItem(Icons.confirmation_number, "Tokens", 1),
 
-          sidebarItem(Icons.settings, "Settings", 4),
+          // 🔥 Donors → Scan
+          sidebarItem(Icons.qr_code_scanner, "Scan", 2),
+
+          // 🔥 Analytics → QR
+          sidebarItem(Icons.qr_code, "QR", 3),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(color: Color(0xFFE5E7EB)),
+          ),
+
+          SizedBox(height: 30),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.red),
+            title: const Text("Logout", style: TextStyle(color: Colors.red)),
+
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+
+              Get.offAllNamed("/logIn");
+            },
+          ),
         ],
       ),
     );
@@ -80,7 +104,10 @@ class _AdminLayoutState extends State<AdminLayout> {
         ),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? Color(0xFF1E5EFF) : Color(0xFF364153)),
+            Icon(
+              icon,
+              color: isSelected ? Color(0xFF1E5EFF) : Color(0xFF364153),
+            ),
             SizedBox(width: 10),
             Text(
               title,

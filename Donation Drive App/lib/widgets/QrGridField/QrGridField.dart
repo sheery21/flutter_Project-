@@ -1,16 +1,19 @@
 import 'package:donation_drive/Pages/QrDetailPage/QrDetailPage.dart';
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
 import 'package:donation_drive/widgets/QrCardField/QrCardField.dart';
+import 'package:donation_drive/widgets/QrGridPagination/qrGridPagination.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QrGridField extends StatelessWidget {
-  QrGridField({super.key});
 
-  final QRController controller = Get.find();
+  final QRController controller;
+  QrGridField({super.key , required this.controller});
 
   @override
   Widget build(BuildContext context) {
+
+
     return Obx(
       () => GridView.builder(
         padding: const EdgeInsets.only(bottom: 20),
@@ -27,7 +30,7 @@ class QrGridField extends StatelessWidget {
           final item = controller.filteredList[index];
           return GestureDetector(
             onTap: () {
-              Get.to(() => QrDetailPage(data: item, campaign: item.campaign));
+              Get.to(() => QrDetailPage(data: item, campaign: item.campaign), );
             },
             child: QrCardField(data: item),
           );

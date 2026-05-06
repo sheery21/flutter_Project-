@@ -1,4 +1,5 @@
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
+import 'package:donation_drive/features/Controllers/TokensController/tokensController.dart';
 import 'package:donation_drive/features/authScreens/logIn_Screen.dart';
 import 'package:donation_drive/widgets/FiltersField/filterField.dart';
 import 'package:donation_drive/widgets/GenerateQRHeader/generateQRHeader.dart';
@@ -16,7 +17,14 @@ class Tokenspage extends StatefulWidget {
 }
 
 class _TokenspageState extends State<Tokenspage> {
-  final QRController controller = Get.put(QRController());
+  final TokensController controller = Get.put(TokensController());
+
+  @override
+  void initState() {
+    controller.isPaginationMode = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +58,7 @@ class _TokenspageState extends State<Tokenspage> {
                       subtitle: "Tokens TD-0501 to TD-1000",
                       onTap: () {},
                     ),
-                    Filterfield(),
+                    Filterfield(controller: controller),
 
                     SizedBox(
                       child: Text(

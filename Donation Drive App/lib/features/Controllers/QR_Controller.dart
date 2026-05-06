@@ -11,6 +11,8 @@ class QRController extends GetxController {
     _allFiltered = getFilteredData();
   }
 
+  bool isPaginationMode = true;
+
   var selectedCampaign = "".obs;
   var selectedStatus = "".obs;
   var searchText = "".obs;
@@ -79,12 +81,12 @@ class QRController extends GetxController {
   }
 
   void applyFilter({bool reset = false}) {
+    _allFiltered = getFilteredData();
+
     if (reset) {
       page = 0;
       filteredList.clear();
-      _prepareFilteredData();
     }
-    ;
 
     int start = page * limit;
     int end = start + limit;
@@ -96,40 +98,48 @@ class QRController extends GetxController {
       end > _allFiltered.length ? _allFiltered.length : end,
     );
 
-    if (reset) {
+    if (isPaginationMode) {
+      // ✅ GRID → replace
       filteredList.assignAll(newData);
     } else {
-      filteredList.addAll(newData); // append
+      // ✅ TOKENS → append
+      if (reset) {
+        filteredList.assignAll(newData);
+      } else {
+        filteredList.addAll(newData);
+      }
     }
   }
 
   void loadNext() {
-    if (filteredList.length >= _allFiltered.length) {
-      // Show Less
-      applyFilter(reset: true);
-    } else {
+    if (isPaginationMode) {
       page++;
       applyFilter();
+    } else {
+      // Load More mode
+      if (filteredList.length >= _allFiltered.length) {
+        applyFilter(reset: true); // Show Less
+      } else {
+        page++;
+        applyFilter();
+      }
     }
   }
 
   void loadPrevious() {
     if (hasPrevious) {
       page--;
-      applyFilter();
+      applyFilter(reset: true);
     }
   }
 
   bool get isAllLoaded => filteredList.length >= _allFiltered.length;
 
   bool get hasNext {
-    return (page + 1) * limit < getFilteredData().length;
+    return (page + 1) * limit < _allFiltered.length;
   }
 
   bool get hasPrevious {
     return page > 0;
   }
-
-
-
 }

@@ -1,12 +1,14 @@
 import 'package:donation_drive/features/Controllers/QR_Controller.dart';
+import 'package:donation_drive/widgets/CampaignDropdownField/campaignDropdownField.dart';
+import 'package:donation_drive/widgets/StatusDropdownField/statusDropdownField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class Filterfield extends StatelessWidget {
-  Filterfield({super.key});
+  final QRController controller ;
+  Filterfield({super.key , required this.controller});
 
-  final controller = Get.find<QRController>();
   final isExpanded = false.obs;
 
   @override
@@ -79,86 +81,9 @@ class Filterfield extends StatelessWidget {
               /// DROPDOWNS
               Row(
                 children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFE5E7EB)),
-                        color: Color(0xFFF3F4F6),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Obx(
-                        () => DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            isExpanded: true,
-                            value: controller.selectedCampaign.value.isEmpty
-                                ? null
-                                : controller.selectedCampaign.value,
-                            hint: Text("All Campaigns"),
-                            items: controller.campaigns.map((e) {
-                              return DropdownMenuItem(
-                                value: e,
-                                child: Text(
-                                  e,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xFF364153),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Inter",
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (val) {
-                              controller.selectedCampaign.value = val ?? "";
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Expanded(child: CampaignDropdownField( controller: controller,)),
                   SizedBox(width: 10),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF3F4F6),
-                        border: Border.all(color: Color(0xFFE5E7EB)),
-                      ),
-                      child: Obx(
-                        () => DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            value: controller.selectedStatus.value.isEmpty
-                                ? null
-                                : controller.selectedStatus.value,
-                            hint: Text(
-                              "All Status",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            items: controller.status.map((e) {
-                              return DropdownMenuItem(
-                                value: e,
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xFF364153),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Inter",
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (val) {
-                              controller.selectedStatus.value = val ?? "";
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Expanded(child: StatusDropdownField(  controller: controller,)),
                 ],
               ),
 

@@ -66,6 +66,8 @@ class Logincontroller extends GetxController {
     try {
       await Future.delayed(Duration(seconds: 1));
       if (email == "admin@gmail.com" && password == "admin") {
+
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         await prefs.setBool(ISLOGGEDIN, true);
@@ -104,6 +106,7 @@ class Logincontroller extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
+      print( "Error: $e");
     } finally {
       isLoading.value = false;
     }
