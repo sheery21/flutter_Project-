@@ -22,11 +22,23 @@ class QRController extends GetxController {
 
   int page = 0;
   final int limit = 10;
+  late Worker _searchDebounce;
 
   @override
   void onInit() {
     super.onInit();
+
     generateQrTokens();
+
+    _searchDebounce = debounce(searchText, (_) {
+      applyFilter(reset: true);
+    }, time: const Duration(milliseconds: 500));
+  }
+
+  @override
+  void onClose() {
+    _searchDebounce.dispose();
+    super.onClose();
   }
 
   void generateQrTokens() {
@@ -81,32 +93,44 @@ class QRController extends GetxController {
   }
 
   void applyFilter({bool reset = false}) {
+    // 🔥 STEP 1: get filtered data
     _allFiltered = getFilteredData();
 
+    // 🔥 STEP 2: reset page if needed
     if (reset) {
       page = 0;
-      filteredList.clear();
     }
 
     int start = page * limit;
     int end = start + limit;
 
-    if (start >= _allFiltered.length) return;
+    if (start >= _allFiltered.length) {
+      filteredList.clear();
+      return;
+    }
 
     final newData = _allFiltered.sublist(
       start,
       end > _allFiltered.length ? _allFiltered.length : end,
     );
 
+    // 🔥 STEP 3: ALWAYS CONTROLLED UPDATE
     if (isPaginationMode) {
-      // ✅ GRID → replace
+      // GRID → always replace
       filteredList.assignAll(newData);
     } else {
-      // ✅ TOKENS → append
+      // TOKENS → load more OR reset
       if (reset) {
-        filteredList.assignAll(newData);
+        filteredList.assignAll(newData); // ✅ fresh load
       } else {
-        filteredList.addAll(newData);
+        // ❗ prevent duplicate append
+        final existingIds = filteredList.map((e) => e.serialNumber).toSet();
+
+        final uniqueData = newData
+            .where((e) => !existingIds.contains(e.serialNumber))
+            .toList();
+
+        filteredList.addAll(uniqueData);
       }
     }
   }

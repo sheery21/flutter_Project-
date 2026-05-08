@@ -76,6 +76,15 @@ dependencies:
 
 #  dropdown_button2: ^3.1.0
   dropdown_button2: ^3.1.0
+#  flutter_staggered_grid_view: ^0.7.0
+  flutter_staggered_grid_view: ^0.7.0
+
+#   flutter_launcher_icons: ^0.14.4
+  flutter_launcher_icons: ^0.14.4
+#    flutter_native_splash: ^2.4.6
+  flutter_native_splash: ^2.4.7
+
+
 
 dev_dependencies:
   flutter_test:
@@ -95,69 +104,54 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
     - assets/Icons/
-    # - images/a_dot_ham.jpeg
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
     - family: IbarraRealNova
       fonts:
         - asset: assets/fonts/IbarraRealNova.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+
     - family: Hurricane
       fonts:
         - asset: assets/fonts/Hurricane.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700  - family: Poppins
-    - family: IbarraRealNova
-      fonts:
-        - asset: assets/fonts/IbarraRealNova.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700    - family: Poppins
+
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+
     - family: ABeeZee
       fonts:
         - asset: assets/fonts/ABeeZee.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
     - family: DMSans
       fonts:
         - asset: assets/fonts/DMSans.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
     - family: Outfit
       fonts:
         - asset: assets/fonts/Outfit.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
     - family: NotoNastaliqUrdu
       fonts:
         - asset: assets/fonts/NotoNastaliqUrdu.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/ContainerLogin.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  fullscreen: true
+
+  android_12:
+    color: "#ffffff"
+
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

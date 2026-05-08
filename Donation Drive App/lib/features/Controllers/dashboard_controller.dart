@@ -86,7 +86,7 @@ class DashboardController extends GetxController {
     details.value = 1;
     campaigns.assignAll([
       {
-        "title": "Awam Distribution x Tuba \nFoundation",
+        "title": "Awan Distribution x Tuba \nFoundation",
         "total": 12345,
         "unregistered": 12345,
         "registered": 12345,

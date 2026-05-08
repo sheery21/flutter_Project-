@@ -13,7 +13,6 @@ class QrSheetpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     controller.isPaginationMode = true;
     return Scaffold(
       appBar: AppBar(
@@ -41,17 +40,17 @@ class QrSheetpage extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    PageHeaderField( controller: controller,),
+                    PageHeaderField(controller: controller),
                     SizedBox(height: 12),
-                    CampaignDropdownField(controller: controller, ),
+                    CampaignDropdownField(controller: controller),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 12),
             Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0),
-              child: QrGridField(controller: controller,),
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
+              child: QrGridField(controller: controller),
             ),
           ],
         ),

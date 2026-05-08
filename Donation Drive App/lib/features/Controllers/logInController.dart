@@ -88,7 +88,7 @@ class Logincontroller extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Get.offAllNamed("/BottomNavbar");
+        Get.offAllNamed("/mainLayout");
       } else {
         Get.snackbar(
           "Login Failed",

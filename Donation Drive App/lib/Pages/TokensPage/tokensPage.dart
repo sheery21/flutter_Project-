@@ -27,92 +27,111 @@ class _TokenspageState extends State<Tokenspage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 10,
-        backgroundColor: const Color(0xFFFAFAF9),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// HEADER
-            GenerateQRHeader(total: 5000, active: 875, delivered: 1750),
+    return WillPopScope(
+      onWillPop: () async {
+        controller.filteredList.clear();
+        // controller.loadInitialData(); // agar function hai
 
-            /// OVERLAP EFFECT (optional spacing)
-            Transform.translate(
-              offset: Offset(0, -20), // thoda overlap feel
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GenerateTokenCard(
-                      title: "Awan Distribution x Tuba Foundation",
-                      subtitle: "Tokens TD-0001 to TD-0500",
-                      onTap: () {},
-                    ),
+        // false = app close nahi hoga
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 10,
+          backgroundColor: const Color(0xFFFAFAF9),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// HEADER
+              GenerateQRHeader(total: 5000, active: 875, delivered: 1750),
 
-                    GenerateTokenCard(
-                      title: "City Relief Campaign",
-                      subtitle: "Tokens TD-0501 to TD-1000",
-                      onTap: () {},
-                    ),
-                    Filterfield(controller: controller),
-
-                    SizedBox(
-                      child: Text(
-                        "Showing 10 of 3,500 tokens",
-                        style: ShortTextField.mainShortText_3(),
-                      ),
-                    ),
-                    Obx(() {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: controller.filteredList.length,
-                        itemBuilder: (context, index) {
-                          final item = controller.filteredList[index];
-                          return TokenCard(
-                            campaign: item.campaign,
-                            status: item.status,
-                            serial: item.serialNumber,
-                            date: item.generatedData,
-                            onView: () {
-                              Get.bottomSheet(
-                                TokenDetails(item: item),
-                                isScrollControlled: true,
-                                backgroundColor: const Color(0xFFFAFAF9),
-                              );
-                            },
+              /// OVERLAP EFFECT (optional spacing)
+              Transform.translate(
+                offset: Offset(0, -20), // thoda overlap feel
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GenerateTokenCard(
+                        title: "Awan Distribution x Tuba Foundation",
+                        subtitle: "Tokens TD-0001 to TD-0500",
+                        onTap: () {
+                          Get.snackbar(
+                            "Error",
+                            "Awan Distribution x Tuba Foundation: tokens already generated (500).",
                           );
                         },
-                      );
-                    }),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          controller.loadNext();
+                      ),
+
+                      GenerateTokenCard(
+                        title: "City Relief Campaign",
+                        subtitle: "Tokens TD-0501 to TD-1000",
+                        onTap: () {
+                          Get.snackbar(
+                            "Error",
+                            "Awan Distribution x Tuba Foundation: tokens already generated (500).",
+                          );
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white70,
+                      ),
+                      Filterfield(controller: controller),
+
+                      SizedBox(
+                        child: Text(
+                          "Showing 10 of 3,500 tokens",
+                          style: ShortTextField.mainShortText_3(),
                         ),
-                        child: Obx(
-                          () => Text(
-                            controller.filteredList.length >=
-                                    controller.qrList.length
-                                ? "Show Less"
-                                : "Load More",
+                      ),
+                      Obx(() {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: controller.filteredList.length,
+                          itemBuilder: (context, index) {
+                            final item = controller.filteredList[index];
+                            return TokenCard(
+                              campaign: item.campaign,
+                              status: item.status,
+                              serial: item.serialNumber,
+                              date: item.generatedData,
+                              onView: () {
+                                Get.bottomSheet(
+                                  TokenDetails(item: item),
+                                  isScrollControlled: true,
+                                  backgroundColor: const Color(0xFFFAFAF9),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.loadNext();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white70,
+                          ),
+                          child: Obx(
+                            () => Text(
+                              controller.filteredList.length >=
+                                      controller.qrList.length
+                                  ? "Show Less"
+                                  : "Load More",
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

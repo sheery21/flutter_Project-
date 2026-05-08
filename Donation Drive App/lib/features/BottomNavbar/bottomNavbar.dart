@@ -3,101 +3,72 @@ import 'package:donation_drive/Pages/ProfilePage/profilePage.dart';
 import 'package:donation_drive/Pages/QR_SheetPage/QR_SheetPage.dart';
 import 'package:donation_drive/Pages/ScanPage/scanPage.dart';
 import 'package:donation_drive/Pages/TokensPage/tokensPage.dart';
+import 'package:donation_drive/features/Controllers/NavigationController/navigationController.dart';
+import 'package:donation_drive/widgets/AdminLayout/adminLayout.dart'; // Import AdminLayout
 import 'package:donation_drive/widgets/ColorsField/ColorField.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+// import '../../features/Controllers/navigation_controller.dart'; // Path sahi kar lena
 
-class Bottomnavbar extends StatefulWidget {
-  const Bottomnavbar({super.key});
+class Bottomnavbar extends StatelessWidget {
+  Bottomnavbar({super.key});
 
-  @override
-  State<Bottomnavbar> createState() => _BottomnavbarState();
-}
+  final NavigationController navRepo = Get.put(NavigationController());
 
-class _BottomnavbarState extends State<Bottomnavbar> {
-  int currentIndex = 0;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    currentIndex = 0;
-  }
-
-  List<Widget> pages = [
+  final List<Widget> pages = [
     Dashboardpage(),
     Tokenspage(),
     Scanpage(),
     QrSheetpage(),
     Profilepage(),
   ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // ✅ FIX 2 (body add kiya)
-      body: pages[currentIndex],
-      backgroundColor: Color(0xFFEEFAF8),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        selectedItemColor: ColorsField.MainColorField(),
-        unselectedItemColor: Color(0xFF99A1AF),
-        // backgroundColor: Color(0xFFEEFAF8),
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.dashboard,
-              color: currentIndex == 0
-                  ? ColorsField.MainColorField()
-                  : Color(0xFF99A1AF),
+    return Obx(
+      () => Scaffold(
+        // Drawer yahan shift kar diya taaki ye har page pe chale
+        drawer: const AdminLayout(),
+        body: pages[navRepo.currentIndex.value],
+        backgroundColor: const Color(0xFFEEFAF8),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: navRepo.currentIndex.value,
+          selectedItemColor: ColorsField.MainColorField(),
+          unselectedItemColor: const Color(0xFF99A1AF),
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+          onTap: (index) => navRepo.changeIndex(index),
+          items: [
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.dashboard),
+              label: "Dashboard",
             ),
-            label: "Dashboard",
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.ticket,
-              color: currentIndex == 1
-                  ? ColorsField.MainColorField()
-                  : Color(0xFF99A1AF),
+            const BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.ticket),
+              label: "Tokens",
             ),
-            label: "Tokens",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: ColorsField.MainColorField(),
-            icon: Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: ColorsField.MainColorField(),
-                borderRadius: BorderRadius.all(Radius.circular(12)),
+            BottomNavigationBarItem(
+              icon: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: ColorsField.MainColorField(),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.qr_code_scanner, color: Colors.white),
               ),
-              child: Icon(Icons.qr_code_scanner, color: Color(0xFFFFFFFF)),
+              label: "Scan",
             ),
-            label: "Scan",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.qr_code,
-              color: currentIndex == 3
-                  ? ColorsField.MainColorField()
-                  : Color(0xFF99A1AF),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code),
+              label: "QR",
             ),
-            label: "QR",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: currentIndex == 4
-                  ? ColorsField.MainColorField()
-                  : Color(0xFF99A1AF),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
             ),
-            label: "Profile",
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+          ],
+        ),
       ),
     );
   }

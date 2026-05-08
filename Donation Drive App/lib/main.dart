@@ -4,6 +4,7 @@ import 'package:donation_drive/Pages/QR_SheetPage/QR_SheetPage.dart';
 import 'package:donation_drive/Pages/ScanPage/scanPage.dart';
 import 'package:donation_drive/Pages/TokensPage/tokensPage.dart';
 import 'package:donation_drive/features/BottomNavbar/bottomNavbar.dart';
+import 'package:donation_drive/features/SplasScreen/splasScreen.dart';
 import 'package:donation_drive/features/authScreens/logIn_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,13 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      initialRoute: "/logIn",
+      title: 'Flutter Demo',
+      home: SplashScreen(),
       getPages: [
+        GetPage(name: "/", page: () => const SplashScreen()),
         GetPage(name: "/logIn", page: () => const LoginScreen()),
         GetPage(name: "/dashboard", page: () => const Dashboardpage()),
-        GetPage(name: "/BottomNavbar", page: () => const Bottomnavbar()),
+        GetPage(name: "/BottomNavbar", page: () => Bottomnavbar()),
         GetPage(name: "/Profile", page: () => const Profilepage()),
         GetPage(name: "/QR_Sheet", page: () => QrSheetpage()),
         GetPage(name: "/Tokens", page: () => const Tokenspage()),
