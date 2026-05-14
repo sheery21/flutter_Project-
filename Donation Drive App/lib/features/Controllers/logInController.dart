@@ -36,7 +36,9 @@ class Logincontroller extends GetxController {
     bool loggedIn = prefs.getBool(ISLOGGEDIN) ?? false;
 
     if (loggedIn) {
-      Get.offAllNamed("/BottomNavbar");
+      Future.delayed(Duration.zero, () {
+        Get.offAllNamed("/BottomNavbar");
+      });
     }
 
     if (prefs.getString(EMAIL) != null) {
@@ -66,13 +68,10 @@ class Logincontroller extends GetxController {
     try {
       await Future.delayed(Duration(seconds: 1));
       if (email == "admin@gmail.com" && password == "admin") {
-
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         await prefs.setBool(ISLOGGEDIN, true);
         await prefs.setString(PASSWORD, password);
-
         if (isRemember.value) {
           await prefs.setString(EMAIL, email);
           await prefs.setString(PASSWORD, password);
@@ -88,7 +87,7 @@ class Logincontroller extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Get.offAllNamed("/mainLayout");
+        Get.offAllNamed("/BottomNavbar");
       } else {
         Get.snackbar(
           "Login Failed",
@@ -106,7 +105,7 @@ class Logincontroller extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      print( "Error: $e");
+      print("Error: $e");
     } finally {
       isLoading.value = false;
     }

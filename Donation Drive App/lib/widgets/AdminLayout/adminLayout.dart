@@ -76,7 +76,7 @@ class _AdminLayoutState extends State<AdminLayout> {
           Obx(
             () => Column(
               children: [
-                sidebarItem(const Icon(Icons.dashboard), "Dashboard", 0),
+                sidebarItem(const Icon(Icons.home), "Home", 0),
                 sidebarItem(const FaIcon(FontAwesomeIcons.ticket), "Tokens", 1),
                 sidebarItem(const Icon(Icons.qr_code_scanner), "Scan", 2),
                 sidebarItem(const Icon(Icons.qr_code), "QR", 3),

@@ -1,5 +1,7 @@
 import 'package:donation_drive/widgets/AppInfoCard/appInfoCard.dart';
 import 'package:donation_drive/widgets/ProfileCard/profileCard.dart';
+import 'package:donation_drive/widgets/TextStyleField/headingField.dart';
+import 'package:donation_drive/widgets/TextStyleField/textField.dart';
 import 'package:donation_drive/widgets/profileOptionsCard.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +18,19 @@ class _ProfilepageState extends State<Profilepage> {
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
       appBar: AppBar(
-        title: const Text("Profile"),
-        centerTitle: true,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Profile", style: TextStyleField.Heading_2()),
+              Text(
+                "Manage your account",
+                style: TextStyle(color: Color(0xFF6A7282), fontSize: 14),
+              ),
+            ],
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

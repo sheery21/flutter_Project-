@@ -41,8 +41,8 @@ class Bottomnavbar extends StatelessWidget {
           onTap: (index) => navRepo.changeIndex(index),
           items: [
             const BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: "Dashboard",
+              icon: Icon(Icons.home),
+              label: "Home",
             ),
             const BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.ticket),

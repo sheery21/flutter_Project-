@@ -67,7 +67,7 @@ class _TokenspageState extends State<Tokenspage> {
                       ),
 
                       GenerateTokenCard(
-                        title: "City Relief Campaign",
+                        title: "Awan Distribution x FGRF",
                         subtitle: "Tokens TD-0501 to TD-1000",
                         onTap: () {
                           Get.snackbar(

@@ -7,9 +7,17 @@ import 'package:donation_drive/features/BottomNavbar/bottomNavbar.dart';
 import 'package:donation_drive/features/SplasScreen/splasScreen.dart';
 import 'package:donation_drive/features/authScreens/logIn_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // try {
+  //   await dotenv.load(fileName: ".env");
+  //   print("ENV Loaded Successfully");
+  // } catch (e) {
+  //   print("ENV ERROR: $e");
+  // }
   runApp(const MyApp());
 }
 
@@ -21,9 +29,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: SplashScreen(),
+      initialRoute: "/logIn",
       getPages: [
-        GetPage(name: "/", page: () => const SplashScreen()),
+        // GetPage(name: "/", page: () => const SplashScreen()),
         GetPage(name: "/logIn", page: () => const LoginScreen()),
         GetPage(name: "/dashboard", page: () => const Dashboardpage()),
         GetPage(name: "/BottomNavbar", page: () => Bottomnavbar()),

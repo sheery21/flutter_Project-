@@ -17,9 +17,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final Logincontroller controller = Get.put(Logincontroller());
-
 class _LoginScreenState extends State<LoginScreen> {
+  final Logincontroller controller = Get.put(Logincontroller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

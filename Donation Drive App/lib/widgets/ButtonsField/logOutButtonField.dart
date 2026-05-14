@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import '../ColorsField/ColorField.dart';
 
 class LogOutButtonField {
-  static LogOutfield({
-    required String text,
-    required VoidCallback onPressed,
-  }) {
+  static LogOutfield({required String text, required VoidCallback onPressed}) {
     return Container(
       width: double.infinity,
       height: 43,

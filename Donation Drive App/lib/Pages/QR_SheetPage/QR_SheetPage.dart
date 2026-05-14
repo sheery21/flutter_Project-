@@ -49,7 +49,11 @@ class QrSheetpage extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
+              padding: const EdgeInsets.only(
+                left: 12.0,
+                right: 12.0,
+                top: 10.0,
+              ),
               child: QrGridField(controller: controller),
             ),
           ],

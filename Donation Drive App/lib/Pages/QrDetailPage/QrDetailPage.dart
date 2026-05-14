@@ -6,6 +6,7 @@ import 'package:donation_drive/widgets/ButtonsField/loginButtonField.dart';
 import 'package:donation_drive/widgets/ColorsField/ColorField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -35,13 +36,9 @@ class _QrDetailPageState extends State<QrDetailPage> {
       name: "QR_${DateTime.now().millisecondsSinceEpoch}",
     );
     if (result["isSuccess"] == true) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("QR saved to gallery")));
+      Get.snackbar("Success", "QR saved to gallery");
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Failed to save QR")));
+      Get.snackbar("Error", "Failed to save QR");
     }
   }
 
